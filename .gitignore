@@ -1,2 +1,45 @@
 .env
 .DS_Store
+
+# PHP dependencies and Laravel runtime
+/vendor/
+/storage/*.key
+/storage/app/public/*
+!/storage/app/public/.gitignore
+/storage/framework/cache/data/*
+!/storage/framework/cache/data/.gitignore
+/storage/framework/sessions/*
+!/storage/framework/sessions/.gitignore
+/storage/framework/testing/*
+!/storage/framework/testing/.gitignore
+/storage/framework/views/*
+!/storage/framework/views/.gitignore
+/storage/logs/*
+!/storage/logs/.gitignore
+/bootstrap/cache/*
+!/bootstrap/cache/.gitignore
+
+# Frontend dependencies and build output
+/node_modules/
+/public/build/
+/public/hot
+
+# Test and browser artifacts
+/coverage/
+/playwright-report/
+/test-results/
+/e2e/.auth/
+
+# Local environment and tooling
+.env.*
+!.env.example
+/.phpunit.result.cache
+.npmrc
+
+# Ephemeral Foundry runtime/evidence (governance source remains trackable)
+/.dev-foundry/executions/
+/.dev-foundry/validation-requests/
+/.dev-foundry/validations/
+/.dev-foundry/execution-requests/
+/.dev-foundry/repository-transactions/
+/.dev-foundry/telemetry/

@@ -1,0 +1,12 @@
+{
+    "name": "EmprendimientoOS",
+    "short_name": "EmprendimientoOS",
+    "description": "Una forma más clara de llevar el día a día de tu negocio de alimentos.",
+    "lang": "es-MX",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "orientation": "portrait-primary",
+    "background_color": "#f6f1e8",
+    "theme_color": "#f6f1e8"
+}
