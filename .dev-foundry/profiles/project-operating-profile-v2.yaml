@@ -1,0 +1,84 @@
+schemaVersion: dev-foundry.project-operating-profile.v1
+profileId: recetario-digital-operating-v1
+status: active
+frameworkVersion: dev-foundry-sdd.incubating-v2
+
+project:
+  id: recetario-digital
+  name: RecetarioDigital
+  productName: EmprendimientoOS
+  lifecycleType: greenfield
+  frameworkStatus: adopted-with-project-bindings
+  repositoryRoot: process-bound
+
+roles:
+  operator: repository owner
+  governanceAuthor: operator-assisted Dev Foundry copilot
+  implementationExecutor: Codex CLI by explicit execution contract
+  mechanicalValidator: Foundry Runner Mac
+  governanceAuditor: fresh independent review when required
+  evidenceCustodian: RecetarioDigital repository
+  finalPromotionAuthority: operator
+
+methodology:
+  requirements:
+    explicitNeedBeforeStructure: true
+    smallestSafeCompleteChange: true
+    speculativeExtensibility: prohibited
+    broadCleanup: prohibited
+    preservePassingBehaviorByDefault: true
+  product:
+    mobileFirst: required
+    historicalEconomics: required
+    plainLanguageUX: required
+    v1ScopeDiscipline: required
+  delegatedExecution:
+    pollingByAssistant: prohibited
+    wakeupPreferred: true
+    failureClassificationBeforeCorrective: true
+    blindRetry: prohibited
+    boundedCorrectivesOnly: true
+
+repositoryBinding:
+  model: single-repository-per-process
+  runner: Foundry Runner Mac
+  callerSelectableRepository: prohibited
+  silentToolSubstitution: prohibited
+
+ownership:
+  governance:
+    - docs/**
+    - .dev-foundry/profiles/**
+    - .dev-foundry/prompts/**
+    - .dev-foundry/execution-contracts/**
+  implementation:
+    policy: execution-contract-allowlist-only
+  runtime:
+    - .dev-foundry/executions/**
+    - .dev-foundry/execution-requests/**
+    - .dev-foundry/validation-requests/**
+    - .dev-foundry/validations/**
+    - .playwright-mcp/**
+
+secrets:
+  versionedEnvFiles: prohibited
+  localEnvPath: .env
+  secretValuesInRepository: prohibited
+
+promotion:
+  strategy: task-branch-to-main
+  remote: origin
+  directImplementationOnMain: prohibited-after-bootstrap
+  commitPushPullRequestMergeRequireExplicitOperatorAuthorization: true
+
+validation:
+  contractValidationRequiresOperatorAuthorization: true
+  executionRequiresOperatorAuthorization: true
+  buildTestsAndDiffCheckRequiredBeforePromotion: true
+  incompleteEvidenceBlocksPass: true
+  validatorOrEnvironmentDefectDoesNotAuthorizeProductMutation: true
+
+productAuthority:
+  definition: docs/PRODUCT-DEFINITION-v1.md
+  architecture: docs/ARCHITECTURE-v1.md
+  uxPrinciples: docs/UX-PRINCIPLES-v1.md
