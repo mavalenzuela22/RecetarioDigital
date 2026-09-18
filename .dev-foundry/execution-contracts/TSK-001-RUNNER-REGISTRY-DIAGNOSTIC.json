@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "foundry-runner.execution-contract.v1",
+  "taskId": "TSK-001-RUNNER-REGISTRY-DIAGNOSTIC",
+  "executor": "codex-cli",
+  "repoPath": ".",
+  "branch": "tsk-001-bootstrap-application-shell",
+  "promptPath": ".dev-foundry/prompts/TSK-001-BOOTSTRAP-APPLICATION-SHELL.md",
+  "allowedPaths": [
+    ".dev-foundry/execution-requests/",
+    ".dev-foundry/executions/",
+    ".dev-foundry/repository-transactions/",
+    ".dev-foundry/validation-requests/",
+    ".dev-foundry/validations/",
+    ".dev-foundry/execution-contracts/TSK-001-RUNNER-REGISTRY-DIAGNOSTIC.json"
+  ],
+  "blockedPaths": [
+    ".env",
+    ".git/",
+    "docs/",
+    "app/",
+    "bootstrap/",
+    "config/",
+    "database/",
+    "public/",
+    "resources/",
+    "routes/",
+    "storage/",
+    "tests/",
+    "e2e/"
+  ],
+  "validationCommands": [
+    {
+      "command": "codex",
+      "args": ["--version"],
+      "timeoutSeconds": 60
+    },
+    {
+      "command": "which",
+      "args": ["codex"],
+      "timeoutSeconds": 60
+    },
+    {
+      "command": "which",
+      "args": ["node"],
+      "timeoutSeconds": 60
+    },
+    {
+      "command": "which",
+      "args": ["php"],
+      "timeoutSeconds": 60
+    },
+    {
+      "command": "which",
+      "args": ["composer"],
+      "timeoutSeconds": 60
+    }
+  ],
+  "commitPolicy": "manual",
+  "pushPolicy": "disabled",
+  "prPolicy": "disabled",
+  "evidencePolicy": "required",
+  "outputPath": ".dev-foundry/executions/TSK-001-RUNNER-REGISTRY-DIAGNOSTIC"
+}
