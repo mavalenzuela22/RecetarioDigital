@@ -63,18 +63,35 @@ Provide:
 - at least one Playwright smoke test using a phone-sized/mobile project
 - scripts or documented commands for backend tests, frontend build, Playwright, and production asset build
 
+## Local development toolchain
+Docker is available on the development Mac and may be used to provide the local PHP/Composer toolchain.
+
+Prefer a reproducible containerized development/test workflow over installing PHP or Composer directly on the macOS host.
+
+The task may add the minimum Docker development files required to:
+- run PHP compatible with production PHP 8.3
+- run Composer
+- execute Laravel/Pest commands
+- build/test the application reproducibly
+
+Use a root `compose.yaml` with a service named `app` for the PHP/Composer toolchain so validation can invoke deterministic commands through `docker compose run --rm app ...`.
+
+Keep Node/npm on the host when practical; containerizing Node is not required.
+
+Docker is a development and validation tool only. Do not make production deployment depend on Docker.
+
 ## Deployment compatibility
 The resulting application must remain compatible with:
 - IIS-hosted PHP 8.3 application execution
 - MySQL-compatible Percona Server 8.4
 - prebuilt frontend assets
 
-Do not require:
+Do not require in production:
+- Docker
 - a long-running Node.js server
 - PostgreSQL
 - Prisma
 - Next.js server runtime
-- Docker in production
 
 Do not attempt a live GoDaddy deployment in this task.
 

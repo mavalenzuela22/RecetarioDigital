@@ -7,6 +7,7 @@
   "promptPath": ".dev-foundry/prompts/TSK-001-BOOTSTRAP-APPLICATION-SHELL.md",
   "allowedPaths": [
     ".gitignore",
+    ".dockerignore",
     ".editorconfig",
     ".gitattributes",
     "README.md",
@@ -20,6 +21,10 @@
     "vite.config.ts",
     "tsconfig.json",
     "playwright.config.ts",
+    "Dockerfile",
+    "compose.yaml",
+    "docker-compose.yml",
+    "docker/",
     "app/",
     "bootstrap/",
     "config/",
@@ -30,7 +35,6 @@
     "storage/",
     "tests/",
     "e2e/",
-    ".dev-foundry/execution-contracts/TSK-001-BOOTSTRAP-APPLICATION-SHELL.json",
     ".dev-foundry/execution-requests/",
     ".dev-foundry/executions/",
     ".dev-foundry/repository-transactions/",
@@ -42,18 +46,29 @@
     ".git/",
     "docs/",
     ".dev-foundry/profiles/",
-    ".dev-foundry/prompts/"
+    ".dev-foundry/prompts/",
+    ".dev-foundry/execution-contracts/"
   ],
   "validationCommands": [
     {
-      "command": "php",
+      "command": "docker",
       "args": ["--version"],
       "timeoutSeconds": 60
     },
     {
-      "command": "composer",
-      "args": ["--version"],
+      "command": "docker",
+      "args": ["compose", "version"],
       "timeoutSeconds": 60
+    },
+    {
+      "command": "docker",
+      "args": ["compose", "run", "--rm", "app", "php", "--version"],
+      "timeoutSeconds": 300
+    },
+    {
+      "command": "docker",
+      "args": ["compose", "run", "--rm", "app", "composer", "install", "--no-interaction", "--prefer-dist"],
+      "timeoutSeconds": 1200
     },
     {
       "command": "node",
@@ -66,18 +81,13 @@
       "timeoutSeconds": 60
     },
     {
-      "command": "composer",
-      "args": ["install", "--no-interaction", "--prefer-dist"],
-      "timeoutSeconds": 1200
-    },
-    {
       "command": "npm",
       "args": ["ci"],
       "timeoutSeconds": 1200
     },
     {
-      "command": "php",
-      "args": ["artisan", "test"],
+      "command": "docker",
+      "args": ["compose", "run", "--rm", "app", "php", "artisan", "test"],
       "timeoutSeconds": 900
     },
     {
