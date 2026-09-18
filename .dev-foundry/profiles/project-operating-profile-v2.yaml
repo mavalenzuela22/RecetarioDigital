@@ -20,6 +20,28 @@ roles:
   evidenceCustodian: RecetarioDigital repository
   finalPromotionAuthority: operator
 
+executorProfiles:
+  implementation: codex-gpt-5.6-luna-medium-bounded-v1
+  defaultImplementation: codex-gpt-5.6-luna-medium-bounded-v1
+  eligibleImplementation:
+    codex-gpt-5.6-luna-medium-bounded-v1:
+      path: .dev-foundry/profiles/executor-profiles/codex-gpt-5.6-luna-medium-bounded-v1.yaml
+      adapter: codex-cli
+      modelFamily: gpt-5.6-luna
+      reasoningEffort: medium
+      status: active
+  selection:
+    source: execution-contract.executor
+    acceptedValues:
+      - codex-cli
+    explicitSelectionRequiredForNonDefault: false
+    automaticFallback: prohibited
+    unavailableSelectedExecutor: fail-closed
+  adoption:
+    mode: local-explicit-project-binding
+    inheritedProjectDecisions: prohibited
+    inheritedTaskEvidence: prohibited
+
 methodology:
   requirements:
     explicitNeedBeforeStructure: true
