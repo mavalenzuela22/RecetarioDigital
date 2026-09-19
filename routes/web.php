@@ -36,4 +36,7 @@ Route::controller(\App\Http\Controllers\OrderController::class)->group(function 
     Route::get('/pedidos/nuevo', 'create')->name('orders.create');
     Route::post('/pedidos', 'store')->name('orders.store');
     Route::get('/pedidos/{order}', 'show')->name('orders.show');
+    Route::post('/pedidos/{order}/cobros', 'payment')->name('orders.payment');
+    Route::post('/pedidos/{order}/entregar', 'deliver')->name('orders.deliver');
+    Route::post('/pedidos/{order}/cancelar', 'cancel')->name('orders.cancel');
 });

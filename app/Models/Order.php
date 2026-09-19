@@ -21,6 +21,11 @@ class Order extends Model
 
     public function payments(): HasMany
     {
-        return $this->hasMany(OrderPayment::class)->orderBy('effective_at')->orderBy('id');
+        return $this->hasMany(OrderPayment::class)->orderBy('local_payment_date')->orderBy('effective_at')->orderBy('id');
+    }
+
+    public function fulfillmentEvents(): HasMany
+    {
+        return $this->hasMany(OrderFulfillmentEvent::class)->orderBy('effective_at')->orderBy('id');
     }
 }
