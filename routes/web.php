@@ -30,3 +30,10 @@ Route::controller(\App\Http\Controllers\ProductController::class)->group(functio
     Route::post('/productos/{product}/perfil', 'update')->name('products.update');
     Route::post('/productos/{product}/precio', 'price')->name('products.price');
 });
+
+Route::controller(\App\Http\Controllers\OrderController::class)->group(function (): void {
+    Route::get('/pedidos', 'index')->name('orders.index');
+    Route::get('/pedidos/nuevo', 'create')->name('orders.create');
+    Route::post('/pedidos', 'store')->name('orders.store');
+    Route::get('/pedidos/{order}', 'show')->name('orders.show');
+});
