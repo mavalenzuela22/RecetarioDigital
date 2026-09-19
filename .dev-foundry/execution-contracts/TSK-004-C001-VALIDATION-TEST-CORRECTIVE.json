@@ -1,0 +1,66 @@
+{
+  "schemaVersion": "foundry-runner.execution-contract.v1",
+  "taskId": "TSK-004-C001-VALIDATION-TEST-CORRECTIVE",
+  "executor": "codex-cli",
+  "repoPath": ".",
+  "branch": "tsk-004-recipes-yield-costing",
+  "promptPath": ".dev-foundry/prompts/TSK-004-C001-VALIDATION-TEST-CORRECTIVE.md",
+  "allowedPaths": [
+    "tests/Feature/RecipeTest.php",
+    "e2e/recipe-costing.spec.ts",
+    ".dev-foundry/prompts/TSK-004-C001-VALIDATION-TEST-CORRECTIVE.md",
+    ".dev-foundry/execution-contracts/TSK-004-C001-VALIDATION-TEST-CORRECTIVE.json",
+    ".dev-foundry/execution-requests/",
+    ".dev-foundry/executions/",
+    ".dev-foundry/validation-requests/",
+    ".dev-foundry/validations/"
+  ],
+  "blockedPaths": [
+    ".env",
+    ".git/",
+    "docs/design/",
+    "app/",
+    "database/",
+    "resources/",
+    "routes/",
+    "composer.json",
+    "composer.lock",
+    "package.json",
+    "package-lock.json",
+    "Dockerfile",
+    "docker-compose.yml",
+    "playwright.config.ts"
+  ],
+  "validationCommands": [
+    {
+      "command": "docker",
+      "args": ["compose", "run", "--rm", "app", "php", "artisan", "test"],
+      "timeoutSeconds": 900
+    },
+    {
+      "command": "npx",
+      "args": ["tsc", "--noEmit"],
+      "timeoutSeconds": 600
+    },
+    {
+      "command": "npm",
+      "args": ["run", "build"],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "npx",
+      "args": ["playwright", "test", "e2e/recipe-costing.spec.ts", "--project=mobile"],
+      "timeoutSeconds": 900
+    },
+    {
+      "command": "git",
+      "args": ["diff", "--check"],
+      "timeoutSeconds": 120
+    }
+  ],
+  "commitPolicy": "manual",
+  "pushPolicy": "disabled",
+  "prPolicy": "disabled",
+  "evidencePolicy": "required",
+  "outputPath": ".dev-foundry/executions/TSK-004-C001-VALIDATION-TEST-CORRECTIVE"
+}
