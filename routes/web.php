@@ -20,3 +20,13 @@ Route::controller(\App\Http\Controllers\RecipeController::class)->group(function
     Route::post('/recetas', 'store')->name('recipes.store');
     Route::post('/recetas/{recipe}/versiones', 'update')->name('recipes.update');
 });
+
+Route::controller(\App\Http\Controllers\ProductController::class)->group(function (): void {
+    Route::get('/productos', 'index')->name('products.index');
+    Route::get('/productos/nuevo', 'create')->name('products.create');
+    Route::get('/productos/{product}', 'show')->name('products.show');
+    Route::get('/productos/{product}/editar', 'edit')->name('products.edit');
+    Route::post('/productos', 'store')->name('products.store');
+    Route::post('/productos/{product}/perfil', 'update')->name('products.update');
+    Route::post('/productos/{product}/precio', 'price')->name('products.price');
+});
