@@ -53,6 +53,7 @@ export default function Home() {
                                     Conoce el punto de partida
                                 </a>
                                 <Link href="/compras/nueva" className="button primary">Registrar compra</Link>
+                                <Link href="/recetas" className="button secondary">Ver recetario</Link>
                             </div>
                         </div>
 

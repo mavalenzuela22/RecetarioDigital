@@ -1,0 +1,139 @@
+{
+  "schemaVersion": "foundry-runner.execution-contract.v1",
+  "taskId": "TSK-004-C002-E2E-REVALIDATION",
+  "executor": "codex-cli",
+  "repoPath": ".",
+  "branch": "tsk-004-recipes-yield-costing",
+  "promptPath": ".dev-foundry/prompts/TSK-004-C002-E2E-REVALIDATION.md",
+  "allowedPaths": [
+    ".dev-foundry/execution-contracts/TSK-004-RECIPES-YIELD-COSTING.json",
+    ".dev-foundry/prompts/TSK-004-RECIPES-YIELD-COSTING.md",
+    ".dev-foundry/execution-contracts/TSK-004-C001-VALIDATION-TEST-CORRECTIVE.json",
+    ".dev-foundry/prompts/TSK-004-C001-VALIDATION-TEST-CORRECTIVE.md",
+    ".dev-foundry/execution-contracts/TSK-004-C002-E2E-REVALIDATION.json",
+    ".dev-foundry/prompts/TSK-004-C002-E2E-REVALIDATION.md",
+    "docs/TSK-004-RECIPES-YIELD-COSTING.md",
+    "app/Http/Controllers/RecipeController.php",
+    "app/Http/Requests/StoreRecipeRequest.php",
+    "app/Models/Recipe.php",
+    "app/Models/RecipeIngredientLine.php",
+    "app/Models/RecipeVersion.php",
+    "app/Services/SaveRecipe.php",
+    "database/migrations/2026_09_18_000002_create_recipes_and_versions.php",
+    "resources/js/Components/RecipeUI.tsx",
+    "resources/js/Pages/Home.tsx",
+    "resources/js/Pages/Recipes/Create.tsx",
+    "resources/js/Pages/Recipes/Index.tsx",
+    "resources/js/Pages/Recipes/Show.tsx",
+    "routes/web.php",
+    "tests/Feature/RecipeTest.php",
+    "e2e/recipe-costing.spec.ts",
+    ".dev-foundry/validation-requests/",
+    ".dev-foundry/validations/"
+  ],
+  "blockedPaths": [
+    ".env",
+    ".git/",
+    "docs/design/",
+    "composer.json",
+    "composer.lock",
+    "package.json",
+    "package-lock.json",
+    "Dockerfile",
+    "docker-compose.yml",
+    "playwright.config.ts"
+  ],
+  "validationCommands": [
+    {
+      "command": "docker",
+      "args": [
+        "rm",
+        "-f",
+        "eo-tsk003-e2e"
+      ],
+      "timeoutSeconds": 120
+    },
+    {
+      "command": "docker",
+      "args": [
+        "compose",
+        "build",
+        "app"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "docker",
+      "args": [
+        "compose",
+        "run",
+        "--rm",
+        "app",
+        "composer",
+        "install",
+        "--no-interaction",
+        "--prefer-dist"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "npm",
+      "args": [
+        "ci"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "docker",
+      "args": [
+        "compose",
+        "run",
+        "--rm",
+        "app",
+        "php",
+        "artisan",
+        "test"
+      ],
+      "timeoutSeconds": 900
+    },
+    {
+      "command": "npx",
+      "args": [
+        "tsc",
+        "--noEmit"
+      ],
+      "timeoutSeconds": 600
+    },
+    {
+      "command": "npm",
+      "args": [
+        "run",
+        "build"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "npx",
+      "args": [
+        "playwright",
+        "test",
+        "e2e/recipe-costing.spec.ts",
+        "--project=mobile"
+      ],
+      "timeoutSeconds": 900
+    },
+    {
+      "command": "git",
+      "args": [
+        "diff",
+        "--check"
+      ],
+      "timeoutSeconds": 120
+    }
+  ],
+  "commitPolicy": "manual",
+  "pushPolicy": "disabled",
+  "prPolicy": "disabled",
+  "evidencePolicy": "required",
+  "outputPath": ".dev-foundry/validations/TSK-004-C002-E2E-REVALIDATION"
+}
