@@ -1,0 +1,76 @@
+{
+  "schemaVersion": "foundry-runner.execution-contract.v1",
+  "taskId": "TSK-003-C001-VALIDATION-HARNESS-CORRECTIVE",
+  "executor": "codex-cli",
+  "repoPath": ".",
+  "branch": "tsk-003-ingredients-purchase-cost-history",
+  "promptPath": ".dev-foundry/prompts/TSK-003-C001-VALIDATION-HARNESS-CORRECTIVE.md",
+  "allowedPaths": [
+    "tests/Feature/IngredientPurchaseTest.php",
+    "e2e/ingredient-purchase.spec.ts",
+    ".dev-foundry/prompts/TSK-003-C001-VALIDATION-HARNESS-CORRECTIVE.md",
+    ".dev-foundry/execution-contracts/TSK-003-C001-VALIDATION-HARNESS-CORRECTIVE.json",
+    ".dev-foundry/execution-requests/",
+    ".dev-foundry/executions/",
+    ".dev-foundry/validation-requests/",
+    ".dev-foundry/validations/"
+  ],
+  "blockedPaths": [
+    ".env",
+    ".git/",
+    "app/",
+    "bootstrap/",
+    "config/",
+    "database/",
+    "docs/design/",
+    "resources/",
+    "routes/"
+  ],
+  "validationCommands": [
+    {
+      "command": "docker",
+      "args": ["compose", "build", "app"],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "docker",
+      "args": ["compose", "run", "--rm", "app", "composer", "install", "--no-interaction", "--prefer-dist"],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "npm",
+      "args": ["ci"],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "docker",
+      "args": ["compose", "run", "--rm", "app", "php", "artisan", "test"],
+      "timeoutSeconds": 900
+    },
+    {
+      "command": "npm",
+      "args": ["run", "build"],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "npx",
+      "args": ["playwright", "install", "webkit"],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "npx",
+      "args": ["playwright", "test", "e2e/ingredient-purchase.spec.ts", "--project=mobile"],
+      "timeoutSeconds": 900
+    },
+    {
+      "command": "git",
+      "args": ["diff", "--check"],
+      "timeoutSeconds": 120
+    }
+  ],
+  "commitPolicy": "manual",
+  "pushPolicy": "disabled",
+  "prPolicy": "disabled",
+  "evidencePolicy": "required",
+  "outputPath": ".dev-foundry/executions/TSK-003-C001-VALIDATION-HARNESS-CORRECTIVE"
+}
