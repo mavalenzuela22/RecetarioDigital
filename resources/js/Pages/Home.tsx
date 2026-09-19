@@ -52,7 +52,8 @@ export default function Home() {
                                 <a href="#primeros-pasos" className="button secondary">
                                     Conoce el punto de partida
                                 </a>
-                                <Link href="/compras/nueva" className="button primary">Registrar compra</Link>
+                                <Link href="/pedidos/nuevo" className="button primary">Tomar pedido</Link>
+                                <Link href="/compras/nueva" className="button secondary">Registrar compra</Link>
                                 <Link href="/recetas" className="button secondary">Ver recetario</Link>
                             </div>
                         </div>
