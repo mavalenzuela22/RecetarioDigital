@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreOrderRequest;
+use App\Http\Requests\RecordOrderPaymentRequest;
+use App\Http\Requests\TransitionOrderFulfillmentRequest;
 use App\Models\Order;
 use App\Models\Product;
 use App\Services\ProductCosting;
 use App\Services\SaveOrder;
+use App\Services\RecordOrderPayment;
+use App\Services\TransitionOrderFulfillment;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -107,10 +111,44 @@ class OrderController extends Controller
                     'total_cost_micros' => $totalCost === null ? null : (string) $totalCost,
                     'profit_micros' => $profit === null ? null : (string) $profit,
                 ],
+                'payments' => $order->payments->map(fn ($payment): array => [
+                    'id' => $payment->id,
+                    'kind' => $payment->kind,
+                    'amount_minor' => $payment->amount_minor,
+                    'payment_date' => $payment->local_payment_date,
+                ])->values(),
             ],
             'success' => $request->session()->get('success'),
             'indexUrl' => route('orders.index'),
+            'paymentUrl' => route('orders.payment', $order),
+            'deliveryUrl' => route('orders.deliver', $order),
+            'cancellationUrl' => route('orders.cancel', $order),
+            'paymentRequestKey' => (string) Str::uuid(),
+            'deliveryRequestKey' => (string) Str::uuid(),
+            'cancellationRequestKey' => (string) Str::uuid(),
+            'defaultPaymentDate' => now()->format('Y-m-d'),
         ]);
+    }
+
+    public function payment(RecordOrderPaymentRequest $request, Order $order, RecordOrderPayment $recorder): RedirectResponse
+    {
+        $recorder->record($order, $request->validated());
+
+        return to_route('orders.show', $order, 303)->with('success', 'Cobro registrado.');
+    }
+
+    public function deliver(TransitionOrderFulfillmentRequest $request, Order $order, TransitionOrderFulfillment $transition): RedirectResponse
+    {
+        $transition->transition($order, 'delivered', $request->validated());
+
+        return to_route('orders.show', $order, 303)->with('success', 'Entrega registrada.');
+    }
+
+    public function cancel(TransitionOrderFulfillmentRequest $request, Order $order, TransitionOrderFulfillment $transition): RedirectResponse
+    {
+        $transition->transition($order, 'cancelled', $request->validated());
+
+        return to_route('orders.show', $order, 303)->with('success', 'Pedido cancelado.');
     }
 
     private function productName(Product $product): string

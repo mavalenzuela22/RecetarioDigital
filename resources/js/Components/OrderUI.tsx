@@ -56,7 +56,7 @@ export function PaymentStatus({ state }: { state: string }) {
 }
 
 export function FulfillmentStatus({ state }: { state: string }) {
-    return <span className="badge">{{ confirmed: 'Confirmado' }[state] ?? state}</span>;
+    return <span className="badge">{{ confirmed: 'Confirmado', in_preparation: 'En preparación', ready: 'Listo para entregar', delivered: 'Entregado', cancelled: 'Cancelado' }[state] ?? state}</span>;
 }
 
 export function OrderLink({ href, children }: { href: string; children: ReactNode }) {
