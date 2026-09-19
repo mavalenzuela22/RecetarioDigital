@@ -1,0 +1,70 @@
+schemaVersion: dev-foundry.executor-profile.v1
+profileId: codex-gpt-5.6-luna-medium-bounded-v1
+status: active
+
+executor:
+  adapter: codex-cli
+  modelFamily: gpt-5.6-luna
+  reasoningEffort: medium
+  role: bounded-implementation
+
+intendedUse:
+  - one previously decided implementation change
+  - greenfield application bootstrap with explicit architecture
+  - focused production and test changes
+  - bounded mechanical propagation
+
+prohibitedUse:
+  - architecture discovery
+  - governance mutation
+  - speculative extensibility
+  - final evidence verdict
+  - Git promotion outside authorized repository transactions
+
+normalLimits:
+  primaryObjectives: 1
+  openArchitecturalDecisions: 0
+  primarySubsystems: 1
+  primaryProductionFiles: 40
+  focusedTestGroups: 3
+  externalIntegration: false
+  documentationMutation: false
+
+minimalSufficientChange:
+  explicitRequirementOrObservedEvidence: required
+  reuseBeforeCreation: required
+  smallestSafeDelta: required
+  opportunisticRefactoring: prohibited
+  unrequiredAbstractions: prohibited
+  newDependencies: current-task-authority-only
+  requiredControls: preserve
+  scopeExpansion: stop
+
+promptPolicy:
+  useDirectedAuthorityReferences: true
+  copyCompleteDocumentLibraries: false
+  includeFutureWork: false
+  includeUnresolvedAlternatives: false
+  includeOptionalCleanup: false
+  requireExplicitStopCondition: true
+  requireSufficiencyBoundary: true
+  broadRepositoryDiscovery: prohibited
+  broadTestDiscovery: prohibited
+
+requiredValidation:
+  - immutable-preflight-before-mutation
+  - focused-test-command-defined-by-current-contract
+  - build-or-type-check-defined-by-current-contract
+  - path-policy-check-after-expected-generated-output
+  - diff-check
+  - sufficiency-review
+
+correctivePolicy:
+  namedFindingsOnly: true
+  noNewCapabilities: true
+  smallestNecessaryAllowlist: true
+  noAdjacentCleanup: true
+  classifyFailureBeforeProductMutation: required
+  validatorOrContractDefectMayMutateProduct: false
+  exactRootCauseRequiredBeforeSecondProductCorrective: true
+  readOnlyDiagnosticRequiredWhenSameSymptomPersists: true

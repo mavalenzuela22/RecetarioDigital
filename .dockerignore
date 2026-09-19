@@ -1,0 +1,13 @@
+.git
+.dev-foundry
+.env
+node_modules
+vendor
+public/build
+storage/logs
+storage/framework/cache
+storage/framework/sessions
+storage/framework/testing
+storage/framework/views
+tests
+e2e

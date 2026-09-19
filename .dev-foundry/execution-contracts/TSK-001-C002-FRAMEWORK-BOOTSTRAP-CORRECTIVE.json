@@ -1,40 +1,39 @@
 {
   "schemaVersion": "foundry-runner.execution-contract.v1",
-  "taskId": "TSK-001-BOOTSTRAP-APPLICATION-SHELL",
+  "taskId": "TSK-001-BOOTSTRAP-APPLICATION-SHELL-C002",
   "executor": "codex-cli",
   "repoPath": ".",
   "branch": "tsk-001-bootstrap-application-shell",
-  "promptPath": ".dev-foundry/prompts/TSK-001-BOOTSTRAP-APPLICATION-SHELL.md",
+  "promptPath": ".dev-foundry/prompts/TSK-001-C002-FRAMEWORK-BOOTSTRAP-CORRECTIVE.md",
   "allowedPaths": [
     ".gitignore",
     ".dockerignore",
-    ".editorconfig",
-    ".gitattributes",
+    "Dockerfile",
     "README.md",
     "artisan",
+    "compose.yaml",
     "composer.json",
     "composer.lock",
     "package.json",
     "package-lock.json",
     "phpunit.xml",
-    "vite.config.js",
-    "vite.config.ts",
-    "tsconfig.json",
     "playwright.config.ts",
-    "Dockerfile",
-    "compose.yaml",
-    "docker-compose.yml",
-    "docker/",
+    "tsconfig.json",
+    "vite.config.ts",
     "app/",
     "bootstrap/",
     "config/",
     "database/",
+    "e2e/",
     "public/",
     "resources/",
     "routes/",
     "storage/",
     "tests/",
-    "e2e/",
+    ".dev-foundry/prompts/TSK-001-C001-VALIDATION-CORRECTIVE.md",
+    ".dev-foundry/execution-contracts/TSK-001-C001-VALIDATION-CORRECTIVE.json",
+    ".dev-foundry/prompts/TSK-001-C002-FRAMEWORK-BOOTSTRAP-CORRECTIVE.md",
+    ".dev-foundry/execution-contracts/TSK-001-C002-FRAMEWORK-BOOTSTRAP-CORRECTIVE.json",
     ".dev-foundry/execution-requests/",
     ".dev-foundry/executions/",
     ".dev-foundry/repository-transactions/",
@@ -45,40 +44,13 @@
     ".env",
     ".git/",
     "docs/",
-    ".dev-foundry/profiles/",
-    ".dev-foundry/prompts/",
-    ".dev-foundry/execution-contracts/"
+    ".dev-foundry/profiles/"
   ],
   "validationCommands": [
     {
       "command": "docker",
-      "args": ["--version"],
-      "timeoutSeconds": 60
-    },
-    {
-      "command": "docker",
-      "args": ["compose", "version"],
-      "timeoutSeconds": 60
-    },
-    {
-      "command": "docker",
-      "args": ["compose", "run", "--rm", "app", "php", "--version"],
-      "timeoutSeconds": 300
-    },
-    {
-      "command": "docker",
       "args": ["compose", "run", "--rm", "app", "composer", "install", "--no-interaction", "--prefer-dist"],
       "timeoutSeconds": 1200
-    },
-    {
-      "command": "node",
-      "args": ["--version"],
-      "timeoutSeconds": 60
-    },
-    {
-      "command": "npm",
-      "args": ["--version"],
-      "timeoutSeconds": 60
     },
     {
       "command": "npm",
@@ -110,5 +82,5 @@
   "pushPolicy": "disabled",
   "prPolicy": "disabled",
   "evidencePolicy": "required",
-  "outputPath": ".dev-foundry/executions/TSK-001-BOOTSTRAP-APPLICATION-SHELL"
+  "outputPath": ".dev-foundry/executions/TSK-001-BOOTSTRAP-APPLICATION-SHELL-C002"
 }
