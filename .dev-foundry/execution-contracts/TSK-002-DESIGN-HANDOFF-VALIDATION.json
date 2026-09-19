@@ -1,0 +1,81 @@
+{
+  "schemaVersion": "foundry-runner.execution-contract.v1",
+  "taskId": "TSK-002-DESIGN-HANDOFF-VALIDATION",
+  "executor": "codex-cli",
+  "repoPath": ".",
+  "branch": "tsk-002-ux-ui-foundation-astra",
+  "promptPath": ".dev-foundry/prompts/TSK-002-ASTRA-UX-UI-FOUNDATION.md",
+  "allowedPaths": [
+    "docs/design/",
+    "docs/TSK-002-UX-UI-FOUNDATION-ASTRA.md",
+    "docs/UX-PRINCIPLES-v1.md",
+    ".dev-foundry/prompts/TSK-002-ASTRA-UX-UI-FOUNDATION.md",
+    ".dev-foundry/execution-contracts/TSK-002-DESIGN-HANDOFF-VALIDATION.json",
+    ".dev-foundry/validation-requests/",
+    ".dev-foundry/validations/"
+  ],
+  "blockedPaths": [
+    ".env",
+    ".git/",
+    "app/",
+    "bootstrap/",
+    "config/",
+    "database/",
+    "public/",
+    "resources/",
+    "routes/",
+    "tests/"
+  ],
+  "validationCommands": [
+    {
+      "command": "python3",
+      "args": ["docs/design/implementation-guide/verify.py"],
+      "timeoutSeconds": 300
+    },
+    {
+      "command": "grep",
+      "args": ["-F", "\"contrast_all_pass\": true", "docs/design/implementation-guide/verification.json"],
+      "timeoutSeconds": 60
+    },
+    {
+      "command": "grep",
+      "args": ["-F", "\"non_design_files_unchanged\": true", "docs/design/implementation-guide/verification.json"],
+      "timeoutSeconds": 60
+    },
+    {
+      "command": "grep",
+      "args": ["-F", "\"outside_boundary_changed\": []", "docs/design/implementation-guide/verification.json"],
+      "timeoutSeconds": 60
+    },
+    {
+      "command": "grep",
+      "args": ["-F", "\"missing_links\": []", "docs/design/implementation-guide/verification.json"],
+      "timeoutSeconds": 60
+    },
+    {
+      "command": "grep",
+      "args": ["-F", "\"foregroundPixelsOutside\": 0", "docs/design/implementation-guide/verification.json"],
+      "timeoutSeconds": 60
+    },
+    {
+      "command": "grep",
+      "args": ["-F", "\"core_screen_contracts\": 8", "docs/design/implementation-guide/verification.json"],
+      "timeoutSeconds": 60
+    },
+    {
+      "command": "grep",
+      "args": ["-F", "\"core_screen_captures\": 8", "docs/design/implementation-guide/verification.json"],
+      "timeoutSeconds": 60
+    },
+    {
+      "command": "git",
+      "args": ["diff", "--check"],
+      "timeoutSeconds": 120
+    }
+  ],
+  "commitPolicy": "manual",
+  "pushPolicy": "disabled",
+  "prPolicy": "disabled",
+  "evidencePolicy": "required",
+  "outputPath": ".dev-foundry/executions/TSK-002-DESIGN-HANDOFF-VALIDATION"
+}

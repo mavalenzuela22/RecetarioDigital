@@ -1,0 +1,16 @@
+{
+  "name": "EmprendimientoOS",
+  "short_name": "EmprendimientoOS",
+  "description": "Tu cocina. Tu negocio. Costos, pedidos y cobros con claridad.",
+  "lang": "es-MX",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#FFF8ED",
+  "theme_color": "#FFF8ED",
+  "icons": [
+    {"src":"/icons/app-icon-192.png","sizes":"192x192","type":"image/png","purpose":"any"},
+    {"src":"/icons/app-icon-512.png","sizes":"512x512","type":"image/png","purpose":"any"},
+    {"src":"/icons/maskable-512.png","sizes":"512x512","type":"image/png","purpose":"maskable"}
+  ]
+}

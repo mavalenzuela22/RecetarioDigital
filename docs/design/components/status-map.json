@@ -1,0 +1,42 @@
+{
+  "fulfillment": {
+    "new": {
+      "label": "Nuevo",
+      "tone": "neutral"
+    },
+    "confirmed": {
+      "label": "Confirmado",
+      "tone": "info"
+    },
+    "in_preparation": {
+      "label": "En preparación",
+      "tone": "warning"
+    },
+    "ready": {
+      "label": "Listo para entregar",
+      "tone": "positive"
+    },
+    "delivered": {
+      "label": "Entregado",
+      "tone": "positive"
+    },
+    "cancelled": {
+      "label": "Cancelado",
+      "tone": "neutral"
+    }
+  },
+  "payment": {
+    "pending": {
+      "label": "Pendiente de cobro",
+      "tone": "warning"
+    },
+    "partial": {
+      "label": "Pago parcial",
+      "tone": "warning"
+    },
+    "paid": {
+      "label": "Pagado",
+      "tone": "positive"
+    }
+  }
+}

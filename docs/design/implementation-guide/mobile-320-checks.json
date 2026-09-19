@@ -1,0 +1,66 @@
+[
+  {
+    "route": "hoy",
+    "badControls": [],
+    "client": 320,
+    "heading": "Hoy en tu cocina",
+    "scroll": 320,
+    "width": 320
+  },
+  {
+    "route": "compra",
+    "badControls": [],
+    "client": 320,
+    "heading": "Registrar compra",
+    "scroll": 320,
+    "width": 320
+  },
+  {
+    "route": "receta",
+    "badControls": [],
+    "client": 320,
+    "heading": "Receta",
+    "scroll": 320,
+    "width": 320
+  },
+  {
+    "route": "producto",
+    "badControls": [],
+    "client": 320,
+    "heading": "Costos y precio",
+    "scroll": 320,
+    "width": 320
+  },
+  {
+    "route": "pedido",
+    "badControls": [],
+    "client": 320,
+    "heading": "Tomar pedido",
+    "scroll": 320,
+    "width": 320
+  },
+  {
+    "route": "cobro",
+    "badControls": [],
+    "client": 320,
+    "heading": "Ana",
+    "scroll": 320,
+    "width": 320
+  },
+  {
+    "route": "produccion",
+    "badControls": [],
+    "client": 320,
+    "heading": "Producción",
+    "scroll": 320,
+    "width": 320
+  },
+  {
+    "route": "historial",
+    "badControls": [],
+    "client": 320,
+    "heading": "Antes y ahora",
+    "scroll": 320,
+    "width": 320
+  }
+]

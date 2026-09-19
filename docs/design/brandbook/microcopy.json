@@ -1,0 +1,78 @@
+{
+  "locale": "es-MX",
+  "messages": {
+    "navigation": {
+      "today": "Hoy",
+      "orders": "Pedidos",
+      "recipes": "Recetario",
+      "more": "Más"
+    },
+    "actions": {
+      "purchase": "Registrar compra",
+      "recipe": "Guardar receta",
+      "order": "Tomar pedido",
+      "payment": "Registrar cobro",
+      "delivered": "Marcar como entregado",
+      "retry": "Reintentar",
+      "cancel": "Volver",
+      "discard": "Descartar cambios",
+      "keepEditing": "Seguir editando"
+    },
+    "money": {
+      "cost": "Costo por pieza",
+      "price": "Precio actual",
+      "profit": "Ganancia por pieza",
+      "estimated": "Ganancia estimada",
+      "balance": "Saldo pendiente",
+      "dueToday": "Por cobrar hoy",
+      "loss": "Pérdida estimada",
+      "unknown": "Pendiente de calcular"
+    },
+    "validation": {
+      "positiveTotal": "Escribe un total mayor que $0.",
+      "positiveQuantity": "Escribe una cantidad mayor que cero.",
+      "positiveYield": "Escribe un número entero mayor que cero.",
+      "ingredient": "Escribe el nombre del ingrediente.",
+      "presentation": "Describe la presentación comprada.",
+      "customer": "Escribe el nombre del cliente.",
+      "advance": "El anticipo debe estar entre $0 y el total.",
+      "payment": "El importe debe ser mayor que $0 y no superar el saldo.",
+      "date": "Elige una fecha.",
+      "dateRange": "La fecha final debe ser igual o posterior a la inicial.",
+      "unit": "Elige una unidad compatible con este ingrediente.",
+      "ambiguousMoney": "Escribe el importe sin separador de miles; por ejemplo, 1234.00."
+    },
+    "empty": {
+      "today": "No tienes pedidos para hoy.",
+      "orders": "Todavía no hay pedidos.",
+      "recipes": "Crea tu primera receta.",
+      "search": "No hay coincidencias con esa búsqueda.",
+      "history": "No hay una referencia económica para esa fecha.",
+      "image": "Sin foto"
+    },
+    "loading": {
+      "today": "Cargando tu día…",
+      "purchase": "Guardando compra…",
+      "history": "Buscando referencias históricas…"
+    },
+    "error": {
+      "network": "No se guardó la compra. Tus datos siguen aquí.",
+      "server": "No pudimos guardar en este momento. Intenta de nuevo.",
+      "incompleteCost": "Falta el costo de un ingrediente. No podemos calcular el total.",
+      "stale": "Este registro cambió. Revisa la información antes de guardar."
+    },
+    "success": {
+      "purchase": "Compra registrada.",
+      "recipe": "Receta guardada como nueva versión.",
+      "order": "Pedido registrado.",
+      "payment": "Cobro registrado.",
+      "delivery": "Entrega registrada."
+    },
+    "confirmation": {
+      "price": "El nuevo precio se aplicará a nuevos pedidos. Los anteriores conservan su precio acordado.",
+      "delivery": "Entregar no cambia el saldo pendiente.",
+      "cancelPaid": "Cancelar el pedido no registra una devolución.",
+      "discard": "Se perderán los cambios de esta captura. Los registros guardados no cambian."
+    }
+  }
+}

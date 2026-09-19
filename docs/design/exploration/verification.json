@@ -1,0 +1,22 @@
+{
+  "outside_boundary_changed": [],
+  "outside_boundary_new": [],
+  "initial_non_design_files_checked": 73,
+  "fixture_checks": {
+    "quantity": true,
+    "revenue": true,
+    "balance": true,
+    "profit": true,
+    "each_balance": true,
+    "each_profit": true,
+    "unit_cost": true
+  },
+  "missing_markdown_links": [],
+  "final_direction_count": 3,
+  "gallery_images_loaded_in_browser": 6,
+  "git_diff_check": true,
+  "production_tests_run": false,
+  "production_build_run": false,
+  "formal_foundry_validation_claimed": false,
+  "verification_note": "Link check repeated after verification.json was created; initial self-reference was checked before file creation."
+}

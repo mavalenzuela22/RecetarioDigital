@@ -1,0 +1,28 @@
+/* Proposed Tailwind 4 mapping. Import in authorized implementation only. */
+@import '../tokens/tokens.css';
+@theme inline {
+  --color-canvas: var(--eo-canvas);
+  --color-paper: var(--eo-paper);
+  --color-ink: var(--eo-ink);
+  --color-muted: var(--eo-muted);
+  --color-primary: var(--eo-primary);
+  --color-primary-pressed: var(--eo-primary-pressed);
+  --color-positive: var(--eo-positive);
+  --color-positive-soft: var(--eo-positive-soft);
+  --color-danger: var(--eo-danger);
+  --color-danger-soft: var(--eo-danger-soft);
+  --color-warning: var(--eo-warning);
+  --color-warning-soft: var(--eo-warning-soft);
+  --color-line: var(--eo-line);
+  --color-input-border: var(--eo-input-border);
+  --font-sans: var(--eo-font-body);
+  --font-display: var(--eo-font-display);
+  --radius-control: var(--eo-radius-control);
+  --radius-card: var(--eo-radius-card);
+  --radius-sheet: var(--eo-radius-sheet);
+  --shadow-raised: var(--eo-shadow-raised);
+  --shadow-overlay: var(--eo-shadow-overlay);
+}
+/* Mobile first: base320–767; md768; xl1200.
+   Do not rely on Tailwind's default xl1280 if reproducing the specified1200 split. */
+@theme { --breakpoint-narrow: 22.5rem; --breakpoint-md: 48rem; --breakpoint-xl: 75rem; }

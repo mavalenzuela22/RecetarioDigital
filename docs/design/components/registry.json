@@ -1,0 +1,162 @@
+{
+  "button": {
+    "size": "min-height 52; padding 12 16; gap 8; radius12",
+    "states": [
+      "default",
+      "pressed",
+      "focus",
+      "disabled",
+      "loading"
+    ],
+    "variants": [
+      "primary",
+      "secondary",
+      "tertiary",
+      "destructive",
+      "icon"
+    ],
+    "behavior": "submit stays visible; loading blocks duplicate activation; keep label; no disabling solely to hide validation"
+  },
+  "input": {
+    "size": "height52; padding12; radius12; border1; body16/24",
+    "states": [
+      "default",
+      "focus",
+      "disabled",
+      "error",
+      "readonly"
+    ],
+    "types": [
+      "text",
+      "number",
+      "currency",
+      "quantity",
+      "select",
+      "date",
+      "time",
+      "search",
+      "textarea"
+    ],
+    "error": "border2 danger; aria-invalid; describedby; first error focus; keep valid data"
+  },
+  "quantity": {
+    "size": "48 target; 8 gap; 28 minimum number width",
+    "states": [
+      "default",
+      "focus",
+      "disabled"
+    ],
+    "behavior": "step=1 for piece quantities; minimum1; removing row requires explicit action"
+  },
+  "card": {
+    "size": "padding16; radius16; border1 line; no nested cards",
+    "states": [
+      "default"
+    ],
+    "variants": [
+      "summary",
+      "recipe",
+      "order"
+    ]
+  },
+  "status": {
+    "size": "14/20; padding4 10; radius999",
+    "states": [
+      "default"
+    ],
+    "behavior": "semantic text always present; delivery and payment independent; use status-map.json"
+  },
+  "chip-select": {
+    "size": "min-height48 when interactive; display badge28 only noninteractive",
+    "states": [
+      "default",
+      "pressed",
+      "focus",
+      "disabled",
+      "selected"
+    ]
+  },
+  "segments": {
+    "size": "padding4; gap4; target48; radius12",
+    "states": [
+      "default",
+      "focus",
+      "selected",
+      "disabled"
+    ],
+    "behavior": "mutually exclusive scenarios; aria-pressed; arrows optional; no automatic price mutation"
+  },
+  "bottom-nav": {
+    "size": "height72+safeArea; four columns; label12/16; icon24",
+    "states": [
+      "default",
+      "focus",
+      "selected"
+    ],
+    "behavior": "aria-current=page; active label+background; never icon alone"
+  },
+  "sheet-dialog": {
+    "size": "width min(480,100%); max-height85dvh; padding20; radius24; scrim #38291F66",
+    "states": [
+      "closed",
+      "open",
+      "loading",
+      "error"
+    ],
+    "behavior": "native dialog/headless equivalent; trap focus; restore trigger; Escape close only non-destructive; dirty close opens discard confirmation"
+  },
+  "toast": {
+    "size": "max-width430; viewport gap16; padding14 16; radius12; bottom88+safeArea",
+    "states": [
+      "open",
+      "closed"
+    ],
+    "behavior": "polite status; 6 seconds; no essential information solely transient; errors persistent"
+  },
+  "empty": {
+    "size": "padding40 16; icon40; title22/28",
+    "states": [
+      "no-data",
+      "no-results",
+      "no-history"
+    ],
+    "behavior": "explain why and one relevant next action; never use dash as zero"
+  },
+  "loading": {
+    "size": "block110 or line20; radius8",
+    "states": [
+      "loading"
+    ],
+    "behavior": "aria-busy region; status text; skeleton aria-hidden; static under reduced motion"
+  },
+  "error-global": {
+    "size": "padding12 14; radius12; icon24; text14/21",
+    "states": [
+      "network",
+      "server",
+      "permission",
+      "stale"
+    ],
+    "behavior": "keep form; retry with idempotency; never claim saved before server"
+  },
+  "money": {
+    "size": "28/34 display; label14/20; tabular numbers",
+    "states": [
+      "known",
+      "unknown",
+      "zero",
+      "negative"
+    ],
+    "behavior": "MXN explicit; 2dp amounts; 4+dp normalized cost; unknown dash plus cause; never silently zero"
+  },
+  "image": {
+    "size": "hero 100%x180; thumbnail104x64; border radius16",
+    "states": [
+      "available",
+      "missing",
+      "loading",
+      "failed"
+    ],
+    "behavior": "cover position65% 50%; missing uses image icon+Sin foto; optional; no decorative photo in money errors"
+  }
+}

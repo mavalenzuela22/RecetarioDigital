@@ -1,0 +1,78 @@
+[
+  {
+    "pair": "A texto",
+    "foreground": "#38291F",
+    "background": "#FFF8ED",
+    "ratio": 13.22
+  },
+  {
+    "pair": "A primario",
+    "foreground": "#FFFFFF",
+    "background": "#93482F",
+    "ratio": 6.54
+  },
+  {
+    "pair": "A hierba",
+    "foreground": "#466344",
+    "background": "#FFF8ED",
+    "ratio": 6.36
+  },
+  {
+    "pair": "B texto",
+    "foreground": "#242620",
+    "background": "#FAF9F3",
+    "ratio": 14.5
+  },
+  {
+    "pair": "B primario",
+    "foreground": "#FFFFFF",
+    "background": "#305B36",
+    "ratio": 7.85
+  },
+  {
+    "pair": "B lima",
+    "foreground": "#242620",
+    "background": "#DDEC70",
+    "ratio": 11.88
+  },
+  {
+    "pair": "C texto",
+    "foreground": "#173F3B",
+    "background": "#FFFDF4",
+    "ratio": 11.38
+  },
+  {
+    "pair": "C primario",
+    "foreground": "#FFFFFF",
+    "background": "#173F3B",
+    "ratio": 11.6
+  },
+  {
+    "pair": "C guayaba",
+    "foreground": "#A6392D",
+    "background": "#FFFDF4",
+    "ratio": 6.35
+  },
+  {
+    "pair": "shell coral",
+    "foreground": "#BD654F",
+    "background": "#F6F1E8",
+    "ratio": 3.63
+  },
+  {
+    "pair": "shell ink/0.45 on canvas",
+    "ratio": 2.57
+  },
+  {
+    "pair": "shell ink/0.5 on canvas",
+    "ratio": 2.92
+  },
+  {
+    "pair": "shell ink/0.6 on canvas",
+    "ratio": 3.82
+  },
+  {
+    "pair": "shell ink/0.65 on canvas",
+    "ratio": 4.4
+  }
+]

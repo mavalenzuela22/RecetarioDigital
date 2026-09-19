@@ -1,0 +1,44 @@
+{
+  "locale": "es-MX",
+  "currency": "MXN",
+  "date": "2026-09-18",
+  "fictitious": true,
+  "orders": [
+    {
+      "customer": "Ana",
+      "product": "Roles de canela",
+      "quantity": 12,
+      "deliveryTime": "12:30",
+      "revenueMinor": 48000,
+      "paidMinor": 24000,
+      "balanceMinor": 24000,
+      "attributableCostMinor": 24000,
+      "estimatedProfitMinor": 24000,
+      "fulfillment": "confirmed",
+      "payment": "partial"
+    },
+    {
+      "customer": "Luis",
+      "product": "Empanadas",
+      "quantity": 12,
+      "deliveryTime": "17:00",
+      "revenueMinor": 48000,
+      "paidMinor": 8000,
+      "balanceMinor": 40000,
+      "attributableCostMinor": 24000,
+      "estimatedProfitMinor": 24000,
+      "fulfillment": "confirmed",
+      "payment": "partial"
+    }
+  ],
+  "purchase": {
+    "ingredient": "Harina de trigo",
+    "presentation": "Bolsa",
+    "quantity": "1",
+    "unit": "kg",
+    "normalizedQuantity": "1000",
+    "normalizedUnit": "g",
+    "totalPaidMinor": 4200,
+    "costPerNormalizedUnit": "0.0420"
+  }
+}

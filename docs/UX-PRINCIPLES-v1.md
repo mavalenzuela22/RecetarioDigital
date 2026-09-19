@@ -34,15 +34,26 @@ The system should calculate:
 Do not ask the user to perform accounting math before using the app.
 
 ## Language
+EmprendimientoOS v1 is **Spanish-first**.
+
+Initial user-facing locale target: **es-MX**.
+
+All final UI copy, navigation, labels, states, messages, onboarding, empty states, errors, confirmations, and design references must be authored first in natural production-quality Spanish.
+
+The architecture should remain ready for future localization, but additional languages are outside v1 unless separately authorized.
+
+Do not design around short English placeholders and translate afterward; realistic Spanish text length is part of UX validation.
+
 Use plain, familiar language.
 
 Prefer:
-- Cost per piece
-- You earn
-- Pending to collect
-- You need to prepare
+- Costo por pieza
+- Ganancia por pieza
+- Pendiente de cobro
+- Necesitas preparar
+- Listo para entregar
 
-Expose terms such as margin and markup with short contextual explanations rather than assuming accounting knowledge.
+Expose terms such as margen and markup/multiplicador with short contextual explanations rather than assuming accounting knowledge.
 
 ## Progressive disclosure
 Show the answer first and the accounting detail second.

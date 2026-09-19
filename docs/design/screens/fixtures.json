@@ -1,0 +1,79 @@
+{
+  "date": "2026-09-18",
+  "timezoneExample": "America/Monterrey",
+  "authoritativeTimezone": "business configuration, not browser guessed",
+  "recipe": {
+    "name": "Roles de canela",
+    "yield": 12,
+    "ingredientCostMinor": 8000,
+    "batchExtrasMinor": 11200,
+    "batchCostMinor": 19200,
+    "recipeUnitCostMinor": 1600
+  },
+  "product": {
+    "unitCostMinor": 2000,
+    "recipeUnitCostMinor": 1600,
+    "packagingMinor": 200,
+    "orderDeliveryAllocationMinor": 200,
+    "orderDeliveryTotalMinor": 2400,
+    "referenceOrderQuantity": 12,
+    "salePriceMinor": 4000,
+    "profitMinor": 2000,
+    "margin": "0.50"
+  },
+  "today": {
+    "units": 24,
+    "orders": 2,
+    "revenueMinor": 96000,
+    "paidMinor": 32000,
+    "balanceMinor": 64000,
+    "costMinor": 48000,
+    "estimatedProfitMinor": 48000
+  },
+  "history": {
+    "pastDate": "2026-08-18",
+    "pastUnitCostMinor": 1800,
+    "currentUnitCostMinor": 2000,
+    "pastSalePriceMinor": 4000,
+    "currentSalePriceMinor": 4000,
+    "pastProfitMinor": 2200,
+    "currentProfitMinor": 2000,
+    "pastMargin": "0.55",
+    "currentMargin": "0.50",
+    "costDriversPerUnitMinor": {
+      "butter": 150,
+      "flour": 50
+    },
+    "sameRecipeAndYield": true
+  },
+  "scenarios": [
+    {
+      "multiplier": "2",
+      "priceMinor": 4000,
+      "profitMinor": 2000,
+      "batchProfitMinor": 24000,
+      "marginDisplay": "50.0%"
+    },
+    {
+      "multiplier": "2.5",
+      "priceMinor": 5000,
+      "profitMinor": 3000,
+      "batchProfitMinor": 36000,
+      "marginDisplay": "60.0%"
+    },
+    {
+      "multiplier": "3",
+      "priceMinor": 6000,
+      "profitMinor": 4000,
+      "batchProfitMinor": 48000,
+      "marginDisplay": "66.7%"
+    },
+    {
+      "multiplier": "3.5",
+      "priceMinor": 7000,
+      "profitMinor": 5000,
+      "batchProfitMinor": 60000,
+      "marginDisplay": "71.4%"
+    }
+  ]
+}

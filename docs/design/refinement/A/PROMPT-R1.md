@@ -1,0 +1,16 @@
+# Prompt · A refinamiento 1
+
+Herramienta: image_gen integrada. Referencia: docs/design/exploration/A/board.png.
+Se conserva el maestro de Phase 2; esta edición produce un archivo nuevo.
+
+Use case: ui-mockup / precise edit. Refine the supplied selected A · Cocina cálida artesanal board for Phase 3. It is the selected visual direction, NOT a request for a new direction. Preserve its warm cream, cocoa and terracotta palette, serif headings, DM Sans-like body, restrained soft surfaces, rounded controls, cinnamon-roll photograph, complete two mobile app screens and right specimen column. Keep the same layout, image aspect ratio, hierarchy and exact amounts. No device frame, OS chrome, new feature, inventory, stock, or decorative overhaul. All UI is natural Spanish es-MX. Data remains Friday 18 September 2026: 24 pieces, Ana 12 roles due 12:30 owes $240, Luis 12 empanadas due 17:00 owes $400, $640 due today, estimated profit $480.
+
+Make these precise improvements:
+1. Main board title becomes "A · Cocina cálida artesanal · Refinamiento 1". Keep it clean and legible on one line if feasible, otherwise a small second line "Refinamiento 1" underneath. This is one selected direction.
+2. On BOTH product rows in Hoy, replace "Listo a las" with "Entrega". Keep 12:30 and 17:00 as times. Do not imply already prepared or delivered.
+3. On both delivery rows replace red "Debe $240" / "Debe $400" with cocoa #38291F text "Saldo $240" / "Saldo $400"; clear amount, no red urgency. Pending balance is not overdue.
+4. In purchase form put a full-width editable text field "Presentación" with value "Bolsa", NO chevron on Bolsa. On the NEXT row below place permanent label "Cantidad comprada" with 1 next to a clearly visible kg selector. Keep all fields, derived summary and Guardar compra visible within screen; reduce decorative empty gaps modestly without tiny text. Add one short helper below quantity: "Cantidad total de la compra". The current three-column row is too narrow. Do NOT invent bag count or request unit-cost calculations from the user.
+5. Keep Total pagado $42.00 MXN informational, date 18 sep 2026, Tienda y nota (opcional), Equivale a 1,000 g and Costo por gramo $0.0420. Preserve the latter four decimal places. Keep "Registra lo que compraste y cuánto pagaste." No inventory text. Save button still "Guardar compra".
+6. In the home "Resumen de hoy", use ONLY TWO columns: "Por cobrar hoy" $640 MXN and "Ganancia estimada" $480 MXN. Remove the redundant third column "2 entregas / 24 piezas". Allocate the recovered width to readable labels and amounts, no truncation.
+7. In right component specimen, make the inline-error text dark #922E25 on pale #FFF0EB rather than bright thin red, same exact Spanish "Escribe un total mayor que $0." Keep symbol plus text.
+No other redesign. Keep home bottom actions Ver producción and Registrar compra, and bottom navigation Hoy / Pedidos / Recetario / Más. Preserve four readable icon labels and original selected Hoy. Body target 16px, helper 14px, 52px primary controls, minimum48px touch targets in nominal390x844 mobile frames. Exact font rasterization and physical testing occur later. Return full refined board, no cropped sections.
