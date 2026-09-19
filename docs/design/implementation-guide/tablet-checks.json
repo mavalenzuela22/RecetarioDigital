@@ -1,0 +1,58 @@
+[
+  {
+    "client": 768,
+    "route": "#hoy",
+    "scroll": 768,
+    "title": "Hoy en tu cocina",
+    "width": 768
+  },
+  {
+    "client": 753,
+    "route": "#compra",
+    "scroll": 753,
+    "title": "Registrar compra",
+    "width": 768
+  },
+  {
+    "client": 753,
+    "route": "#receta",
+    "scroll": 753,
+    "title": "Receta",
+    "width": 768
+  },
+  {
+    "client": 753,
+    "route": "#producto",
+    "scroll": 753,
+    "title": "Costos y precio",
+    "width": 768
+  },
+  {
+    "client": 753,
+    "route": "#pedido",
+    "scroll": 753,
+    "title": "Tomar pedido",
+    "width": 768
+  },
+  {
+    "client": 768,
+    "route": "#cobro",
+    "scroll": 768,
+    "title": "Ana",
+    "width": 768
+  },
+  {
+    "client": 768,
+    "route": "#produccion",
+    "scroll": 768,
+    "title": "Producción",
+    "width": 768
+  },
+  {
+    "client": 753,
+    "route": "#historial",
+    "scroll": 753,
+    "title": "Antes y ahora",
+    "width": 768
+  }
+]

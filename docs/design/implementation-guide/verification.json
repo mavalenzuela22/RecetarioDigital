@@ -1,0 +1,109 @@
+{
+  "contrast_pairs": [
+    {
+      "pair": "body",
+      "foreground": "#38291F",
+      "background": "#FFF8ED",
+      "ratio": 13.223,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "pair": "muted",
+      "foreground": "#6C5B4F",
+      "background": "#FFF8ED",
+      "ratio": 6.129,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "pair": "primary",
+      "foreground": "#FFFFFF",
+      "background": "#93482F",
+      "ratio": 6.545,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "pair": "pressed",
+      "foreground": "#FFFFFF",
+      "background": "#713620",
+      "ratio": 9.331,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "pair": "positive",
+      "foreground": "#466344",
+      "background": "#EAF0E5",
+      "ratio": 5.783,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "pair": "error",
+      "foreground": "#922E25",
+      "background": "#FFF0EB",
+      "ratio": 7.166,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "pair": "warning",
+      "foreground": "#735211",
+      "background": "#FFF0C7",
+      "ratio": 6.298,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "pair": "info",
+      "foreground": "#315C68",
+      "background": "#E9F0F3",
+      "ratio": 6.369,
+      "minimum": 4.5,
+      "pass": true
+    },
+    {
+      "pair": "input edge",
+      "foreground": "#8A7565",
+      "background": "#FFFFFF",
+      "ratio": 4.363,
+      "minimum": 3,
+      "pass": true
+    },
+    {
+      "pair": "focus",
+      "foreground": "#38291F",
+      "background": "#FFF8ED",
+      "ratio": 13.223,
+      "minimum": 3,
+      "pass": true
+    }
+  ],
+  "contrast_all_pass": true,
+  "non_design_files_unchanged": true,
+  "outside_boundary_changed": [],
+  "baseline_files": 73,
+  "fixture_checks": {
+    "recipe": true,
+    "recipeUnit": true,
+    "product": true,
+    "todayBalance": true,
+    "todayProfit": true,
+    "historyDrivers": true,
+    "scenarios": true
+  },
+  "maskable_safe_circle": {
+    "radiusPx": 204.8,
+    "foregroundMaxRadiusPx": 138.7,
+    "foregroundPixelsOutside": 0,
+    "pass": true
+  },
+  "missing_links": [],
+  "core_screen_contracts": 8,
+  "core_screen_captures": 8,
+  "production_tests_run": false,
+  "physical_phone_test_run": false,
+  "accessibility_certification_claimed": false
+}

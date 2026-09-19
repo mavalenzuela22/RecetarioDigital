@@ -1,0 +1,94 @@
+{
+  "status": "EXPLORATORY_NOT_APPROVED",
+  "scope": "phase_2_only",
+  "viewport": {
+    "width": 390,
+    "height": 844,
+    "unit": "css_px",
+    "image_pixels_are_not_measurements": true
+  },
+  "shared": {
+    "body": {
+      "size": 16,
+      "lineHeight": 24
+    },
+    "help": {
+      "size": 14,
+      "lineHeight": 20
+    },
+    "title": {
+      "size": 28,
+      "lineHeight": 34
+    },
+    "money": {
+      "size": 28,
+      "lineHeight": 34,
+      "tabularNumbers": true
+    },
+    "touchMin": 48,
+    "primaryMinHeight": 52,
+    "navigationMinHeight": 72,
+    "safeAreaAdditional": true,
+    "padding": 20,
+    "paddingAt320": 16
+  },
+  "directions": {
+    "A": {
+      "name": "Cocina cálida artesanal",
+      "colors": {
+        "background": "#FFF8ED",
+        "surface": "#FFFFFF",
+        "text": "#38291F",
+        "primary": "#93482F",
+        "positive": "#466344"
+      },
+      "fonts": {
+        "display": "Fraunces",
+        "body": "DM Sans"
+      },
+      "radius": 16,
+      "iconStroke": 1.75,
+      "layout": "production-agenda",
+      "purchase": "continuous-form"
+    },
+    "B": {
+      "name": "Emprendedora fuerte",
+      "colors": {
+        "background": "#FAF9F3",
+        "surface": "#FFFFFF",
+        "text": "#242620",
+        "primary": "#305B36",
+        "accent": "#DDEC70"
+      },
+      "fonts": {
+        "display": "Archivo",
+        "body": "DM Sans"
+      },
+      "radius": 4,
+      "iconStroke": 2,
+      "layout": "priority-worklist",
+      "purchase": "compact-continuous-form"
+    },
+    "C": {
+      "name": "Mercadito premium de barrio",
+      "colors": {
+        "background": "#FFFDF4",
+        "surface": "#FFFFFF",
+        "text": "#173F3B",
+        "primary": "#173F3B",
+        "accent": "#E8BD54",
+        "guava": "#A6392D"
+      },
+      "fonts": {
+        "display": "Literata",
+        "body": "Manrope"
+      },
+      "radius": 8,
+      "iconStroke": 2,
+      "layout": "customer-order-dockets",
+      "purchase": "editable-receipt-with-sheet"
+    }
+  },
+  "fontRendering": "AI visual approximation; candidate families not embedded in raster",
+  "iconRendering": "AI visual approximation; proposed Lucide mapping is not an exported asset library"
+}

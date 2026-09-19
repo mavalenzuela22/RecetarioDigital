@@ -1,0 +1,1176 @@
+{
+  "version": "1.0.0",
+  "root": "docs/design/",
+  "write_boundary": "docs/design/**",
+  "destination_note": "Destinos propuestos para un contrato posterior. No se copió nada a producción. Maestros, evidencia y fuentes reproducibles permanecen aquí.",
+  "count": 84,
+  "assets": [
+    {
+      "filename": "assets/brand/app-icon-180.png",
+      "purpose": "Marca tipográfica, icono de aplicación o export PWA",
+      "dimensions_px": [
+        180,
+        180
+      ],
+      "aspect_ratio": 1.0,
+      "format": "PNG",
+      "source_master": "tokens/build.py + assets/fonts/DM-Sans.ttf",
+      "intended_application_location": "public/icons/app-icon-180.png",
+      "bytes": 4468,
+      "sha256": "4c74b84ea17a8ed2bc610fd414f8854f0c98705a72c8809062ad23d6ae2c2a33"
+    },
+    {
+      "filename": "assets/brand/app-icon-192.png",
+      "purpose": "Marca tipográfica, icono de aplicación o export PWA",
+      "dimensions_px": [
+        192,
+        192
+      ],
+      "aspect_ratio": 1.0,
+      "format": "PNG",
+      "source_master": "tokens/build.py + assets/fonts/DM-Sans.ttf",
+      "intended_application_location": "public/icons/app-icon-192.png",
+      "bytes": 4662,
+      "sha256": "cc3ab46f820d4c57d511ee9c6cf8056f16250dbb26658580e0bf733b548da78b"
+    },
+    {
+      "filename": "assets/brand/app-icon-32.png",
+      "purpose": "Marca tipográfica, icono de aplicación o export PWA",
+      "dimensions_px": [
+        32,
+        32
+      ],
+      "aspect_ratio": 1.0,
+      "format": "PNG",
+      "source_master": "tokens/build.py + assets/fonts/DM-Sans.ttf",
+      "intended_application_location": "public/icons/app-icon-32.png",
+      "bytes": 768,
+      "sha256": "2dd53b1603e5cff2fb040c2391973b578e2eed92063a03edd86926b2e02b0275"
+    },
+    {
+      "filename": "assets/brand/app-icon-48.png",
+      "purpose": "Marca tipográfica, icono de aplicación o export PWA",
+      "dimensions_px": [
+        48,
+        48
+      ],
+      "aspect_ratio": 1.0,
+      "format": "PNG",
+      "source_master": "tokens/build.py + assets/fonts/DM-Sans.ttf",
+      "intended_application_location": "public/icons/app-icon-48.png",
+      "bytes": 1178,
+      "sha256": "4d0698be860021c8c48a4bd17a601b0cb69ff3f785cf68491bdc6871a3f2a584"
+    },
+    {
+      "filename": "assets/brand/app-icon-512.png",
+      "purpose": "Marca tipográfica, icono de aplicación o export PWA",
+      "dimensions_px": [
+        512,
+        512
+      ],
+      "aspect_ratio": 1.0,
+      "format": "PNG",
+      "source_master": "tokens/build.py + assets/fonts/DM-Sans.ttf",
+      "intended_application_location": "public/icons/app-icon-512.png",
+      "bytes": 12510,
+      "sha256": "25c8636f3bb37b130225ef28d563d5bee19c6b140edee102c504885c97b782ce"
+    },
+    {
+      "filename": "assets/brand/app-icon-master.png",
+      "purpose": "Marca tipográfica, icono de aplicación o export PWA",
+      "dimensions_px": [
+        1024,
+        1024
+      ],
+      "aspect_ratio": 1.0,
+      "format": "PNG",
+      "source_master": "tokens/build.py + assets/fonts/DM-Sans.ttf",
+      "intended_application_location": "public/icons/app-icon-master.png",
+      "bytes": 15710,
+      "sha256": "3a88728b16160fdb7df586f352df6280ec1ae8a6befdf264a87961300114ee00"
+    },
+    {
+      "filename": "assets/brand/app-icon-master.svg",
+      "purpose": "Marca tipográfica, icono de aplicación o export PWA",
+      "dimensions_px": [
+        1024.0,
+        1024.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "tokens/build.py + assets/fonts/DM-Sans.ttf",
+      "intended_application_location": "public/icons/app-icon-master.svg",
+      "bytes": 320586,
+      "sha256": "98298b7a72f29510c23cb7166ddae7e44d4147c5b7750bc7a697efc6199646a4"
+    },
+    {
+      "filename": "assets/brand/favicon.ico",
+      "purpose": "Marca tipográfica, icono de aplicación o export PWA",
+      "dimensions_px": [
+        48,
+        48
+      ],
+      "aspect_ratio": 1.0,
+      "format": "ICO",
+      "source_master": "tokens/build.py + assets/fonts/DM-Sans.ttf",
+      "intended_application_location": "public/icons/favicon.ico",
+      "bytes": 2393,
+      "sha256": "6817d437d8e1c2f78bef9d2a24b48ce086544d0baebbe9304a024376ef08624a"
+    },
+    {
+      "filename": "assets/brand/maskable-512.png",
+      "purpose": "Marca tipográfica, icono de aplicación o export PWA",
+      "dimensions_px": [
+        512,
+        512
+      ],
+      "aspect_ratio": 1.0,
+      "format": "PNG",
+      "source_master": "tokens/build.py + assets/fonts/DM-Sans.ttf",
+      "intended_application_location": "public/icons/maskable-512.png",
+      "bytes": 12510,
+      "sha256": "25c8636f3bb37b130225ef28d563d5bee19c6b140edee102c504885c97b782ce"
+    },
+    {
+      "filename": "assets/brand/wordmark.svg",
+      "purpose": "Marca tipográfica, icono de aplicación o export PWA",
+      "dimensions_px": [
+        520.0,
+        64.0
+      ],
+      "aspect_ratio": 8.125,
+      "format": "SVG",
+      "source_master": "tokens/build.py + assets/fonts/DM-Sans.ttf",
+      "intended_application_location": "resources/images/brand/wordmark.svg",
+      "bytes": 320520,
+      "sha256": "698aeefd50b408cbc4470878aa09e5d3e92922dcd58f82deaed3c09db09aa9ab"
+    },
+    {
+      "filename": "assets/fonts/DM-Sans-OFL.txt",
+      "purpose": "Fuente local y licencia de redistribución",
+      "dimensions_px": null,
+      "aspect_ratio": null,
+      "format": "TXT",
+      "source_master": "assets/fonts/sources.json",
+      "intended_application_location": "resources/fonts/DM-Sans-OFL.txt",
+      "bytes": 4482,
+      "sha256": "9af36190332437f5ecd09974de43c1f7c77a310a996cdd8ceb25628b458840e1"
+    },
+    {
+      "filename": "assets/fonts/DM-Sans.ttf",
+      "purpose": "Fuente local y licencia de redistribución",
+      "dimensions_px": null,
+      "aspect_ratio": null,
+      "format": "TTF",
+      "source_master": "assets/fonts/sources.json",
+      "intended_application_location": "resources/fonts/DM-Sans.ttf",
+      "bytes": 240164,
+      "sha256": "8cd08d97e89c24d0aa92edd2f0f4c8ee6195eee9b7c9f154865a58b02f0c1c0d"
+    },
+    {
+      "filename": "assets/fonts/Fraunces-OFL.txt",
+      "purpose": "Fuente local y licencia de redistribución",
+      "dimensions_px": null,
+      "aspect_ratio": null,
+      "format": "TXT",
+      "source_master": "assets/fonts/sources.json",
+      "intended_application_location": "resources/fonts/Fraunces-OFL.txt",
+      "bytes": 4391,
+      "sha256": "bdf4c22802eaf804f998195871c6b8938aac2ac14b2d78a8bd66a6f1eced833b"
+    },
+    {
+      "filename": "assets/fonts/Fraunces.ttf",
+      "purpose": "Fuente local y licencia de redistribución",
+      "dimensions_px": null,
+      "aspect_ratio": null,
+      "format": "TTF",
+      "source_master": "assets/fonts/sources.json",
+      "intended_application_location": "resources/fonts/Fraunces.ttf",
+      "bytes": 360440,
+      "sha256": "177ff6c0f14e5550a3c624247cd1189611d4eb65d000b14944c63d967958abbb"
+    },
+    {
+      "filename": "audit/evidence/01-shell-390.png",
+      "purpose": "Evidencia histórica de diseño; no instalar en app",
+      "dimensions_px": [
+        375,
+        812
+      ],
+      "aspect_ratio": 0.46182,
+      "format": "PNG",
+      "source_master": "audit/evidence/01-shell-390.png",
+      "intended_application_location": null,
+      "bytes": 32612,
+      "sha256": "a4477f39a77e87479bb3605d6331a147f6a03097f57c3ec270ecae615941b667"
+    },
+    {
+      "filename": "audit/evidence/02-primeros-pasos-390.png",
+      "purpose": "Evidencia histórica de diseño; no instalar en app",
+      "dimensions_px": [
+        375,
+        812
+      ],
+      "aspect_ratio": 0.46182,
+      "format": "PNG",
+      "source_master": "audit/evidence/02-primeros-pasos-390.png",
+      "intended_application_location": null,
+      "bytes": 21411,
+      "sha256": "0c421fc3eda89f2989f0002544fcc7f126f64ba2f8753dbf39e48a30b047ffba"
+    },
+    {
+      "filename": "audit/evidence/03-shell-320.png",
+      "purpose": "Evidencia histórica de diseño; no instalar en app",
+      "dimensions_px": [
+        305,
+        804
+      ],
+      "aspect_ratio": 0.37935,
+      "format": "PNG",
+      "source_master": "audit/evidence/03-shell-320.png",
+      "intended_application_location": null,
+      "bytes": 31064,
+      "sha256": "e0853e09022cb4093ad64bdeb5ce8660ae65ffbc87068b62d5612a68e3e34e94"
+    },
+    {
+      "filename": "exploration/A/board.png",
+      "purpose": "Evidencia histórica de diseño; no instalar en app",
+      "dimensions_px": [
+        1448,
+        1086
+      ],
+      "aspect_ratio": 1.33333,
+      "format": "PNG",
+      "source_master": "exploration/A/board.png",
+      "intended_application_location": null,
+      "bytes": 1597708,
+      "sha256": "d2c0d94f0621627ee87428328cf2278398562c2a3028ae8d66d8ce4e0d674a2f"
+    },
+    {
+      "filename": "exploration/B/board.png",
+      "purpose": "Evidencia histórica de diseño; no instalar en app",
+      "dimensions_px": [
+        1448,
+        1086
+      ],
+      "aspect_ratio": 1.33333,
+      "format": "PNG",
+      "source_master": "exploration/B/board.png",
+      "intended_application_location": null,
+      "bytes": 1476422,
+      "sha256": "de0bd45d069773480741954a802a603620c1494e4745b76bffe29cc815c715b6"
+    },
+    {
+      "filename": "exploration/C/board.png",
+      "purpose": "Evidencia histórica de diseño; no instalar en app",
+      "dimensions_px": [
+        1448,
+        1086
+      ],
+      "aspect_ratio": 1.33333,
+      "format": "PNG",
+      "source_master": "exploration/C/board.png",
+      "intended_application_location": null,
+      "bytes": 1568172,
+      "sha256": "4dd83040e7c0f6ed5e3c553ed4f377aa8c8b4853ff041d32eac5376a04481aeb"
+    },
+    {
+      "filename": "icons/LICENSE.txt",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": null,
+      "aspect_ratio": null,
+      "format": "TXT",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/LICENSE.txt",
+      "bytes": 3208,
+      "sha256": "b495047bd93a9b06913511076f504daba17d5bbeb3e0650f3bb53a4220329c57"
+    },
+    {
+      "filename": "icons/banknote.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/banknote.svg",
+      "bytes": 410,
+      "sha256": "fb72501893d72045d7b3c7fe51775cc2d566ef34410aa08d5aa14847bff042f1"
+    },
+    {
+      "filename": "icons/book-open.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/book-open.svg",
+      "bytes": 467,
+      "sha256": "1b15812e2e8f5227c3d979d0b809836fb09393c1f4abc7a93d4698934359fa54"
+    },
+    {
+      "filename": "icons/calculator.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/calculator.svg",
+      "bytes": 604,
+      "sha256": "08a4e5dccdbb8c590974eb7c6156f3837cb1283f9d7b1afcb16d9a0598aba3da"
+    },
+    {
+      "filename": "icons/calendar-days.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/calendar-days.svg",
+      "bytes": 567,
+      "sha256": "35d4e82a4a606a875c7396fa71964db957a0355972df7cb7816d4cab5b318930"
+    },
+    {
+      "filename": "icons/check.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/check.svg",
+      "bytes": 315,
+      "sha256": "7cb2a63edf5a9701361656f9bfbf13b1e7b084027f7fb2c992b82cd94105d9c1"
+    },
+    {
+      "filename": "icons/chevron-down.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/chevron-down.svg",
+      "bytes": 319,
+      "sha256": "29da8c42aa4422ef1c32dbeffe660319cca6756b95add0a9c20b1197bbe12ded"
+    },
+    {
+      "filename": "icons/chevron-left.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/chevron-left.svg",
+      "bytes": 321,
+      "sha256": "4a6ec61e17068836f3399349533d79d34ed7a533dd62ffd71bd33e2b108e2fa3"
+    },
+    {
+      "filename": "icons/chevron-right.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/chevron-right.svg",
+      "bytes": 321,
+      "sha256": "240094983bc0ee26da77a8f7b1f87106e9f3b9bf34ac89127449140f8d96f718"
+    },
+    {
+      "filename": "icons/clipboard-list.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/clipboard-list.svg",
+      "bytes": 537,
+      "sha256": "fa45ea68b5aaf729a6986f7db5a77a7cee6ea84436e8319214220d1e2431964f"
+    },
+    {
+      "filename": "icons/clock.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/clock.svg",
+      "bytes": 347,
+      "sha256": "a5dea15fc6fbad0c836640f949b5db1ce5223be13993b7b463759fd411760a50"
+    },
+    {
+      "filename": "icons/cooking-pot.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/cooking-pot.svg",
+      "bytes": 488,
+      "sha256": "17619b734e3fe94609bf7681fcaf1d17ab740b9bec1a91057e28c2c2c25f4cd6"
+    },
+    {
+      "filename": "icons/ellipsis.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/ellipsis.svg",
+      "bytes": 391,
+      "sha256": "db5f5b81c91da11aa1b6235ca1b3acbfc25aa9a46f7833dd2594d51165193ddc"
+    },
+    {
+      "filename": "icons/history.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/history.svg",
+      "bytes": 402,
+      "sha256": "28d6f41350899b153a98bd9c487a8d708677d82294ccd9a7d6506bde3072bff4"
+    },
+    {
+      "filename": "icons/house.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/house.svg",
+      "bytes": 459,
+      "sha256": "bce66dc3f9ecb884f9fa95a0f8a3221a61cb59e8f3d0f5723ece832feac76f6c"
+    },
+    {
+      "filename": "icons/image.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/image.svg",
+      "bytes": 434,
+      "sha256": "cd88ab0a45a87d9c26110206cee82828d509db211214bc66dac15fafa912e2c8"
+    },
+    {
+      "filename": "icons/info.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/info.svg",
+      "bytes": 369,
+      "sha256": "9bdcdc0eb4d2baa86bc2fc251c6f87fd6d09118484eae22a36ae693e59d11720"
+    },
+    {
+      "filename": "icons/loader-circle.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/loader-circle.svg",
+      "bytes": 335,
+      "sha256": "e21030e590b1814f025c3cd0e8b14098b7a9959ff4b77c44c6851452c4e03cf1"
+    },
+    {
+      "filename": "icons/minus.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/minus.svg",
+      "bytes": 308,
+      "sha256": "ac7b7fa077469ddcf2fe811d8a8d8184e3e7380bf8a299c9c4838a9296d1501f"
+    },
+    {
+      "filename": "icons/package.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/package.svg",
+      "bytes": 524,
+      "sha256": "915fb0a8cdcfd6b1a54c6a24f4604007983ab9c0b213c9b36daf422e427382ba"
+    },
+    {
+      "filename": "icons/pencil.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/pencil.svg",
+      "bytes": 454,
+      "sha256": "2f29efa39d36ee1074c9b1ef7ca7b82b7dcccf59e84b17fa7422bde5238fd263"
+    },
+    {
+      "filename": "icons/plus.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/plus.svg",
+      "bytes": 331,
+      "sha256": "b0c6dc396b96741954b4ac7aaa247b9df73628e877826924e5d622e2677e2960"
+    },
+    {
+      "filename": "icons/search.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/search.svg",
+      "bytes": 352,
+      "sha256": "5523ab5ec4d821183ad2b43b18142f36ea5080f1c90ffbf980c96a2b6cbbe5c6"
+    },
+    {
+      "filename": "icons/shopping-bag.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/shopping-bag.svg",
+      "bytes": 505,
+      "sha256": "946bfc40321559d6010966a42f9609fe8baf676fcb30f0ff1930f44223709228"
+    },
+    {
+      "filename": "icons/tag.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/tag.svg",
+      "bytes": 504,
+      "sha256": "e1939367907ccf850330057b1e3c63242412bef6cc3705a5b7a07b834aac31e0"
+    },
+    {
+      "filename": "icons/trash-2.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/trash-2.svg",
+      "bytes": 467,
+      "sha256": "5fb6eb7d98e4ae5eb1ad769b18edb0760459df26089f958ebacb480ad2d204be"
+    },
+    {
+      "filename": "icons/trending-up.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/trending-up.svg",
+      "bytes": 353,
+      "sha256": "b6a85aea4dab29cc9bf155f7923df841079497479d741344268101f3d5adf7ff"
+    },
+    {
+      "filename": "icons/triangle-alert.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/triangle-alert.svg",
+      "bytes": 430,
+      "sha256": "acd931c4193da7e18dc826b79126eeaaa35ca9b494215b8c2326e51f83574cdb"
+    },
+    {
+      "filename": "icons/truck.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/truck.svg",
+      "bytes": 545,
+      "sha256": "2b4e48e0801ac289dcad33a279061f946c385d3fe103f48b0c3528cffc5879b2"
+    },
+    {
+      "filename": "icons/user-round.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/user-round.svg",
+      "bytes": 360,
+      "sha256": "9122649760889030755f7b5ae861450137b24cda9d4ba41b4c4f58881b91d4d6"
+    },
+    {
+      "filename": "icons/wallet.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/wallet.svg",
+      "bytes": 464,
+      "sha256": "4449071c063691f41976195dcb2ab67ea04cd16f4a4f5d5d34ad39e667e5db78"
+    },
+    {
+      "filename": "icons/wheat.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/wheat.svg",
+      "bytes": 980,
+      "sha256": "9d75d5cd1686d9bfb7cacb02c8cc64fce1ffa069ec0f9fd89000f58b5aca4e33"
+    },
+    {
+      "filename": "icons/wifi-off.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/wifi-off.svg",
+      "bytes": 573,
+      "sha256": "0cddec70d5f4a9552ffd37c4048ff73fc057504add8fce52bdff609d5fbafdb1"
+    },
+    {
+      "filename": "icons/x.svg",
+      "purpose": "Iconografía de interfaz Lucide; semántica en icons/map.json",
+      "dimensions_px": [
+        24.0,
+        24.0
+      ],
+      "aspect_ratio": 1.0,
+      "format": "SVG",
+      "source_master": "icons/package-source.json + icons/LICENSE.txt",
+      "intended_application_location": "resources/icons/x.svg",
+      "bytes": 332,
+      "sha256": "3fb7f6004b7d52fb5019d11dff0d3ebc4236aab0651315742ea2fa5bfd6711a2"
+    },
+    {
+      "filename": "imagery/cinnamon-rolls-master.png",
+      "purpose": "Fotografía sintética de referencia culinaria, no producto real",
+      "dimensions_px": [
+        1448,
+        1086
+      ],
+      "aspect_ratio": 1.33333,
+      "format": "PNG",
+      "source_master": "imagery/cinnamon-rolls-source.md",
+      "intended_application_location": "resources/images/reference/cinnamon-rolls-master.png",
+      "bytes": 2271081,
+      "sha256": "e6bcfc4434f3eeaea40118087db2e584dc85cac5637d6405bed27c677f9bc5e6"
+    },
+    {
+      "filename": "refinement/A/board-r1.png",
+      "purpose": "Evidencia histórica de diseño; no instalar en app",
+      "dimensions_px": [
+        1448,
+        1086
+      ],
+      "aspect_ratio": 1.33333,
+      "format": "PNG",
+      "source_master": "refinement/A/board-r1.png",
+      "intended_application_location": null,
+      "bytes": 1544655,
+      "sha256": "1681b979c0b8ed52cc6ed203b6b07ae62b2c403625ffbf4649255d37a039ae08"
+    },
+    {
+      "filename": "screens/evidence/brandbook-1200.png",
+      "purpose": "Captura real del prototipo de documentación o QA",
+      "dimensions_px": [
+        1185,
+        889
+      ],
+      "aspect_ratio": 1.33296,
+      "format": "PNG",
+      "source_master": "prototypes/ + components/ + brandbook/; navegador local",
+      "intended_application_location": null,
+      "bytes": 89364,
+      "sha256": "661324546cbd6f6425e7b2294c9f83c66122fde20033c4965817f0ea09881400"
+    },
+    {
+      "filename": "screens/evidence/brandbook-320-fixed.png",
+      "purpose": "Captura real del prototipo de documentación o QA",
+      "dimensions_px": [
+        305,
+        804
+      ],
+      "aspect_ratio": 0.37935,
+      "format": "PNG",
+      "source_master": "prototypes/ + components/ + brandbook/; navegador local",
+      "intended_application_location": null,
+      "bytes": 37586,
+      "sha256": "1eeded0d18d946500fe67b813dbcf014565e99304a380794c4ccc010fa712dd3"
+    },
+    {
+      "filename": "screens/evidence/cobro-390.png",
+      "purpose": "Captura real del prototipo de documentación o QA",
+      "dimensions_px": [
+        375,
+        858
+      ],
+      "aspect_ratio": 0.43706,
+      "format": "PNG",
+      "source_master": "prototypes/ + components/ + brandbook/; navegador local",
+      "intended_application_location": null,
+      "bytes": 16650,
+      "sha256": "6f851abb0f560201495f86f4d134f3bc1032605ffb179bc7cb4680b495f59e15"
+    },
+    {
+      "filename": "screens/evidence/cobro-entregado-pagado-390.png",
+      "purpose": "Captura real del prototipo de documentación o QA",
+      "dimensions_px": [
+        375,
+        858
+      ],
+      "aspect_ratio": 0.43706,
+      "format": "PNG",
+      "source_master": "prototypes/ + components/ + brandbook/; navegador local",
+      "intended_application_location": null,
+      "bytes": 31174,
+      "sha256": "43f8d36cf4622241a6d4097d4f3d8d0026330537e488703fac8c0cdba5cb1cee"
+    },
+    {
+      "filename": "screens/evidence/cobro-sheet-390.png",
+      "purpose": "Captura real del prototipo de documentación o QA",
+      "dimensions_px": [
+        390,
+        858
+      ],
+      "aspect_ratio": 0.45455,
+      "format": "PNG",
+      "source_master": "prototypes/ + components/ + brandbook/; navegador local",
+      "intended_application_location": null,
+      "bytes": 30567,
+      "sha256": "fe70ddb0f20fb0879353d85f6436fe114a9ee9771fb9573c2183b23acca2fa1a"
+    },
+    {
+      "filename": "screens/evidence/components-1200.png",
+      "purpose": "Captura real del prototipo de documentación o QA",
+      "dimensions_px": [
+        1185,
+        2656
+      ],
+      "aspect_ratio": 0.44616,
+      "format": "PNG",
+      "source_master": "prototypes/ + components/ + brandbook/; navegador local",
+      "intended_application_location": null,
+      "bytes": 263935,
+      "sha256": "e99a3509fec9de65a19c60163ae355de95243622d972b4df137fae3860dcf3a3"
+    },
+    {
+      "filename": "screens/evidence/components-sheet-390.png",
+      "purpose": "Captura real del prototipo de documentación o QA",
+      "dimensions_px": [
+        375,
+        812
+      ],
+      "aspect_ratio": 0.46182,
+      "format": "PNG",
+      "source_master": "prototypes/ + components/ + brandbook/; navegador local",
+      "intended_application_location": null,
+      "bytes": 22093,
+      "sha256": "6048297f6bfcca4f0f1ba2fc353f407e50c45932f0154ce8b085f062f460c19b"
+    },
+    {
+      "filename": "screens/evidence/compra-320.png",
+      "purpose": "Captura real del prototipo de documentación o QA",
+      "dimensions_px": [
+        320,
+        1146
+      ],
+      "aspect_ratio": 0.27923,
+      "format": "PNG",
+      "source_master": "prototypes/ + components/ + brandbook/; navegador local",
+      "intended_application_location": null,
+      "bytes": 40769,
+      "sha256": "5fef05e18a8769b3890fb839b92bc3ee90e831ef31f8e8d0132655121658f3d6"
+    },
+    {
+      "filename": "screens/evidence/compra-390.png",
+      "purpose": "Captura real del prototipo de documentación o QA",
+      "dimensions_px": [
+        375,
+        1047
+      ],
+      "aspect_ratio": 0.35817,
+      "format": "PNG",
+      "source_master": "prototypes/ + components/ + brandbook/; navegador local",
+      "intended_application_location": null,
+      "bytes": 47506,
+      "sha256": "3d03c61024176f43f6e58b2a0ec950a603453c1f9620eb0b1e5f5f15321d657b"
+    },
+    {
+      "filename": "screens/evidence/compra-error-390.png",
+      "purpose": "Captura real del prototipo de documentación o QA",
+      "dimensions_px": [
+        390,
+        1074
+      ],
+      "aspect_ratio": 0.36313,
+      "format": "PNG",
+      "source_master": "prototypes/ + components/ + brandbook/; navegador local",
+      "intended_application_location": null,
+      "bytes": 45366,
+      "sha256": "ca09c6fc78bc49030b0c117528bfd91a611f4e3c4e958ff37c2abdc8bf118f8a"
+    },
+    {
+      "filename": "screens/evidence/compra-success-390.png",
+      "purpose": "Captura real del prototipo de documentación o QA",
+      "dimensions_px": [
+        390,
+        1137
+      ],
+      "aspect_ratio": 0.34301,
+      "format": "PNG",
+      "source_master": "prototypes/ + components/ + brandbook/; navegador local",
+      "intended_application_location": null,
+      "bytes": 47768,
+      "sha256": "5e1a9d10016962a4e0d93aec16bf8cfeea84354c66ae207203d8972542cbd16e"
+    },
+    {
+      "filename": "screens/evidence/destructive-dialog-390.png",
+      "purpose": "Captura real del prototipo de documentación o QA",
+      "dimensions_px": [
+        375,
+        812
+      ],
+      "aspect_ratio": 0.46182,
+      "format": "PNG",
+      "source_master": "prototypes/ + components/ + brandbook/; navegador local",
+      "intended_application_location": null,
+      "bytes": 31984,
+      "sha256": "fe4b753d022a07f7f4faeae41e9727f0136148dafffa6d4feb93596c75592f54"
+    },
+    {
+      "filename": "screens/evidence/historial-390.png",
+      "purpose": "Captura real del prototipo de documentación o QA",
+      "dimensions_px": [
+        375,
+        1098
+      ],
+      "aspect_ratio": 0.34153,
+      "format": "PNG",
+      "source_master": "prototypes/ + components/ + brandbook/; navegador local",
+      "intended_application_location": null,
+      "bytes": 55084,
+      "sha256": "e8ff61494ef6e70a82e6fc215ae5a18404b638aa86542a75846602cf212953e3"
+    },
+    {
+      "filename": "screens/evidence/hoy-390.png",
+      "purpose": "Captura real del prototipo de documentación o QA",
+      "dimensions_px": [
+        375,
+        899
+      ],
+      "aspect_ratio": 0.41713,
+      "format": "PNG",
+      "source_master": "prototypes/ + components/ + brandbook/; navegador local",
+      "intended_application_location": null,
+      "bytes": 44367,
+      "sha256": "9e1ff106d7a2081165955955f2b2e3ab6a200cc17257ff3e134dfb15367e7ad9"
+    },
+    {
+      "filename": "screens/evidence/hoy-viewport-390.png",
+      "purpose": "Captura real del prototipo de documentación o QA",
+      "dimensions_px": [
+        375,
+        812
+      ],
+      "aspect_ratio": 0.46182,
+      "format": "PNG",
+      "source_master": "prototypes/ + components/ + brandbook/; navegador local",
+      "intended_application_location": null,
+      "bytes": 40159,
+      "sha256": "54d97b1eabbdc7d4291fcc0cf12348be5c73ca04620cfd99d3bafa64307db599"
+    },
+    {
+      "filename": "screens/evidence/hoy-viewport-390x900.png",
+      "purpose": "Captura real del prototipo de documentación o QA",
+      "dimensions_px": [
+        390,
+        900
+      ],
+      "aspect_ratio": 0.43333,
+      "format": "PNG",
+      "source_master": "prototypes/ + components/ + brandbook/; navegador local",
+      "intended_application_location": null,
+      "bytes": 39986,
+      "sha256": "6426dee6bace1aa4d229a75dcf6bb31af94dfb5c0d255258967b07d61e7582a0"
+    },
+    {
+      "filename": "screens/evidence/pedido-390.png",
+      "purpose": "Captura real del prototipo de documentación o QA",
+      "dimensions_px": [
+        375,
+        1145
+      ],
+      "aspect_ratio": 0.32751,
+      "format": "PNG",
+      "source_master": "prototypes/ + components/ + brandbook/; navegador local",
+      "intended_application_location": null,
+      "bytes": 43789,
+      "sha256": "0b4f3bb3d67d004aea4a7435cde0dd3179cfd069180b04343033190ec0d38f0a"
+    },
+    {
+      "filename": "screens/evidence/precio-confirmacion-390.png",
+      "purpose": "Captura real del prototipo de documentación o QA",
+      "dimensions_px": [
+        390,
+        1235
+      ],
+      "aspect_ratio": 0.31579,
+      "format": "PNG",
+      "source_master": "prototypes/ + components/ + brandbook/; navegador local",
+      "intended_application_location": null,
+      "bytes": 54967,
+      "sha256": "df72671651665e1ba0be1b4b8f9a8bdabbce7c8f74673137da09eeada5a4f9bd"
+    },
+    {
+      "filename": "screens/evidence/produccion-390.png",
+      "purpose": "Captura real del prototipo de documentación o QA",
+      "dimensions_px": [
+        375,
+        925
+      ],
+      "aspect_ratio": 0.40541,
+      "format": "PNG",
+      "source_master": "prototypes/ + components/ + brandbook/; navegador local",
+      "intended_application_location": null,
+      "bytes": 42725,
+      "sha256": "6d3b222594998a21adebe2566c8e9d631810687a7cfc3e524ef7c6b47d18146a"
+    },
+    {
+      "filename": "screens/evidence/produccion-empty-390.png",
+      "purpose": "Captura real del prototipo de documentación o QA",
+      "dimensions_px": [
+        390,
+        844
+      ],
+      "aspect_ratio": 0.46209,
+      "format": "PNG",
+      "source_master": "prototypes/ + components/ + brandbook/; navegador local",
+      "intended_application_location": null,
+      "bytes": 19737,
+      "sha256": "c9083b3fd5fcaf225fe941fd54e3ac2cbe8d2503227caeced20176998eaffb6c"
+    },
+    {
+      "filename": "screens/evidence/producto-320.png",
+      "purpose": "Captura real del prototipo de documentación o QA",
+      "dimensions_px": [
+        320,
+        1265
+      ],
+      "aspect_ratio": 0.25296,
+      "format": "PNG",
+      "source_master": "prototypes/ + components/ + brandbook/; navegador local",
+      "intended_application_location": null,
+      "bytes": 51693,
+      "sha256": "a5c96afe990c7d81d166f7dd16dcf694ce3e81cee60e5c6a9791f79ce92e5117"
+    },
+    {
+      "filename": "screens/evidence/producto-390.png",
+      "purpose": "Captura real del prototipo de documentación o QA",
+      "dimensions_px": [
+        375,
+        1279
+      ],
+      "aspect_ratio": 0.2932,
+      "format": "PNG",
+      "source_master": "prototypes/ + components/ + brandbook/; navegador local",
+      "intended_application_location": null,
+      "bytes": 56577,
+      "sha256": "35aae11ba99f3e25663928fa6b17e01119190bdf1c9cf47cb4d048dba63ced2f"
+    },
+    {
+      "filename": "screens/evidence/qa-comparison.png",
+      "purpose": "Captura real del prototipo de documentación o QA",
+      "dimensions_px": [
+        985,
+        1402
+      ],
+      "aspect_ratio": 0.70257,
+      "format": "PNG",
+      "source_master": "prototypes/ + components/ + brandbook/; navegador local",
+      "intended_application_location": null,
+      "bytes": 144214,
+      "sha256": "e9fa5f76fbbbec91729785b3be635f17d5631d6454d9430c80e37086af468543"
+    },
+    {
+      "filename": "screens/evidence/receta-390.png",
+      "purpose": "Captura real del prototipo de documentación o QA",
+      "dimensions_px": [
+        375,
+        1842
+      ],
+      "aspect_ratio": 0.20358,
+      "format": "PNG",
+      "source_master": "prototypes/ + components/ + brandbook/; navegador local",
+      "intended_application_location": null,
+      "bytes": 88979,
+      "sha256": "d6eeaaee346625789fef4036e69854d31bc6f56307699d9fab0eb4fd094a776a"
+    },
+    {
+      "filename": "splashes/splash-compact-portrait.png",
+      "purpose": "Composición/export de arranque de referencia; uso condicionado a plataforma",
+      "dimensions_px": [
+        1080,
+        2400
+      ],
+      "aspect_ratio": 0.45,
+      "format": "PNG",
+      "source_master": "splashes/export.py + splashes/export-matrix.json + assets/brand/app-icon-master.png",
+      "intended_application_location": "public/splashes/splash-compact-portrait.png",
+      "bytes": 33065,
+      "sha256": "1d9b224f80a74c075562558efbefede6516fb1b31a85002da001b67e67172dc5"
+    },
+    {
+      "filename": "splashes/splash-large-portrait.png",
+      "purpose": "Composición/export de arranque de referencia; uso condicionado a plataforma",
+      "dimensions_px": [
+        1290,
+        2796
+      ],
+      "aspect_ratio": 0.46137,
+      "format": "PNG",
+      "source_master": "splashes/export.py + splashes/export-matrix.json + assets/brand/app-icon-master.png",
+      "intended_application_location": "public/splashes/splash-large-portrait.png",
+      "bytes": 35635,
+      "sha256": "cb3bc8521a341fc3f5bb6856f737bb67a044199dedefa61720c8f3c2f040300b"
+    },
+    {
+      "filename": "splashes/splash-master.png",
+      "purpose": "Composición/export de arranque de referencia; uso condicionado a plataforma",
+      "dimensions_px": [
+        1170,
+        2532
+      ],
+      "aspect_ratio": 0.46209,
+      "format": "PNG",
+      "source_master": "splashes/export.py + splashes/export-matrix.json + assets/brand/app-icon-master.png",
+      "intended_application_location": "public/splashes/splash-master.png",
+      "bytes": 34694,
+      "sha256": "3bd04baf54f4e7196ad78bb37cdb56fbd33cf3c0da7f17034956d8c54cb3db3d"
+    },
+    {
+      "filename": "splashes/splash-standard-portrait.png",
+      "purpose": "Composición/export de arranque de referencia; uso condicionado a plataforma",
+      "dimensions_px": [
+        1170,
+        2532
+      ],
+      "aspect_ratio": 0.46209,
+      "format": "PNG",
+      "source_master": "splashes/export.py + splashes/export-matrix.json + assets/brand/app-icon-master.png",
+      "intended_application_location": "public/splashes/splash-standard-portrait.png",
+      "bytes": 34694,
+      "sha256": "3bd04baf54f4e7196ad78bb37cdb56fbd33cf3c0da7f17034956d8c54cb3db3d"
+    }
+  ],
+  "no_additional_assets_required": [
+    "No se usa textura de fondo: canvas exacto.",
+    "No hay ilustración de vacío: icono funcional Lucide + texto.",
+    "No se entrega hoja decorativa del moodboard: no se adopta en UI."
+  ],
+  "regenerate": "python3 docs/design/implementation-guide/build_manifest.py"
+}

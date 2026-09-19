@@ -1,0 +1,56 @@
+{
+  "background": "#FFF8ED",
+  "master": "splash-master.png",
+  "composition": {
+    "iconCss": 80,
+    "centerY": "43%",
+    "nameOffsetY": 66,
+    "taglineOffsetY": 94,
+    "nameSize": 18,
+    "taglineSize": 14
+  },
+  "exports": [
+    {
+      "id": "compact-portrait",
+      "css": [
+        360,
+        800
+      ],
+      "dpr": 3,
+      "pixels": [
+        1080,
+        2400
+      ],
+      "filename": "splash-compact-portrait.png",
+      "purpose": "Reference export; OS support must be verified"
+    },
+    {
+      "id": "standard-portrait",
+      "css": [
+        390,
+        844
+      ],
+      "dpr": 3,
+      "pixels": [
+        1170,
+        2532
+      ],
+      "filename": "splash-standard-portrait.png",
+      "purpose": "Reference export; OS support must be verified"
+    },
+    {
+      "id": "large-portrait",
+      "css": [
+        430,
+        932
+      ],
+      "dpr": 3,
+      "pixels": [
+        1290,
+        2796
+      ],
+      "filename": "splash-large-portrait.png",
+      "purpose": "Reference export; OS support must be verified"
+    }
+  ]
+}

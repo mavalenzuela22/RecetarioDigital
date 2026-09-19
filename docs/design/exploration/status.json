@@ -1,0 +1,29 @@
+{
+  "task": "TSK-002",
+  "phase_1": "delivered_with_evidence_limits",
+  "phase_2": "delivered",
+  "status": "design_package_complete",
+  "selected_direction": "A",
+  "visual_direction_accepted": true,
+  "brandbook_started": true,
+  "implementation_handoff_ready": true,
+  "task_complete": true,
+  "phase_3": "accepted",
+  "selected_direction_name": "Cocina cálida artesanal",
+  "selection_evidence": "La patrona dice que le gustó la opción A. Cocina cálida artesanal",
+  "current_visual_reference": "refinement/A/board-r1.png",
+  "acceptance_evidence": {
+    "operator_response": "dale",
+    "in_response_to": "¿Así queda A y avanzamos al paquete completo?",
+    "accepted_reference": "refinement/A/board-r1.png"
+  },
+  "phase_4": "complete",
+  "phase_5": "complete",
+  "phase_6": "complete",
+  "formal_governance_pass_claimed": false,
+  "production_implementation": false,
+  "unresolved_blocking_design_decisions": [],
+  "final_package": "docs/design/",
+  "asset_manifest": "implementation-guide/asset-manifest.json",
+  "qa": "implementation-guide/design-qa.md"
+}

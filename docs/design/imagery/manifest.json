@@ -1,0 +1,100 @@
+{
+  "phase": 3,
+  "assets": [
+    {
+      "filename": "exploration/A/board.png",
+      "purpose": "Phase 2, dirección A; Hoy, compra y muestras",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "aspectRatio": 1.3333,
+      "format": "PNG",
+      "master": "exploration/A/board.png",
+      "source": "built-in image_gen; prompts in imagery/PROMPTS.md",
+      "sha256": "d2c0d94f0621627ee87428328cf2278398562c2a3028ae8d66d8ce4e0d674a2f",
+      "intendedEventualLocation": "Referencia docs/design únicamente; no copiar como UI de producción",
+      "productionApproved": false
+    },
+    {
+      "filename": "exploration/B/board.png",
+      "purpose": "Phase 2, dirección B; Hoy, compra y muestras",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "aspectRatio": 1.3333,
+      "format": "PNG",
+      "master": "exploration/B/board.png",
+      "source": "built-in image_gen; prompts in imagery/PROMPTS.md",
+      "sha256": "de0bd45d069773480741954a802a603620c1494e4745b76bffe29cc815c715b6",
+      "intendedEventualLocation": "Referencia docs/design únicamente; no copiar como UI de producción",
+      "productionApproved": false
+    },
+    {
+      "filename": "exploration/C/board.png",
+      "purpose": "Phase 2, dirección C; Hoy, compra y muestras",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "aspectRatio": 1.3333,
+      "format": "PNG",
+      "master": "exploration/C/board.png",
+      "source": "built-in image_gen; prompts in imagery/PROMPTS.md",
+      "sha256": "4dd83040e7c0f6ed5e3c553ed4f377aa8c8b4853ff041d32eac5376a04481aeb",
+      "intendedEventualLocation": "Referencia docs/design únicamente; no copiar como UI de producción",
+      "productionApproved": false
+    },
+    {
+      "filename": "audit/evidence/01-shell-390.png",
+      "purpose": "Evidencia visual del shell TSK-001",
+      "dimensions": [
+        65536,
+        4292542531
+      ],
+      "format": "PNG",
+      "source": "Codex in-app browser screenshot, current run",
+      "intendedEventualLocation": "docs/design/audit/evidence",
+      "productionApproved": false
+    },
+    {
+      "filename": "audit/evidence/02-primeros-pasos-390.png",
+      "purpose": "Evidencia visual del shell TSK-001",
+      "dimensions": [
+        65536,
+        4292542531
+      ],
+      "format": "PNG",
+      "source": "Codex in-app browser screenshot, current run",
+      "intendedEventualLocation": "docs/design/audit/evidence",
+      "productionApproved": false
+    },
+    {
+      "filename": "audit/evidence/03-shell-320.png",
+      "purpose": "Evidencia visual del shell TSK-001",
+      "dimensions": [
+        65536,
+        4292542531
+      ],
+      "format": "PNG",
+      "source": "Codex in-app browser screenshot, current run",
+      "intendedEventualLocation": "docs/design/audit/evidence",
+      "productionApproved": false
+    },
+    {
+      "filename": "refinement/A/board-r1.png",
+      "purpose": "Phase 3: A seleccionada, refinamiento 1 pendiente de aceptación",
+      "dimensions": [
+        1448,
+        1086
+      ],
+      "format": "PNG",
+      "master": "refinement/A/board-r1.png",
+      "source": "built-in image_gen edit; refinement/A/PROMPT-R1.md",
+      "sha256": "1681b979c0b8ed52cc6ed203b6b07ae62b2c403625ffbf4649255d37a039ae08",
+      "intendedEventualLocation": "Referencia docs/design únicamente",
+      "productionApproved": false
+    }
+  ]
+}
