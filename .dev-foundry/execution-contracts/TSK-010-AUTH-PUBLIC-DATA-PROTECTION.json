@@ -1,0 +1,156 @@
+{
+  "schemaVersion": "foundry-runner.execution-contract.v1",
+  "taskId": "TSK-010-AUTH-PUBLIC-DATA-PROTECTION",
+  "executor": "codex-cli",
+  "repoPath": ".",
+  "branch": "tsk-010-auth-public-data-protection",
+  "promptPath": ".dev-foundry/prompts/TSK-010-AUTH-PUBLIC-DATA-PROTECTION.md",
+  "allowedPaths": [
+    ".dev-foundry/execution-contracts/TSK-010-AUTH-PUBLIC-DATA-PROTECTION.json",
+    ".dev-foundry/execution-contracts/TSK-010-C001-FEATURE-AUTH-HARNESS.json",
+    ".dev-foundry/execution-contracts/TSK-010-C002-AUTH-FEATURE-TEST-ISOLATION.json",
+    ".dev-foundry/prompts/TSK-010-AUTH-PUBLIC-DATA-PROTECTION.md",
+    ".dev-foundry/prompts/TSK-010-C001-FEATURE-AUTH-HARNESS.md",
+    ".dev-foundry/prompts/TSK-010-C002-AUTH-FEATURE-TEST-ISOLATION.md",
+    "app/Http/Controllers/AuthController.php",
+    "app/Http/Controllers/RecipeController.php",
+    "app/Http/Requests/LoginRequest.php",
+    "app/Services/SaveRecipe.php",
+    "docs/TSK-010-AUTH-PUBLIC-DATA-PROTECTION.md",
+    "e2e/auth.spec.ts",
+    "e2e/auth.ts",
+    "e2e/home.spec.ts",
+    "e2e/ingredient-purchase.spec.ts",
+    "e2e/order-capture.spec.ts",
+    "e2e/order-operations.spec.ts",
+    "e2e/product-history.spec.ts",
+    "e2e/product-pricing.spec.ts",
+    "e2e/recipe-costing.spec.ts",
+    "e2e/today-production.spec.ts",
+    "playwright.config.ts",
+    "resources/js/Components/PurchaseUI.tsx",
+    "resources/js/Pages/Auth/Login.tsx",
+    "resources/js/Pages/Home.tsx",
+    "routes/console.php",
+    "routes/web.php",
+    "tests/Feature/AuthTest.php",
+    "tests/Feature/RecipeTest.php",
+    "tests/TestCase.php",
+    ".dev-foundry/execution-requests/",
+    ".dev-foundry/executions/",
+    ".dev-foundry/validation-requests/",
+    ".dev-foundry/validations/"
+  ],
+  "blockedPaths": [
+    ".env",
+    ".git/",
+    "docs/design/",
+    "database/migrations/",
+    "composer.json",
+    "composer.lock",
+    "package.json",
+    "package-lock.json",
+    "config/auth.php",
+    "config/session.php",
+    "config/filesystems.php",
+    "app/Models/User.php",
+    "app/Services/ProductCosting.php",
+    "app/Services/RecordIngredientPurchase.php",
+    "app/Services/SaveOrder.php",
+    "app/Services/RecordOrderPayment.php",
+    "app/Services/TransitionOrderFulfillment.php",
+    "app/Services/OperationalSummary.php",
+    "app/Services/ProductHistoryComparison.php"
+  ],
+  "validationCommands": [
+    {
+      "command": "docker",
+      "args": [
+        "compose",
+        "build",
+        "app"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "docker",
+      "args": [
+        "compose",
+        "run",
+        "--rm",
+        "app",
+        "composer",
+        "install",
+        "--no-interaction",
+        "--prefer-dist"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "npm",
+      "args": [
+        "ci"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "docker",
+      "args": [
+        "compose",
+        "run",
+        "--rm",
+        "app",
+        "php",
+        "artisan",
+        "test"
+      ],
+      "timeoutSeconds": 900
+    },
+    {
+      "command": "npx",
+      "args": [
+        "tsc",
+        "--noEmit"
+      ],
+      "timeoutSeconds": 600
+    },
+    {
+      "command": "npm",
+      "args": [
+        "run",
+        "build"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "sh",
+      "args": [
+        "-lc",
+        "docker rm -f eo-tsk003-e2e >/dev/null 2>&1 || true"
+      ],
+      "timeoutSeconds": 120
+    },
+    {
+      "command": "npx",
+      "args": [
+        "playwright",
+        "test",
+        "--project=mobile"
+      ],
+      "timeoutSeconds": 1800
+    },
+    {
+      "command": "git",
+      "args": [
+        "diff",
+        "--check"
+      ],
+      "timeoutSeconds": 120
+    }
+  ],
+  "commitPolicy": "manual",
+  "pushPolicy": "disabled",
+  "prPolicy": "disabled",
+  "evidencePolicy": "required",
+  "outputPath": ".dev-foundry/executions/TSK-010-AUTH-PUBLIC-DATA-PROTECTION"
+}

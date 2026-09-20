@@ -153,13 +153,13 @@ it('creates version two, rejects stale bases, and replays an identical request',
 });
 
 it('validates and stores an optional image through Laravel storage', function (): void {
-    Storage::fake('public');
+    Storage::fake('local');
     [$flour] = makeRecipeIngredients();
     $input = recipeInput([['ingredient_id' => $flour, 'quantity' => '1', 'unit' => 'kg']], ['image' => UploadedFile::fake()->create('roles.webp', 1, 'image/webp')]);
     $this->post(route('recipes.store'), $input)->assertStatus(303)->assertSessionHas('success', 'Receta guardada como nueva versión.');
     $version = RecipeVersion::sole();
     expect($version->image_path)->not->toBeNull();
-    Storage::disk('public')->assertExists($version->image_path);
+    Storage::disk('local')->assertExists($version->image_path);
     $second = app(SaveRecipe::class)->save(recipeInput([
         ['ingredient_id' => $flour, 'quantity' => '500', 'unit' => 'g'],
     ], ['base_version_id' => $version->id] ), Recipe::sole());

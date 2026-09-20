@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './auth';
 
 for (const width of [320, 390]) {
     test(`purchase, validation, retry and backdated history at ${width}px`, async ({ page }) => {

@@ -226,7 +226,7 @@ class SaveRecipe
 
     private function imagePath(?UploadedFile $image, ?string $previousPath): ?string
     {
-        return $image?->store('recipes', 'public') ?? $previousPath;
+        return $image?->store('recipes', 'local') ?? $previousPath;
     }
 
     private function safeMultiply(int $left, int $right, string $message): int
