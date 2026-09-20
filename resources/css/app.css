@@ -122,6 +122,21 @@ fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
 .optional-toggle { min-height: 48px; width: 100%; padding: 12px 0; margin: 16px 0 8px; text-align: left; color: var(--eo-primary); background: none; border: 0; font-weight: 600; }
 .cost-summary { padding: 16px; border-radius: var(--eo-radius-card); background: var(--eo-positive-soft); margin: 24px 0 16px; overflow-wrap: anywhere; }
 .cost-summary p { margin-top: 8px; margin-bottom: 0; }
+.date-pair, .history-sides, .history-provenance-grid { display: grid; gap: 12px; }
+.history-disclaimer, .notice, .pending { padding: 12px 16px; margin: 20px 0; border-radius: 12px; background: var(--eo-info-soft); color: var(--eo-info); }
+.notice { background: var(--eo-warning-soft); color: var(--eo-warning); }
+.pending { background: var(--eo-warning-soft); color: var(--eo-warning); font-size: 14px; line-height: 20px; }
+.history-side { padding: 16px; border: 1px solid var(--eo-line); border-radius: var(--eo-radius-card); background: var(--eo-paper); overflow-wrap: anywhere; }
+.history-side h2, .history-section h2 { margin-bottom: 4px; }
+.history-driver { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--eo-line); }
+.history-driver span { min-width: 0; overflow-wrap: anywhere; }
+.history-driver strong, .history-driver small { display: block; }
+.history-driver small { color: var(--eo-muted); font-size: 13px; line-height: 18px; }
+.history-section { margin-top: 28px; }
+.history-provenance { margin-top: 28px; padding: 16px; border: 1px solid var(--eo-line); border-radius: var(--eo-radius-card); background: var(--eo-paper); }
+.history-provenance summary { min-height: 48px; padding: 12px 0; cursor: pointer; font-weight: 700; }
+.history-provenance h3 { margin: 16px 0 8px; font-weight: 700; }
+.history-provenance p, .history-provenance li { font-size: 14px; line-height: 20px; margin: 8px 0; overflow-wrap: anywhere; }
 .eyebrow { font-size: 14px; line-height: 20px; color: var(--eo-positive); font-weight: 600; }
 .cost { font-size: 28px; line-height: 34px; }
 .money { font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
@@ -150,4 +165,5 @@ dialog { max-width: 440px; width: calc(100% - 32px); max-height: 85dvh; padding:
 dialog::backdrop { background: var(--eo-scrim); }
 dialog p { margin-bottom: 24px; }
 @media (max-width: 359px) { .flow { padding-left: 16px; padding-right: 16px; } .flow h1 { font-size: 28px; line-height: 34px; } .cost { font-size: 24px; line-height: 28.8px; } .brand { font-size: 12px; } }
+@media (min-width: 560px) { .date-pair, .history-sides, .history-provenance-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 0s !important; scroll-behavior: auto !important; } }

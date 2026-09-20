@@ -28,6 +28,30 @@ export type ProductCost = {
 };
 export type ProductPayload = { id: number; name: string; active: boolean; sale_unit: 'piece'; recipe_id: number; cost: ProductCost };
 
+export type HistoryLine = { ingredient_id: number; ingredient_name: string | null; normalized_quantity_milli: string; purchase_date: string | null; purchase_id: number | null; unit_cost_micros: string | null; usage_cost_micros: string | null };
+export type HistorySide = {
+    date: string;
+    available: boolean;
+    complete: boolean;
+    message: string | null;
+    recipe: { id: number; version_number: string; expected_yield: string; lines: HistoryLine[] } | null;
+    profile: { id: number; version_number: string; reference_order_quantity: string; components: { position: string; concept: string; amount_minor: string; allocation: 'batch' | 'unit' | 'order' }[] } | null;
+    price: { id: number; price_minor: string; effective_at: string; effective_date: string } | null;
+    economics: { unit_cost_micros: string | null; sale_price_minor: string | null; profit_per_unit_micros: string | null; margin_percent: string | null };
+    provenance: { recipe: string; profile: string; price: string; ingredients: { ingredient_name: string | null; purchase_date: string | null }[] } | null;
+};
+export type HistoryComparison = {
+    error: string | null;
+    before: HistorySide | null;
+    now: HistorySide | null;
+    cost_delta_micros: string | null;
+    cost_delta_abs_micros: string | null;
+    cost_delta_percent: string | null;
+    recipe_changed: boolean | null;
+    profile_changed: boolean | null;
+    drivers: { ingredient_id: number; ingredient_name: string | null; delta_micros: string; before_micros: string; now_micros: string; before_purchase_date: string | null; now_purchase_date: string | null }[] | null;
+};
+
 export function exactDecimal(value: string, scale: number, signed = false): string {
     const negative = signed && value.startsWith('-');
     const raw = negative ? value.slice(1) : value;

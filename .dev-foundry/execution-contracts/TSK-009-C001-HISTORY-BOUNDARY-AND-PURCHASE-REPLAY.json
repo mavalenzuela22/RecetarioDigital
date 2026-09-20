@@ -1,0 +1,149 @@
+{
+  "schemaVersion": "foundry-runner.execution-contract.v1",
+  "taskId": "TSK-009-C001-HISTORY-BOUNDARY-AND-PURCHASE-REPLAY",
+  "executor": "codex-cli",
+  "repoPath": ".",
+  "branch": "tsk-009-product-history-comparison",
+  "promptPath": ".dev-foundry/prompts/TSK-009-C001-HISTORY-BOUNDARY-AND-PURCHASE-REPLAY.md",
+  "allowedPaths": [
+    ".dev-foundry/execution-contracts/TSK-009-PRODUCT-HISTORY-COMPARISON.json",
+    ".dev-foundry/prompts/TSK-009-PRODUCT-HISTORY-COMPARISON.md",
+    ".dev-foundry/execution-contracts/TSK-009-C001-HISTORY-BOUNDARY-AND-PURCHASE-REPLAY.json",
+    ".dev-foundry/prompts/TSK-009-C001-HISTORY-BOUNDARY-AND-PURCHASE-REPLAY.md",
+    "docs/TSK-009-PRODUCT-HISTORY-COMPARISON.md",
+    "routes/web.php",
+    "app/Http/Controllers/ProductController.php",
+    "app/Models/IngredientPurchase.php",
+    "app/Services/ProductHistoryComparison.php",
+    "resources/css/app.css",
+    "resources/js/Components/ProductUI.tsx",
+    "resources/js/Pages/Products/Show.tsx",
+    "resources/js/Pages/Products/History.tsx",
+    "tests/Feature/ProductHistoryTest.php",
+    "e2e/product-history.spec.ts",
+    ".dev-foundry/execution-requests/",
+    ".dev-foundry/executions/",
+    ".dev-foundry/validation-requests/",
+    ".dev-foundry/validations/"
+  ],
+  "blockedPaths": [
+    ".env",
+    ".git/",
+    "docs/design/",
+    "database/migrations/",
+    "composer.json",
+    "composer.lock",
+    "package.json",
+    "package-lock.json",
+    "Dockerfile",
+    "docker-compose.yml",
+    "playwright.config.ts",
+    "app/Services/ProductCosting.php",
+    "app/Services/RecordIngredientPurchase.php",
+    "app/Services/SaveRecipe.php",
+    "app/Services/SaveProductProfile.php",
+    "app/Services/ChangeProductPrice.php",
+    "tests/Feature/IngredientPurchaseTest.php",
+    "tests/Feature/ProductPricingTest.php",
+    "tests/Feature/OrderCaptureTest.php",
+    "tests/Feature/OrderOperationsTest.php",
+    "tests/Feature/TodayProductionTest.php",
+    "e2e/product-pricing.spec.ts",
+    "e2e/order-capture.spec.ts",
+    "e2e/order-operations.spec.ts",
+    "e2e/today-production.spec.ts"
+  ],
+  "validationCommands": [
+    {
+      "command": "docker",
+      "args": [
+        "compose",
+        "build",
+        "app"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "docker",
+      "args": [
+        "compose",
+        "run",
+        "--rm",
+        "app",
+        "composer",
+        "install",
+        "--no-interaction",
+        "--prefer-dist"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "npm",
+      "args": [
+        "ci"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "docker",
+      "args": [
+        "compose",
+        "run",
+        "--rm",
+        "app",
+        "php",
+        "artisan",
+        "test"
+      ],
+      "timeoutSeconds": 900
+    },
+    {
+      "command": "npx",
+      "args": [
+        "tsc",
+        "--noEmit"
+      ],
+      "timeoutSeconds": 600
+    },
+    {
+      "command": "npm",
+      "args": [
+        "run",
+        "build"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "sh",
+      "args": [
+        "-lc",
+        "docker rm -f eo-tsk003-e2e >/dev/null 2>&1 || true"
+      ],
+      "timeoutSeconds": 120
+    },
+    {
+      "command": "npx",
+      "args": [
+        "playwright",
+        "test",
+        "e2e/product-pricing.spec.ts",
+        "e2e/product-history.spec.ts",
+        "--project=mobile"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "git",
+      "args": [
+        "diff",
+        "--check"
+      ],
+      "timeoutSeconds": 120
+    }
+  ],
+  "commitPolicy": "manual",
+  "pushPolicy": "disabled",
+  "prPolicy": "disabled",
+  "evidencePolicy": "required",
+  "outputPath": ".dev-foundry/executions/TSK-009-C001-HISTORY-BOUNDARY-AND-PURCHASE-REPLAY"
+}
