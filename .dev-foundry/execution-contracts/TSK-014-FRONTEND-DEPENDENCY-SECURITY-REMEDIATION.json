@@ -1,0 +1,157 @@
+{
+  "schemaVersion": "foundry-runner.execution-contract.v1",
+  "taskId": "TSK-014-FRONTEND-DEPENDENCY-SECURITY-REMEDIATION",
+  "executor": "codex-cli",
+  "repoPath": ".",
+  "branch": "tsk-014-frontend-dependency-security-remediation",
+  "promptPath": ".dev-foundry/prompts/TSK-014-FRONTEND-DEPENDENCY-SECURITY-REMEDIATION.md",
+  "allowedPaths": [
+    ".dev-foundry/execution-contracts/TSK-014-FRONTEND-DEPENDENCY-SECURITY-REMEDIATION.json",
+    ".dev-foundry/prompts/TSK-014-FRONTEND-DEPENDENCY-SECURITY-REMEDIATION.md",
+    "docs/TSK-014-FRONTEND-DEPENDENCY-SECURITY-REMEDIATION.md",
+    "package.json",
+    "package-lock.json",
+    ".dev-foundry/execution-requests/",
+    ".dev-foundry/executions/",
+    ".dev-foundry/validation-requests/",
+    ".dev-foundry/validations/"
+  ],
+  "blockedPaths": [
+    ".env",
+    ".env.example",
+    ".git/",
+    "app/",
+    "bootstrap/",
+    "config/",
+    "database/",
+    "public/",
+    "resources/",
+    "routes/",
+    "tests/",
+    "e2e/",
+    "docs/design/",
+    "composer.json",
+    "composer.lock",
+    "phpunit.xml",
+    "playwright.config.ts",
+    "vite.config.ts",
+    "tsconfig.json",
+    "compose.yaml",
+    "Dockerfile",
+    "scripts/"
+  ],
+  "validationCommands": [
+    {
+      "command": "npm",
+      "args": [
+        "ci"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "npm",
+      "args": [
+        "audit",
+        "--audit-level=moderate"
+      ],
+      "timeoutSeconds": 600
+    },
+    {
+      "command": "npx",
+      "args": [
+        "tsc",
+        "--noEmit"
+      ],
+      "timeoutSeconds": 600
+    },
+    {
+      "command": "npm",
+      "args": [
+        "run",
+        "build"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "docker",
+      "args": [
+        "compose",
+        "build",
+        "app"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "docker",
+      "args": [
+        "compose",
+        "run",
+        "--rm",
+        "app",
+        "composer",
+        "install",
+        "--no-interaction",
+        "--prefer-dist"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "docker",
+      "args": [
+        "compose",
+        "run",
+        "--rm",
+        "app",
+        "php",
+        "artisan",
+        "test"
+      ],
+      "timeoutSeconds": 900
+    },
+    {
+      "command": "bash",
+      "args": [
+        "scripts/test-percona.sh"
+      ],
+      "timeoutSeconds": 1800
+    },
+    {
+      "command": "sh",
+      "args": [
+        "-lc",
+        "docker rm -f eo-tsk003-e2e >/dev/null 2>&1 || true"
+      ],
+      "timeoutSeconds": 120
+    },
+    {
+      "command": "npx",
+      "args": [
+        "playwright",
+        "test",
+        "--project=mobile"
+      ],
+      "timeoutSeconds": 1800
+    },
+    {
+      "command": "sh",
+      "args": [
+        "-lc",
+        "rm -rf artifacts/releases/tsk014-validation && bash scripts/build-release.sh --allow-dirty --output-dir artifacts/releases/tsk014-validation && ZIP=$(find artifacts/releases/tsk014-validation -maxdepth 1 -name '*.zip' -print -quit); test -n \"$ZIP\"; bash scripts/verify-release.sh \"$ZIP\""
+      ],
+      "timeoutSeconds": 1800
+    },
+    {
+      "command": "git",
+      "args": [
+        "diff",
+        "--check"
+      ],
+      "timeoutSeconds": 120
+    }
+  ],
+  "commitPolicy": "manual",
+  "pushPolicy": "disabled",
+  "prPolicy": "disabled",
+  "evidencePolicy": "required",
+  "outputPath": ".dev-foundry/executions/TSK-014-FRONTEND-DEPENDENCY-SECURITY-REMEDIATION"
+}
