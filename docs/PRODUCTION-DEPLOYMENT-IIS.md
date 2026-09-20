@@ -45,6 +45,7 @@ DB_PASSWORD=<secret supplied outside the package>
 
 SESSION_DRIVER=database
 CACHE_STORE=database
+QUEUE_CONNECTION=sync
 SESSION_SECURE_COOKIE=true
 FILESYSTEM_DISK=local
 LOG_CHANNEL=stack

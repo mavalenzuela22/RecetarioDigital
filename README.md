@@ -22,6 +22,16 @@ docker compose run --rm app php artisan key:generate --show
 
 Copy the displayed value into `.env` as `APP_KEY=...`. Database settings are read from `DB_CONNECTION`, `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, and `DB_PASSWORD`; production values belong only in the hosting environment. The test suite uses an in-memory SQLite setting from `phpunit.xml` and does not need a live production database.
 
+## Database compatibility validation
+
+Normal Pest runs against in-memory SQLite for fast local feedback. The production-database compatibility gate is:
+
+```sh
+bash scripts/test-percona.sh
+```
+
+It runs the migrations and full Pest suite against an ephemeral official Percona Server 8.4 container, including the database session and cache tables. It uses disposable test credentials and storage and never connects to production.
+
 ## Validation commands
 
 ```sh
