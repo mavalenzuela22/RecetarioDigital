@@ -42,3 +42,18 @@ git diff --check
 Playwright starts Laravel through the PHP 8.3 container when `PLAYWRIGHT_BASE_URL` is not set. To target an already-running local or staging instance, set `PLAYWRIGHT_BASE_URL`.
 
 The first migration is deliberately limited to Laravel's runtime user/session foundation. No EmprendimientoOS business tables or CRUD are included in this bootstrap task.
+
+## Production release for IIS
+
+Build a release ZIP locally with PHP/Composer and Node/npm available; the builder installs production Composer dependencies, compiles `public/build/`, and keeps secrets and persistent storage outside the package:
+
+```sh
+bash scripts/build-release.sh --output-dir artifacts/releases/production
+bash scripts/verify-release.sh artifacts/releases/production/emprendimientoos-<commit-sha>.zip
+```
+
+Follow [the IIS deployment runbook](docs/PRODUCTION-DEPLOYMENT-IIS.md) for environment, persistent storage, deploy, smoke, and rollback invariants. After a live deployment, the read-only smoke contract is:
+
+```sh
+bash scripts/smoke-release.sh https://your-production-host.example
+```

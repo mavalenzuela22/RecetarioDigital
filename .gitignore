@@ -30,6 +30,7 @@
 /test-results/
 /e2e/.auth/
 /.playwright-mcp/
+/artifacts/releases/
 
 # Local environment and tooling
 .env.*

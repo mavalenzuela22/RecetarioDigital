@@ -41,10 +41,47 @@ test('provides an installable shell without caching business data', async ({ pag
 
     const registration = await page.evaluate(async () => {
         const value = await navigator.serviceWorker.ready;
+        const active = value.active;
+
+        if (!active) {
+            throw new Error('Service worker registration has no active worker.');
+        }
+
+        if (active.state === 'redundant') {
+            throw new Error('Service worker became redundant before activation.');
+        }
+
+        if (active.state !== 'activated') {
+            await new Promise<void>((resolve, reject) => {
+                const timeout = window.setTimeout(() => {
+                    cleanup();
+                    reject(new Error(`Timed out waiting for service worker activation; final state: ${active.state}.`));
+                }, 10_000);
+
+                const cleanup = () => {
+                    window.clearTimeout(timeout);
+                    active.removeEventListener('statechange', onStateChange);
+                };
+
+                const onStateChange = () => {
+                    if (active.state === 'activated') {
+                        cleanup();
+                        resolve();
+                    } else if (active.state === 'redundant') {
+                        cleanup();
+                        reject(new Error('Service worker became redundant before activation.'));
+                    }
+                };
+
+                active.addEventListener('statechange', onStateChange);
+                onStateChange();
+            });
+        }
+
         return {
-            activeScript: value?.active?.scriptURL,
-            scope: value?.scope,
-            state: value?.active?.state,
+            activeScript: active.scriptURL,
+            scope: value.scope,
+            state: active.state,
         };
     });
     expect(registration.activeScript).toMatch(/\/sw\.js$/);
