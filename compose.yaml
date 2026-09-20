@@ -12,3 +12,25 @@ services:
       APP_URL: http://127.0.0.1:8000
     ports:
       - "8000:8000"
+
+  percona:
+    image: percona/percona-server:8.4
+    platform: ${PERCONA_PLATFORM:-linux/amd64}
+    profiles:
+      - percona-test
+    environment:
+      MYSQL_ROOT_PASSWORD: percona_root_tsk013_only
+      MYSQL_DATABASE: emprendimientoos_test
+      MYSQL_USER: emprendimientoos_test
+      MYSQL_PASSWORD: percona_tsk013_only
+    volumes:
+      - percona_test_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u$${MYSQL_USER} -p$${MYSQL_PASSWORD} --silent"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+      start_period: 10s
+
+volumes:
+  percona_test_data:

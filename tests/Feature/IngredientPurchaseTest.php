@@ -25,10 +25,11 @@ function purchaseInput(array $overrides = []): array
 }
 
 it('persists exact quantities and rounded micros without floats', function ($quantity, $unit, $paid, $normalized, $micros, $canonical): void {
-    $this->post(route('purchases.store'), purchaseInput([
+    $response = $this->post(route('purchases.store'), purchaseInput([
         'purchase_quantity' => $quantity, 'purchase_unit' => $unit, 'total_paid' => $paid,
-    ]))->assertSessionHasNoErrors()->assertRedirect(route('ingredients.show', 1));
+    ]))->assertSessionHasNoErrors();
     $purchase = IngredientPurchase::sole();
+    $response->assertRedirect(route('ingredients.show', $purchase->ingredient_id));
     expect($purchase->normalized_quantity_milli)->toBe($normalized)
         ->and($purchase->normalized_unit_cost_micros)->toBe($micros)
         ->and($purchase->ingredient->canonical_unit)->toBe($canonical);
@@ -129,13 +130,15 @@ it('exposes Inertia validation errors and preserves submitted input', function (
 it('renders the overview, selected form, durable history and confirmed success', function (): void {
     $this->get(route('ingredients.index'))->assertInertia(fn (Assert $page) => $page->component('Ingredients/Index')->has('ingredients', 0));
     $this->post(route('purchases.store'), purchaseInput())->assertStatus(303);
-    $this->get(route('ingredients.show', 1))->assertInertia(fn (Assert $page) => $page
+    $purchase = IngredientPurchase::sole();
+    $ingredientId = $purchase->ingredient_id;
+    $this->get(route('ingredients.show', $ingredientId))->assertInertia(fn (Assert $page) => $page
         ->component('Ingredients/Show')->where('success', 'Compra registrada.')
         ->where('purchases.data.0.total_paid_minor', '4200')->where('purchases.data.0.purchase_quantity_milli', '1000')
         ->where('purchases.data.0.presentation', 'Bolsa de 1 kg')->where('purchases.data.0.store', 'Mercado')->where('purchases.data.0.note', 'Para pan'));
     $this->get(route('ingredients.index'))->assertInertia(fn (Assert $page) => $page
         ->has('ingredients', 1)->where('ingredients.0.current_purchase.normalized_unit_cost_micros', '42000'));
-    $this->get(route('purchases.create', ['ingredient' => 1]))->assertInertia(fn (Assert $page) => $page
+    $this->get(route('purchases.create', ['ingredient' => $ingredientId]))->assertInertia(fn (Assert $page) => $page
         ->where('selectedIngredient', 'Harina de trigo')->has('ingredients', 1));
     $this->get('/ingredientes/999')->assertNotFound();
 });
