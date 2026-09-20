@@ -1,4 +1,4 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import { type ReactNode } from 'react';
 
 export type Purchase = {
@@ -27,7 +27,7 @@ export function AppShell({ title, children, back, onBack }: { title: string; chi
     return <><Head title={title} /><main className="flow">
         <header className="flow-header">
             {onBack ? <button className="back" type="button" onClick={onBack}>← Volver</button> : <Link className="back" href={back ?? '/'}>← Volver</Link>}
-            <span className="brand">EmprendimientoOS</span>
+            <div className="flex items-center gap-3"><span className="brand">EmprendimientoOS</span><button className="text-sm font-semibold text-primary" type="button" aria-label="Cerrar sesión" onClick={() => router.post('/logout')}>Salir</button></div>
         </header>
         <h1>{title}</h1>{children}
     </main></>;

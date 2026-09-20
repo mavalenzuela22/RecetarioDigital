@@ -1,4 +1,4 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type Page } from './auth';
 
 async function recordPurchase(page: Page, name: string, price: string, unit: string) {
     await page.goto('/compras/nueva');

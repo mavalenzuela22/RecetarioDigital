@@ -1,4 +1,4 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 
 type Money = { expected_revenue_label: string; balance_label: string; cost_complete: boolean; estimated_cost_label: string | null; estimated_profit_label: string | null; profit_pending_label: string | null };
 type Group = { product_id: number; name: string; total_units: string; units_to_prepare: string; ready_units: string; orders: unknown[] };
@@ -11,7 +11,7 @@ export default function Home({ title, date_label, production, deliveries, collec
     return <>
         <Head title="Hoy" />
         <main className="flow min-h-screen">
-            <header className="flow-header"><Link href="/" className="brand" aria-label="EmprendimientoOS, inicio">EmprendimientoOS</Link><span className="help m-0">{date_label}</span></header>
+            <header className="flow-header"><Link href="/" className="brand" aria-label="EmprendimientoOS, inicio">EmprendimientoOS</Link><div className="flex items-center gap-3"><span className="help m-0">{date_label}</span><button className="text-sm font-semibold text-primary" type="button" aria-label="Cerrar sesión" onClick={() => router.post('/logout')}>Salir</button></div></header>
             <p className="eyebrow">Tu jornada</p><h1>{title}</h1><p className="intro">Lo que necesitas preparar, entregar y cobrar hoy.</p>
 
             {!production.groups.length && !deliveries.length && !collections.length

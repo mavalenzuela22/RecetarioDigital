@@ -64,6 +64,14 @@ class RecipeController extends Controller
         ]);
     }
 
+    public function image(Recipe $recipe, RecipeVersion $version)
+    {
+        abort_unless((int) $version->recipe_id === (int) $recipe->id, 404);
+        abort_unless($version->image_path && Storage::disk('local')->exists($version->image_path), 404);
+
+        return Storage::disk('local')->response($version->image_path);
+    }
+
     public function store(StoreRecipeRequest $request, SaveRecipe $saver): RedirectResponse
     {
         $version = $saver->save($request->validated());
@@ -104,7 +112,7 @@ class RecipeController extends Controller
             'expected_yield' => $version->expected_yield,
             'instructions' => $version->instructions ?? '',
             'notes' => $version->notes ?? '',
-            'image_url' => $version->image_path ? Storage::disk('public')->url($version->image_path) : null,
+            'image_url' => $version->image_path ? route('recipes.image', ['recipe' => $recipe, 'version' => $version]) : null,
             'snapshot_batch_cost_micros' => $version->snapshot_batch_cost_micros,
             'snapshot_unit_cost_micros' => $version->snapshot_unit_cost_micros,
             'lines' => $lines->map(fn ($line): array => [
