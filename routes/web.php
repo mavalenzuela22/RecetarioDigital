@@ -32,6 +32,7 @@ Route::controller(\App\Http\Controllers\ProductController::class)->group(functio
     Route::get('/productos', 'index')->name('products.index');
     Route::get('/productos/nuevo', 'create')->name('products.create');
     Route::get('/productos/{product}', 'show')->name('products.show');
+    Route::get('/productos/{product}/historial', 'history')->name('products.history');
     Route::get('/productos/{product}/editar', 'edit')->name('products.edit');
     Route::post('/productos', 'store')->name('products.store');
     Route::post('/productos/{product}/perfil', 'update')->name('products.update');

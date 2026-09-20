@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Recipe;
 use App\Services\ChangeProductPrice;
 use App\Services\ProductCosting;
+use App\Services\ProductHistoryComparison;
 use App\Services\SaveProductProfile;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -55,8 +56,36 @@ class ProductController extends Controller
             'indexUrl' => route('products.index'),
             'editUrl' => route('products.edit', $product),
             'scenarioPriceUrl' => route('products.price', $product),
+            'historyUrl' => route('products.history', $product),
             'scenarioRequestKey' => (string) Str::uuid(),
             'manualRequestKey' => (string) Str::uuid(),
+        ]);
+    }
+
+    public function history(Request $request, Product $product, ProductHistoryComparison $history): Response
+    {
+        $businessDate = now(config('app.timezone'))->format('Y-m-d');
+        $asOf = (string) $request->query('asOf', $businessDate);
+        $until = (string) $request->query('until', $businessDate);
+        $comparison = null;
+        if ($request->has('asOf') || $request->has('until')) {
+            if ($asOf !== '' && $until !== '') {
+                $comparison = $history->compare($product, $asOf, $until);
+            }
+        }
+
+        $product->loadMissing('recipe.latestVersion');
+
+        return Inertia::render('Products/History', [
+            'product' => [
+                'id' => $product->id,
+                'name' => $product->recipe?->latestVersion?->name ?? $product->recipe?->name,
+            ],
+            'asOf' => $asOf,
+            'until' => $until,
+            'comparison' => $comparison,
+            'productUrl' => route('products.show', $product),
+            'pricingUrl' => route('products.show', $product),
         ]);
     }
 
