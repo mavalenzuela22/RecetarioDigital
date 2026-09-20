@@ -1,12 +1,32 @@
 {
     "name": "EmprendimientoOS",
     "short_name": "EmprendimientoOS",
-    "description": "Una forma más clara de llevar el día a día de tu negocio de alimentos.",
+    "description": "Tu cocina. Tu negocio. Costos, pedidos y cobros con claridad.",
     "lang": "es-MX",
     "start_url": "/",
     "scope": "/",
     "display": "standalone",
     "orientation": "portrait-primary",
-    "background_color": "#f6f1e8",
-    "theme_color": "#f6f1e8"
+    "background_color": "#FFF8ED",
+    "theme_color": "#FFF8ED",
+    "icons": [
+        {
+            "src": "/icons/app-icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/icons/app-icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/icons/maskable-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
 }

@@ -5,6 +5,18 @@ import { createRoot } from 'react-dom/client';
 
 const appName = import.meta.env.VITE_APP_NAME ?? 'EmprendimientoOS';
 
+const registerServiceWorker = () => {
+    if (!('serviceWorker' in navigator)) return;
+
+    navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch(() => undefined);
+};
+
+if (document.readyState === 'complete') {
+    registerServiceWorker();
+} else {
+    window.addEventListener('load', registerServiceWorker, { once: true });
+}
+
 createInertiaApp({
     title: (title) => (title ? `${title} · ${appName}` : appName),
     resolve: (name) =>
