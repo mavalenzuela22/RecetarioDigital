@@ -1,116 +1,29 @@
 import { Head, Link } from '@inertiajs/react';
 
-const focusAreas = [
-    {
-        number: '01',
-        title: 'Costos claros',
-        description: 'Entiende cuánto te cuesta preparar cada producto.',
-    },
-    {
-        number: '02',
-        title: 'Precios con sentido',
-        description: 'Decide qué cobrar y qué ganas con cada venta.',
-    },
-    {
-        number: '03',
-        title: 'Un día más ligero',
-        description: 'Ten a la mano lo que necesitas preparar, entregar y cobrar.',
-    },
-];
+type Money = { expected_revenue_label: string; balance_label: string; cost_complete: boolean; estimated_cost_label: string | null; estimated_profit_label: string | null; profit_pending_label: string | null };
+type Group = { product_id: number; name: string; total_units: string; units_to_prepare: string; ready_units: string; orders: unknown[] };
+type Delivery = { id: number; customer_name: string; delivery_time: string; fulfillment_label: string; url: string };
+type Collection = { id: number; customer_name: string; balance_label: string; url: string };
 
-export default function Home() {
-    return (
-        <>
-            <Head title="Inicio" />
-            <div className="min-h-screen bg-canvas text-ink">
-                <header className="mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-5 sm:px-8 lg:px-12">
-                    <Link href="/" className="flex min-h-12 items-center gap-3" aria-label="EmprendimientoOS, inicio">
-                        <span className="grid size-10 place-items-center rounded-2xl bg-ink text-sm font-bold tracking-[0.18em] text-canvas" aria-hidden="true">
-                            EO
-                        </span>
-                        <span className="text-sm font-semibold tracking-[0.14em] text-ink/80">EMPRENDIMIENTOOS</span>
-                    </Link>
-                    <span className="hidden rounded-full border border-ink/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-ink/55 sm:inline-flex">
-                        Tu operación, en calma
-                    </span>
-                </header>
+export default function Home({ title, date_label, production, deliveries, collections, money, productionUrl, orderUrl, purchaseUrl }: {
+    title: string; date_label: string; production: { units_to_prepare: string; groups: Group[] }; deliveries: Delivery[]; collections: Collection[]; money: Money; productionUrl: string; orderUrl: string; purchaseUrl: string;
+}) {
+    return <>
+        <Head title="Hoy" />
+        <main className="flow min-h-screen">
+            <header className="flow-header"><Link href="/" className="brand" aria-label="EmprendimientoOS, inicio">EmprendimientoOS</Link><span className="help m-0">{date_label}</span></header>
+            <p className="eyebrow">Tu jornada</p><h1>{title}</h1><p className="intro">Lo que necesitas preparar, entregar y cobrar hoy.</p>
 
-                <main>
-                    <section className="mx-auto grid max-w-6xl gap-12 px-5 pb-16 pt-10 sm:px-8 sm:pt-16 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-20 lg:px-12 lg:pb-24 lg:pt-20">
-                        <div>
-                            <p className="mb-6 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.24em] text-primary">
-                                <span className="h-px w-8 bg-primary" aria-hidden="true" />
-                                Hecho para tu negocio
-                            </p>
-                            <h1 className="max-w-xl font-display text-5xl leading-[0.98] tracking-[-0.045em] text-ink sm:text-6xl lg:text-7xl">
-                                Más claridad para hacer crecer lo que haces bien.
-                            </h1>
-                            <p className="mt-7 max-w-lg text-lg leading-8 text-ink/65 sm:text-xl">
-                                EmprendimientoOS reúne tus costos, precios y pendientes para que puedas tomar decisiones con confianza, incluso en los días más ocupados.
-                            </p>
-                            <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-                                <a href="#primeros-pasos" className="button secondary">
-                                    Conoce el punto de partida
-                                </a>
-                                <Link href="/pedidos/nuevo" className="button primary">Tomar pedido</Link>
-                                <Link href="/compras/nueva" className="button secondary">Registrar compra</Link>
-                                <Link href="/recetas" className="button secondary">Ver recetario</Link>
-                            </div>
-                        </div>
+            {!production.groups.length && !deliveries.length && !collections.length
+                ? <section className="empty rounded-2xl bg-paper" aria-label="Día sin pedidos"><h2>No tienes pedidos para hoy.</h2><p className="help">Puedes comenzar con un pedido nuevo.</p><Link className="button primary mt-4 w-full" href={orderUrl}>Tomar pedido</Link></section>
+                : <>
+                    <section aria-labelledby="preparation-title" className="rounded-2xl bg-paper p-4 shadow-[var(--eo-shadow-raised)]"><div className="flex flex-wrap items-start justify-between gap-3"><div><p className="help m-0">Necesitas preparar</p><h2 id="preparation-title" className="m-0">{production.units_to_prepare} piezas</h2></div><Link href={productionUrl} className="button secondary min-h-12 px-3 py-2 text-sm">Ver producción</Link></div>{production.groups.length ? <ul className="ingredient-list mb-0"><li className="py-3">{production.groups.slice(0, 3).map((group) => <div key={group.product_id} className="flex min-w-0 items-center justify-between gap-3 py-2"><span className="min-w-0 truncate font-semibold">{group.name}</span><span className="shrink-0 text-sm text-ink/65">{group.units_to_prepare} piezas</span></div>)}</li></ul> : <p className="help mb-0">No hay piezas pendientes de preparación.</p>}</section>
+                    <section className="mt-8" aria-labelledby="deliveries-title"><div className="flex items-center justify-between gap-3"><h2 id="deliveries-title">Entregas pendientes</h2><span className="help m-0">{deliveries.length}</span></div>{deliveries.length ? <ul className="ingredient-list">{deliveries.map((delivery) => <li key={delivery.id}><Link href={delivery.url} className="ingredient-row"><span className="flex min-w-0 items-center justify-between gap-3"><strong className="truncate">{delivery.customer_name}</strong><span className="shrink-0 text-sm">{delivery.delivery_time}</span></span><span className="help m-0">{delivery.fulfillment_label}</span></Link></li>)}</ul> : <p className="help">No hay entregas pendientes.</p>}</section>
+                    <section className="mt-8" aria-labelledby="collections-title"><div className="flex items-center justify-between gap-3"><h2 id="collections-title">Por cobrar hoy</h2><span className="help m-0">{collections.length}</span></div>{collections.length ? <ul className="ingredient-list">{collections.map((collection) => <li key={collection.id}><Link href={collection.url} className="ingredient-row"><span className="flex min-w-0 items-center justify-between gap-3"><strong className="truncate">{collection.customer_name}</strong><strong className="shrink-0">{collection.balance_label}</strong></span><span className="help m-0">Abrir Cobro y entrega</span></Link></li>)}</ul> : <p className="help">No hay saldos pendientes.</p>}</section>
+                </>}
 
-                        <div className="relative mx-auto w-full max-w-md lg:max-w-none" aria-label="Resumen ilustrativo de una jornada">
-                            <div className="absolute -inset-5 rounded-[2.5rem] bg-positive-soft/25 blur-2xl" aria-hidden="true" />
-                            <div className="relative overflow-hidden rounded-[2rem] border border-ink/10 bg-paper p-5 shadow-[var(--eo-shadow-raised)] sm:p-7">
-                                <div className="flex items-start justify-between">
-                                    <div>
-                                        <p className="text-xs font-bold uppercase tracking-[0.2em] text-ink/45">Tu día</p>
-                                        <p className="mt-2 font-display text-3xl text-ink">A tu ritmo.</p>
-                                    </div>
-                                    <span className="rounded-full bg-positive-soft/35 px-3 py-1.5 text-xs font-bold text-ink/65">Hoy</span>
-                                </div>
-                                <div className="mt-8 rounded-2xl bg-canvas p-4">
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-sm font-semibold text-ink/70">Un vistazo, sin hojas sueltas</span>
-                                        <span className="text-lg text-primary" aria-hidden="true">✦</span>
-                                    </div>
-                                    <div className="mt-5 grid grid-cols-3 gap-2">
-                                        <div className="rounded-xl bg-paper p-3"><p className="text-2xl font-semibold text-ink">—</p><p className="mt-1 text-[0.68rem] leading-4 text-ink/50">Por preparar</p></div>
-                                        <div className="rounded-xl bg-paper p-3"><p className="text-2xl font-semibold text-ink">—</p><p className="mt-1 text-[0.68rem] leading-4 text-ink/50">Por entregar</p></div>
-                                        <div className="rounded-xl bg-paper p-3"><p className="text-2xl font-semibold text-ink">—</p><p className="mt-1 text-[0.68rem] leading-4 text-ink/50">Por cobrar</p></div>
-                                    </div>
-                                </div>
-                                <div className="mt-4 flex items-center gap-3 rounded-2xl border border-dashed border-ink/15 p-4">
-                                    <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-primary/12 text-primary" aria-hidden="true">＋</span>
-                                    <div><p className="text-sm font-semibold text-ink/75">Tu siguiente paso</p><p className="mt-0.5 text-xs text-ink/50">Registra una compra o una receta.</p></div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <section id="primeros-pasos" className="border-y border-ink/10 bg-paper/60">
-                        <div className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20 lg:px-12">
-                            <div className="max-w-xl">
-                                <p className="text-xs font-bold uppercase tracking-[0.24em] text-primary">El punto de partida</p>
-                                <h2 className="mt-4 font-display text-3xl leading-tight tracking-[-0.03em] text-ink sm:text-4xl">Lo importante, en el momento en que lo necesitas.</h2>
-                            </div>
-                            <div className="mt-10 grid gap-3 md:grid-cols-3">
-                                {focusAreas.map((area) => (
-                                    <article key={area.number} className="rounded-3xl border border-ink/10 bg-canvas p-6 sm:p-7">
-                                        <p className="text-xs font-bold tracking-[0.18em] text-primary">{area.number}</p>
-                                        <h3 className="mt-10 text-lg font-bold text-ink">{area.title}</h3>
-                                        <p className="mt-2 text-sm leading-6 text-ink/60">{area.description}</p>
-                                    </article>
-                                ))}
-                            </div>
-                        </div>
-                    </section>
-                </main>
-
-                <footer className="mx-auto flex max-w-6xl flex-col gap-3 px-5 py-8 text-xs text-ink/45 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-12">
-                    <span>EmprendimientoOS</span>
-                    <span>Una base sencilla para decisiones reales.</span>
-                </footer>
-            </div>
-        </>
-    );
+            <section className="cost-summary" aria-label="Resumen de dinero de hoy"><p className="eyebrow">Dinero estimado del día</p><dl><div><dt>Venta estimada</dt><dd>{money.expected_revenue_label}</dd></div><div><dt>Saldo pendiente</dt><dd>{money.balance_label}</dd></div>{money.cost_complete && <div><dt>Costo estimado</dt><dd>{money.estimated_cost_label}</dd></div>}<div><dt>Ganancia estimada</dt><dd>{money.estimated_profit_label ?? money.profit_pending_label}</dd></div></dl>{!money.cost_complete && <p className="help">Se muestra venta y saldo; la ganancia queda pendiente porque falta un costo histórico.</p>}</section>
+            <div className="grid gap-3 pb-6 sm:grid-cols-2"><Link className="button primary" href={productionUrl}>Ver producción</Link><Link className="button secondary" href={purchaseUrl}>Registrar compra</Link><Link className="button secondary sm:col-span-2" href={orderUrl}>Tomar pedido</Link></div>
+        </main>
+    </>;
 }

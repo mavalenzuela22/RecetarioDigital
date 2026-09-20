@@ -1,10 +1,12 @@
 import { expect, test } from '@playwright/test';
 
-test('home shell is usable on a phone-sized viewport', async ({ page }) => {
+test('Today is the operational home on a phone-sized viewport', async ({ page }) => {
     await page.goto('/');
 
-    await expect(page).toHaveTitle(/Inicio.*EmprendimientoOS/);
-    await expect(page.getByRole('heading', { name: /Más claridad para hacer crecer/ })).toBeVisible();
-    await expect(page.getByRole('link', { name: /Conoce el punto de partida/ })).toBeVisible();
-    await expect(page.locator('body')).toHaveCSS('overflow-x', 'visible');
+    await expect(page).toHaveTitle(/Hoy.*EmprendimientoOS/);
+    await expect(page.getByRole('heading', { name: 'Hoy en tu cocina', exact: true })).toBeVisible();
+    await expect(page.getByText('Necesitas preparar', { exact: true }).or(page.getByText('No tienes pedidos para hoy.', { exact: true }))).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Ver producción', exact: true })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Registrar compra', exact: true })).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });
