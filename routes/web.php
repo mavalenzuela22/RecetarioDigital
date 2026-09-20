@@ -1,9 +1,16 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
+
+Route::controller(ProductionController::class)->group(function (): void {
+    Route::get('/produccion', 'index')->name('production.index');
+    Route::post('/produccion/preparar', 'start')->name('production.start');
+    Route::post('/produccion/pedidos/{order}/listo', 'ready')->name('production.ready');
+});
 
 Route::controller(\App\Http\Controllers\IngredientPurchaseController::class)->group(function (): void {
     Route::get('/ingredientes', 'index')->name('ingredients.index');
