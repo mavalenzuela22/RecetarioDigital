@@ -1,0 +1,139 @@
+{
+  "schemaVersion": "foundry-runner.execution-contract.v1",
+  "taskId": "TSK-011-C001-PWA-FEATURE-TEST-DATABASE-HARNESS",
+  "executor": "codex-cli",
+  "repoPath": ".",
+  "branch": "tsk-011-pwa-completion-installability",
+  "promptPath": ".dev-foundry/prompts/TSK-011-C001-PWA-FEATURE-TEST-DATABASE-HARNESS.md",
+  "allowedPaths": [
+    ".dev-foundry/execution-contracts/TSK-011-PWA-COMPLETION-INSTALLABILITY.json",
+    ".dev-foundry/prompts/TSK-011-PWA-COMPLETION-INSTALLABILITY.md",
+    "docs/TSK-011-PWA-COMPLETION-INSTALLABILITY.md",
+    "public/manifest.webmanifest",
+    "public/sw.js",
+    "public/favicon.ico",
+    "public/icons/app-icon-180.png",
+    "public/icons/app-icon-192.png",
+    "public/icons/app-icon-512.png",
+    "public/icons/maskable-512.png",
+    "resources/views/app.blade.php",
+    "resources/js/app.tsx",
+    "tests/Feature/PwaTest.php",
+    "e2e/pwa.spec.ts",
+    ".dev-foundry/execution-contracts/TSK-011-C001-PWA-FEATURE-TEST-DATABASE-HARNESS.json",
+    ".dev-foundry/prompts/TSK-011-C001-PWA-FEATURE-TEST-DATABASE-HARNESS.md",
+    ".dev-foundry/execution-requests/",
+    ".dev-foundry/executions/",
+    ".dev-foundry/validation-requests/",
+    ".dev-foundry/validations/"
+  ],
+  "blockedPaths": [
+    ".env",
+    ".git/",
+    "docs/design/",
+    "database/migrations/",
+    "composer.json",
+    "composer.lock",
+    "package.json",
+    "package-lock.json",
+    "routes/",
+    "app/",
+    "config/",
+    "resources/js/Pages/",
+    "resources/js/Components/",
+    "tests/TestCase.php",
+    "tests/Pest.php",
+    "playwright.config.ts"
+  ],
+  "validationCommands": [
+    {
+      "command": "docker",
+      "args": [
+        "compose",
+        "build",
+        "app"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "docker",
+      "args": [
+        "compose",
+        "run",
+        "--rm",
+        "app",
+        "composer",
+        "install",
+        "--no-interaction",
+        "--prefer-dist"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "npm",
+      "args": [
+        "ci"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "docker",
+      "args": [
+        "compose",
+        "run",
+        "--rm",
+        "app",
+        "php",
+        "artisan",
+        "test"
+      ],
+      "timeoutSeconds": 900
+    },
+    {
+      "command": "npx",
+      "args": [
+        "tsc",
+        "--noEmit"
+      ],
+      "timeoutSeconds": 600
+    },
+    {
+      "command": "npm",
+      "args": [
+        "run",
+        "build"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "sh",
+      "args": [
+        "-lc",
+        "docker rm -f eo-tsk003-e2e >/dev/null 2>&1 || true"
+      ],
+      "timeoutSeconds": 120
+    },
+    {
+      "command": "npx",
+      "args": [
+        "playwright",
+        "test",
+        "--project=mobile"
+      ],
+      "timeoutSeconds": 1800
+    },
+    {
+      "command": "git",
+      "args": [
+        "diff",
+        "--check"
+      ],
+      "timeoutSeconds": 120
+    }
+  ],
+  "commitPolicy": "manual",
+  "pushPolicy": "disabled",
+  "prPolicy": "disabled",
+  "evidencePolicy": "required",
+  "outputPath": ".dev-foundry/executions/TSK-011-C001-PWA-FEATURE-TEST-DATABASE-HARNESS"
+}
