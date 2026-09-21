@@ -1,5 +1,6 @@
 import { Link } from '@inertiajs/react';
-import { AppShell, Field, Money, decimal, perUnit, type Ingredient } from './PurchaseUI';
+import { Money } from './MoneyUI';
+import { AppShell, Field, decimal, perUnit, type Ingredient } from './PurchaseUI';
 
 export type RecipeLine = { ingredient_id: string | number; ingredient_name?: string | null; canonical_unit?: string | null; quantity: string; unit: string };
 export type RecipeCost = {
@@ -32,7 +33,7 @@ export function RecipeCostDisclosure({ cost }: { cost?: RecipeCost | null }) {
     if (!cost || !cost.complete) {
         return <aside className="cost-summary" role="status"><h2>Costo de esta receta</h2><p>Falta el costo de un ingrediente. No podemos calcular el total.</p>{cost?.missing?.length ? <p className="help">Falta registrar: {cost.missing.join(', ')}.</p> : <p className="help">El costo se confirmará al guardar con las compras vigentes.</p>}</aside>;
     }
-    return <aside className="cost-summary" role="region" aria-label="Costo de esta receta"><h2>Costo de esta receta</h2><p className="cost"><Money value={cost.batch_cost_micros ?? '0'} scale={6} /></p><p>Por tanda</p><p><strong><Money value={cost.unit_cost_micros ?? '0'} scale={6} /></strong> por {perUnit('piece')}</p></aside>;
+    return <aside className="cost-summary" role="region" aria-label="Costo de esta receta"><h2>Costo de esta receta</h2><p className="cost"><Money value={cost.batch_cost_micros ?? '0'} unit="micros" /></p><p>Por tanda</p><p><strong><Money value={cost.unit_cost_micros ?? '0'} unit="micros" /></strong> por {perUnit('piece')}</p></aside>;
 }
 
 export function RecipeImage({ src }: { src: string | null }) {

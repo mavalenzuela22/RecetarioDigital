@@ -1,6 +1,9 @@
 import { Link } from '@inertiajs/react';
 import type { ReactNode } from 'react';
-import { AppShell, Money } from './PurchaseUI';
+import { Money } from './MoneyUI';
+import { AppShell } from './PurchaseUI';
+
+export { formatMinor } from './MoneyUI';
 
 export type OrderProduct = {
     id: number;
@@ -10,7 +13,7 @@ export type OrderProduct = {
     cost_complete: boolean;
 };
 
-export type OrderLineInput = { product_id: number; quantity: string; agreed_price: string };
+export type OrderLineInput = { product_id: number; product_name: string; sale_unit: OrderProduct['sale_unit']; quantity: string; agreed_price: string };
 
 export function minorFromDecimal(value: string): bigint | null {
     if (!/^[0-9]+(?:[.,][0-9]{1,2})?$/.test(value)) return null;
@@ -23,12 +26,6 @@ export function decimalInputFromMinor(value: string): string {
     const whole = minor / 100n;
     const fraction = (minor % 100n).toString().padStart(2, '0');
     return fraction === '00' ? whole.toString() : `${whole}.${fraction}`;
-}
-
-export function formatMinor(value: bigint): string {
-    const whole = value / 100n;
-    const fraction = (value % 100n).toString().padStart(2, '0');
-    return `$${whole.toLocaleString('es-MX')}.${fraction} MXN`;
 }
 
 export function lineRevenue(line: OrderLineInput): bigint | null {
@@ -45,10 +42,9 @@ export function OrderShell({ title, children, back }: { title: string; children:
     return <AppShell title={title} back={back}>{children}</AppShell>;
 }
 
-export function OrderMoney({ value, scale = 2 }: { value: string | null | undefined; scale?: number }) {
+export function OrderMoney({ value, unit = 'minor' }: { value: string | null | undefined; unit?: 'minor' | 'micros' }) {
     if (value === null || value === undefined) return <>—</>;
-    const negative = value.startsWith('-');
-    return <>{negative ? '-' : ''}<Money value={negative ? value.slice(1) : value} scale={scale} /></>;
+    return <Money value={value} unit={unit} />;
 }
 
 export function PaymentStatus({ state }: { state: string }) {

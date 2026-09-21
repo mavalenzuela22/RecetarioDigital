@@ -47,10 +47,10 @@ for (const width of [320, 390]) {
         await start.fill(currentBusinessDate);
         await end.fill(currentBusinessDate);
         await page.getByRole('button', { name: 'Comparar fechas', exact: true }).click();
-        await expect(page.getByRole('article', { name: 'Antes', exact: true })).toContainText('$4.200000 MXN');
-        await expect(page.getByRole('article', { name: 'Ahora', exact: true })).toContainText('$4.200000 MXN');
+        await expect(page.getByRole('article', { name: 'Antes', exact: true })).toContainText('$4.20 MXN');
+        await expect(page.getByRole('article', { name: 'Ahora', exact: true })).toContainText('$4.20 MXN');
         await expect(page.getByText('$20.00 MXN').first()).toBeVisible();
-        await expect(page.getByText('$15.800000 MXN').first()).toBeVisible();
+        await expect(page.getByText('$15.80 MXN').first()).toBeVisible();
         await expect(page.getByText('79.0%', { exact: true }).first()).toBeVisible();
         await page.getByText('Ver de dónde salen estos datos', { exact: true }).click();
         await expect(page.getByText('Versión 1 · rendimiento 10 piezas').first()).toBeVisible();

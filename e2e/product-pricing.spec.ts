@@ -1,6 +1,6 @@
 import { expect, test, type Page } from './auth';
 
-async function recordPurchase(page: Page, name: string, price: string, unit: string) {
+async function recordPurchase(page: Page, name: string, price: string, unit: string, normalizedCost: string) {
     await page.goto('/compras/nueva');
     await page.getByLabel('Ingrediente', { exact: true }).fill(name);
     await page.getByLabel('Presentación', { exact: true }).fill('Compra de ' + name);
@@ -10,6 +10,7 @@ async function recordPurchase(page: Page, name: string, price: string, unit: str
     await page.getByLabel('Fecha de compra').fill('2026-09-18');
     await page.getByRole('button', { name: 'Guardar compra', exact: true }).click();
     await expect(page.getByText('Compra registrada.', { exact: true })).toBeVisible();
+    await expect(page.getByRole('region', { name: 'Costo vigente', exact: true })).toContainText(normalizedCost + ' MXN');
 }
 
 for (const width of [320, 390]) {
@@ -18,8 +19,8 @@ for (const width of [320, 390]) {
         const suffix = width + '-' + Date.now();
         const flour = 'Harina producto ' + suffix;
         const milk = 'Leche producto ' + suffix;
-        await recordPurchase(page, flour, '42.00', 'kg');
-        await recordPurchase(page, milk, '20.00', 'l');
+        await recordPurchase(page, flour, '42.00', 'kg', '$0.042');
+        await recordPurchase(page, milk, '20.00', 'l', '$0.02');
 
         await page.goto('/recetas');
         await page.getByRole('link', { name: 'Nueva receta', exact: true }).click();
@@ -53,21 +54,26 @@ for (const width of [320, 390]) {
 
         await expect(page.getByText('Producto configurado.', { exact: true })).toBeVisible();
         await expect(page.getByRole('heading', { name: 'Costos y precio' })).toBeVisible();
-        await expect(page.getByRole('region', { name: 'Costo por pieza', exact: true })).toContainText('$9.036667 MXN');
+        await expect(page.getByRole('region', { name: 'Costo por pieza', exact: true })).toContainText('$9.04 MXN');
         await page.getByRole('button', { name: '×2.5', exact: true }).click();
         await expect(page.getByRole('article', { name: 'Resultado del escenario', exact: true })).toContainText('$22.59 MXN');
         await expect(page.getByRole('article', { name: 'Resultado del escenario', exact: true })).toContainText('60.0%');
         await page.getByRole('button', { name: 'Usar este precio', exact: true }).click();
         await expect(page.getByRole('heading', { name: '¿Confirmar nuevo precio?' })).toBeVisible();
+        await expect(page.getByText('Precio sugerido: $22.59', { exact: true })).toBeVisible();
         await page.getByRole('button', { name: 'Confirmar precio', exact: true }).click();
         await expect(page.getByText('Precio guardado.', { exact: true })).toBeVisible();
         await expect(page.getByRole('region', { name: 'Resumen de precio', exact: true })).toContainText('$22.59 MXN');
 
-        await page.getByLabel('Precio manual (MXN)', { exact: true }).fill('25.00');
-        await page.getByRole('button', { name: 'Usar precio manual', exact: true }).click();
-        await page.getByRole('button', { name: 'Confirmar precio', exact: true }).click();
-        await expect(page.getByText('Precio guardado.', { exact: true })).toBeVisible();
-        await expect(page.getByRole('region', { name: 'Resumen de precio', exact: true })).toContainText('$25.00 MXN');
+        for (const [input, expected] of [['5', '$5.00'], ['5.7', '$5.70'], ['5.70', '$5.70']] as const) {
+            await page.getByLabel('Precio manual (MXN)', { exact: true }).fill(input);
+            await page.getByRole('button', { name: 'Usar precio manual', exact: true }).click();
+            await expect(page.getByText('Precio manual: ' + expected, { exact: true })).toBeVisible();
+            await page.getByRole('button', { name: 'Confirmar precio', exact: true }).click();
+            await expect(page.getByText('Precio guardado.', { exact: true })).toBeVisible();
+            await expect(page.getByRole('region', { name: 'Resumen de precio', exact: true })).toContainText(expected + ' MXN');
+            if (input === '5') await expect(page.getByRole('region', { name: 'Resumen de precio', exact: true })).toContainText('-$4.04 MXN');
+        }
         await expect(page.getByText('Costo dividido entre la cantidad de referencia')).toBeHidden();
         await page.getByText('Ver desglose de costos', { exact: true }).click();
         await expect(page.getByText('Costo dividido entre la cantidad de referencia (10 piezas)')).toBeVisible();

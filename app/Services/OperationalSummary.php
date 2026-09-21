@@ -240,22 +240,24 @@ class OperationalSummary
         ][$state] ?? $state;
     }
 
-    private function formatMinor(int $value): string
-    {
-        return $this->formatScaled($value, 2);
-    }
-
     private function formatMicros(int $value): string
-    {
-        return $this->formatScaled($value, 6);
-    }
-
-    private function formatScaled(int $value, int $scale): string
     {
         $negative = $value < 0;
         $absolute = abs($value);
-        $whole = intdiv($absolute, 10 ** $scale);
-        $fraction = str_pad((string) ($absolute % (10 ** $scale)), $scale, '0', STR_PAD_LEFT);
+        $minor = intdiv($absolute, 10000);
+        if ($absolute % 10000 >= 5000) {
+            $minor++;
+        }
+
+        return $this->formatMinor($negative ? -$minor : $minor);
+    }
+
+    private function formatMinor(int $value): string
+    {
+        $negative = $value < 0;
+        $absolute = abs($value);
+        $whole = intdiv($absolute, 100);
+        $fraction = str_pad((string) ($absolute % 100), 2, '0', STR_PAD_LEFT);
 
         return ($negative ? '-' : '').'$'.number_format($whole, 0, '.', ',').'.'.$fraction.' MXN';
     }

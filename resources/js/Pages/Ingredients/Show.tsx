@@ -15,7 +15,7 @@ export default function Show({ ingredient, purchases, success, createUrl, indexU
                 <dl><div><dt>Cantidad comprada</dt><dd>{decimal(purchase.purchase_quantity_milli, 3, true)} {unitName(purchase.purchase_unit)}</dd></div>
                     <div><dt>Total pagado</dt><dd><Money value={purchase.total_paid_minor} /></dd></div>
                     <div><dt>Equivale a</dt><dd>{decimal(purchase.normalized_quantity_milli, 3, true)} {unitName(ingredient.canonical_unit)}</dd></div>
-                    <div><dt>Costo por {perUnit(ingredient.canonical_unit)}</dt><dd><Money value={purchase.normalized_unit_cost_micros} scale={6} /></dd></div>
+                    <div><dt>Costo por {perUnit(ingredient.canonical_unit)}</dt><dd><Money value={purchase.normalized_unit_cost_micros} unit="micros" kind="normalized-unit" /></dd></div>
                 </dl>
                 {purchase.store && <p className="metadata"><strong>Tienda o proveedor: </strong>{purchase.store}</p>}
                 {purchase.note && <p className="metadata"><strong>Nota: </strong>{purchase.note}</p>}

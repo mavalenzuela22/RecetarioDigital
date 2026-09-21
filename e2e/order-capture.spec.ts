@@ -36,6 +36,16 @@ async function createProduct(page: Page, recipeName: string, price: string) {
     await expect(page.getByText('Precio guardado.', { exact: true })).toBeVisible();
 }
 
+async function deactivateProduct(page: Page, recipeName: string) {
+    await page.goto('/productos');
+    await page.getByRole('link', { name: new RegExp('^' + recipeName) }).click();
+    await page.getByRole('link', { name: 'Editar', exact: true }).click();
+    await page.getByRole('checkbox', { name: 'Producto activo' }).uncheck();
+    await page.getByRole('button', { name: 'Guardar configuración', exact: true }).click();
+    await expect(page.getByText('Configuración guardada como nueva versión.', { exact: true })).toBeVisible();
+    await expect(page.getByText('Inactivo', { exact: true })).toBeVisible();
+}
+
 for (const width of [320, 390]) {
     test('captures a multi-product order at ' + width + 'px', async ({ page }) => {
         await page.setViewportSize({ width, height: 844 });
@@ -82,3 +92,53 @@ for (const width of [320, 390]) {
         expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     });
 }
+
+test('keeps a deactivated selected product visible and recoverable after catalog revalidation', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    const suffix = 'stale-' + Date.now();
+    const firstIngredient = 'Harina stale ' + suffix;
+    const secondIngredient = 'Cocoa stale ' + suffix;
+    const firstRecipe = 'Galleta activa ' + suffix;
+    const secondRecipe = 'Galleta desactivada ' + suffix;
+    await recordPurchase(page, firstIngredient, '42.00');
+    await recordPurchase(page, secondIngredient, '30.00');
+    await createRecipe(page, firstRecipe, firstIngredient);
+    await createRecipe(page, secondRecipe, secondIngredient);
+    await createProduct(page, firstRecipe, '25.00');
+    await createProduct(page, secondRecipe, '40.00');
+
+    await page.goto('/pedidos/nuevo');
+    await page.getByLabel('Cliente', { exact: true }).fill('Cliente stale ' + suffix);
+    await page.getByLabel('Producto para agregar', { exact: true }).selectOption({ label: firstRecipe + ' · $25.00 MXN' });
+    await page.getByRole('button', { name: 'Agregar producto', exact: true }).click();
+    await page.getByLabel('Producto para agregar', { exact: true }).selectOption({ label: secondRecipe + ' · $40.00 MXN' });
+    await page.getByRole('button', { name: 'Agregar producto', exact: true }).click();
+    await page.getByLabel('Cantidad ' + firstRecipe, { exact: true }).fill('2');
+    await page.getByLabel('Fecha de entrega').fill('2026-09-21');
+    await page.getByLabel('Hora', { exact: true }).fill('16:30');
+    await expect(page.getByRole('region', { name: 'Resumen del pedido', exact: true })).toContainText('$90.00 MXN');
+
+    const tabB = await page.context().newPage();
+    try {
+        await deactivateProduct(tabB, secondRecipe);
+        await page.getByRole('button', { name: 'Actualizar catálogo', exact: true }).click();
+
+        await expect(page.getByRole('heading', { name: firstRecipe, exact: true })).toBeVisible();
+        await expect(page.getByRole('heading', { name: secondRecipe, exact: true })).toBeVisible();
+        await expect(page.getByText('Este producto ya no está disponible para nuevos pedidos. Quita esta línea para continuar.', { exact: true })).toBeVisible();
+        await expect(page.getByRole('region', { name: 'Resumen del pedido', exact: true })).toContainText('$90.00 MXN');
+        await expect(page.getByRole('button', { name: 'Guardar pedido', exact: true })).toBeDisabled();
+        await expect(page.getByRole('article').filter({ has: page.getByRole('heading', { name: secondRecipe, exact: true }) }).getByRole('button', { name: 'Quitar', exact: true })).toBeVisible();
+
+        await page.getByRole('article').filter({ has: page.getByRole('heading', { name: secondRecipe, exact: true }) }).getByRole('button', { name: 'Quitar', exact: true }).click();
+        await expect(page.getByRole('heading', { name: secondRecipe, exact: true })).not.toBeVisible();
+        await expect(page.getByRole('region', { name: 'Resumen del pedido', exact: true })).toContainText('$50.00 MXN');
+        await expect(page.getByRole('button', { name: 'Guardar pedido', exact: true })).toBeEnabled();
+        await page.getByRole('button', { name: 'Guardar pedido', exact: true }).click();
+        await expect(page.getByText('Pedido registrado.', { exact: true })).toBeVisible();
+        await expect(page.getByText(firstRecipe, { exact: true }).first()).toBeVisible();
+        await expect(page.getByText(secondRecipe, { exact: true })).not.toBeVisible();
+    } finally {
+        await tabB.close();
+    }
+});

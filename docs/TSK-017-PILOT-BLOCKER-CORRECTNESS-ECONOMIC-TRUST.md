@@ -4,11 +4,25 @@
 
 Governance boundary activated from the persisted Astra adversarial remediation authority.
 
-Implementation remains **BLOCKED UNTIL TSK-016 IS PROMOTED AND RECONCILED**.
+**CLOSED PASS — all six remediation MTs are focused-green and the full closure evidence is complete.**
 
-The operator explicitly authorized one bounded operator-assisted exception for the TSK-016 Git/GitHub lifecycle promotion because the Foundry Runner repository-transaction state serializer rejects observed string arrays longer than 32 entries while the current valid TSK-016 change-set exceeds that limit. The exception is limited to commit -> push -> PR -> merge -> reconciliation -> cleanup for this already validated TSK-016 boundary.
+MT-006 / AUD-19 is CLOSED PASS. Final authority: `TSK-017-MT-006-GLOBAL-MONETARY-DISPLAY-PRECISION`, execution `execution_210781babded292029de897d1bcbd60ab1d99ffc3cdf4af4e25a2422856533d1`. Path policy passed with zero violations; TypeScript, Vite build, focused mobile product-pricing/order-capture Playwright, ProductPricing + TodayProduction Pest, and `git diff --check` all passed. Ordinary user-facing MXN presentation now uses two decimals while exact internal minor/micro arithmetic is preserved; specialized ingredient unit-cost presentation retains only meaningful bounded sub-cent precision.
 
-Do not implement TSK-017 on the TSK-016 branch. Do not use the operator-assisted exception for product implementation, validation substitution, or unrelated/future repository lifecycle operations without separate authority.
+MT-005 / AUD-05 is CLOSED PASS. Final authority: `TSK-017-MT-005-MANUAL-PRICE-CONFIRMATION-CONSISTENCY`, execution `execution_84a2e6cccf2e72ee326603540a97a7c9c3c3dc49267397dff5a0e546956b213a`. Path policy passed with zero violations; TypeScript, Vite build, 2/2 mobile product-pricing Playwright at 320/390 px, ProductPricing Pest, and `git diff --check` all passed. The regression proves manual inputs `5`, `5.7`, and `5.70` are confirmed and persisted/displayed as the same currency amounts while scenario confirmation semantics remain intact.
+
+MT-004 / AUD-04 is CLOSED PASS. Functional proof was established by `TSK-017-MT-004-C002-NEUTRAL-PURCHASE-LABEL-CLOSURE`, where TypeScript, Vite build, 2/2 mobile first-use navigation Playwright at 320/390 px, HomeTest, and `git diff --check` all passed. Final governance/infrastructure closure authority is `TSK-017-MT-004-C004-STALE-PLAYWRIGHT-PORT-CLEANUP`, execution `execution_11ec1b7da1434ff2d8a94e3472b19adac4b05909fed674c8494828d046fbe21f`, which passed path policy with zero violations and reran the same focused matrix successfully after explicit stale port cleanup.
+
+MT-003 / AUD-03 is CLOSED PASS. Functional authority: `TSK-017-MT-003-C001-INHERITED-DIRTY-PATH-ALLOWLIST`, execution `execution_6cadfafe4ac4d18a4632ec48295607e0599a35e62c6ed3de21f1e501e66a9085`, whose TypeScript, build, 3/3 order-capture Playwright (including stale inactive-line recovery), OrderCapture Pest, and diff checks all passed. Governance closure authority: `TSK-017-MT-003-C002-GOVERNANCE-CLOSURE`, execution `execution_fcca606dd0d4af54fa48d5731c4ec806e1b9dccd37c9012808950f6d571dd005`, which bound the unchanged MT-003 source/test SHA fingerprints and passed path policy with zero violations.
+
+MT-002 / AUD-02 is CLOSED PASS. Final corrective authority: `TSK-017-MT-002-C002-FRESH-ASSET-BUILD`, execution `execution_8b9fe447eec58fd5a3daf8618282cfd8b4e0d0564feb61e435d533337fa83f53`. The stale dual-form range source was removed; a fresh Vite build plus mobile Playwright proved the A -> B regression, with only day-B eligible orders transitioning while day-A remained confirmed. TypeScript, TodayProduction Pest, path policy, and `git diff --check` passed.
+
+MT-001 / AUD-01 is CLOSED PASS. Final corrective authority: `TSK-017-MT-001-C006-SIGNAL-RELEASED-LOCK-BARRIER`, execution `execution_8db35749b9eaa702b12ccdbf795672bcd18858296c474ae276ba4bb4a0943a42`. Genuine concurrent Percona proof observed 2 simultaneous application waiters in both phases; clean HEAD reproduced `BASELINE_ACTIVE_ADMIN_COUNT=0`, while the corrected worktree preserved `FIXED_ACTIVE_ADMIN_COUNT=1`. Focused AccessAdministration Pest and `git diff --check` also passed.
+
+TSK-016 was operator-assisted through its bounded Git/GitHub lifecycle exception, reconciled into `main`, and the repository was re-observed clean at `bbabd266be69915391c54ddca5bc906d773bba57` before this TSK-017 branch was created through Foundry Runner Mac.
+
+The prior TSK-016 operator-assisted exception is closed. It does not authorize product implementation, validation substitution, or unrelated/future repository lifecycle operations.
+
+Operator authorization recorded 2026-09-20: continue the current governed remediation run end-to-end without stopping for repeated approvals between bounded MTs, correctives, validations, repository lifecycle phases, or subsequent remediation TSK activation/promotion where the existing repository authority permits the action. This is not blanket authority for unrelated work, scope expansion outside the persisted remediation backlog, bypassing failed/indeterminate governance state, or weakening required evidence. Stop only for a genuine blocker, an authority conflict, a new product decision requiring human choice, or an action the available governed tooling cannot safely perform.
 
 ## Authority
 

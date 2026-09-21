@@ -22,7 +22,8 @@ Confirmed by the audit:
 - 11 S2
 - 2 S3
 - 3 OBS
-- plus AUD-19, added by product review after inspecting audit screenshots: cross-cutting excessive monetary decimal precision.
+- plus AUD-19, added by product review after inspecting audit screenshots: cross-cutting excessive monetary decimal precision;
+- plus AUD-20, added by product review after re-observing the formally accepted Astra design package: cross-cutting accepted-design conformance failure.
 
 Google OAuth end-to-end remains UNVERIFIED because OAuth credentials are not configured in the local audit environment. This is not a defect finding by itself.
 
@@ -37,6 +38,7 @@ The audit demonstrated a complete economic path using real browser interaction, 
 5. Validate on 320 px and 390 px for every affected mobile surface.
 6. Where concurrency is the defect, validation must use genuine concurrent requests against Percona/MySQL-compatible storage; sequential tests are insufficient.
 7. No corrective may weaken authentication, authorization, historical snapshots, append-only economic facts, idempotency, or exact/scaled-integer financial rules.
+8. UI-affecting remediation must preserve conformance with the formally accepted `docs/design/**` authority. Functional Playwright/Pest PASS alone is not sufficient evidence of visual/design acceptance for affected surfaces.
 
 ---
 
@@ -264,6 +266,60 @@ Do not reinterpret an OBS as a defect without explicit human approval.
 
 ---
 
+## TSK-020 — Accepted Design Conformance
+
+Goal: make the implemented product visually and interactionally conform to the formally accepted Astra design authority, **A — Cocina cálida artesanal**, without changing domain semantics merely to imitate a mockup.
+
+### AUD-20 — accepted design conformance failure
+
+Classification: pilot acceptance blocker / cross-cutting UX defect.
+
+Observed by product review after the adversarial audit.
+
+Authority:
+- `docs/design/README.md` records formal acceptance by the primary user / product owner ("la patrona") of **A — Cocina cálida artesanal**.
+- `docs/design/CLOSURE.md` records the same accepted direction and a complete implementation-ready handoff.
+- `docs/design/implementation-guide/IMPLEMENTATION.md`, `HANDOFF-CHECKLIST.md`, component specifications, tokens, flows and rendered references are the accepted implementation authority.
+- Earlier implementation TSKs explicitly cited `docs/design/**` as design authority.
+
+Problem:
+The current application inherits some low-level visual foundations from the accepted system (including core tokens, colors, typography families and radii), but the implemented screens do not consistently reproduce the accepted composition, hierarchy, navigation, component treatment, imagery, spacing and overall look-and-feel of the Astra reference. The result is recognizably related to the accepted design but materially less faithful than the experience shown to and accepted by the product owner.
+
+This is not cosmetic preference and must not be reduced to generic "polish". The accepted design was part of the product expectation presented before implementation.
+
+Required outcome:
+- preserve domain behavior and corrected UX semantics;
+- systematically compare each implemented core journey against the applicable `docs/design/**` references;
+- migrate shared layout/navigation/component primitives first so fixes are systemic rather than page-specific CSS patches;
+- restore accepted visual hierarchy, spacing, component shapes/states, navigation structure, typography use, imagery where authorized, empty/error/confirmation treatment and mobile composition;
+- retain responsive correctness at 320/390 and larger documented breakpoints;
+- do not copy prototype business logic or fictitious fixture behavior into production;
+- when current product semantics legitimately differ from an old mockup, preserve product truth and adapt the accepted visual language around it rather than falsifying behavior.
+
+Mandatory visual evidence:
+For each core flow (Hoy, compra, receta, producto/precio, pedido, cobro/entrega, producción, histórico), capture current implementation and compare it side-by-side with the accepted reference. Record deviations and disposition each as:
+- conform;
+- implementation defect to fix;
+- intentional semantic divergence with documented rationale.
+
+Validation:
+- functional regression remains green;
+- 320 px and 390 px browser evidence for affected flows;
+- visual comparison against the accepted rendered reference, not only token inspection;
+- shared component/design-system conformance review;
+- final product-owner visual acceptance before autonomous pilot.
+
+### TSK-020 exit criteria
+
+- AUD-20 resolved across all eight accepted core journeys.
+- No page is considered conformant merely because it uses the correct palette/fonts.
+- Shared primitives and navigation match the accepted design language.
+- Any intentional visual/semantic departures are explicitly documented.
+- Final visual evidence is inspectable from the repository.
+- Product-owner acceptance is recorded separately from mechanical validation.
+
+---
+
 # Original Astra findings inventory
 
 This section exists so no finding disappears when work is split.
@@ -289,11 +345,12 @@ This section exists so no finding disappears when work is split.
 | AUD-17 | S3 | recipe detail exposes technical/mixed-language terminology | TSK-019 |
 | AUD-18 | S3 | logout touch target too small | TSK-019 |
 | AUD-19 | S2 | six-decimal monetary presentation leaks internal precision | TSK-017 |
+| AUD-20 | Pilot acceptance blocker | implemented UI materially diverges from accepted Astra design authority | TSK-020 |
 | OBS-01 | OBS | reference-quantity order-cost allocation | TSK-019 decision |
 | OBS-02 | OBS | end-of-day history granularity | TSK-019 decision |
 | OBS-03 | OBS | old receivables excluded from Today | TSK-019 decision |
 
-Total persisted inventory: 19 confirmed defect findings plus 3 product observations.
+Total persisted inventory: 20 confirmed defect findings plus 3 product observations.
 
 ---
 
@@ -328,8 +385,10 @@ AUD-19 is additionally supported by screenshots manually reviewed after the audi
 1. Resolve/complete TSK-016 promotion mechanics if still pending; do not lose this remediation backlog.
 2. Activate TSK-017 and finish all pilot blockers plus AUD-19.
 3. Re-run a focused independent adversarial regression against the corrected flows.
-4. Activate TSK-018.
+4. Activate TSK-018 and resolve recovery/mobile reliability defects.
 5. Run another product-level regression, emphasizing mobile sequencing/recovery.
-6. Activate TSK-019 and record product decisions.
-7. Configure Google OAuth test credentials and execute the previously UNVERIFIED real OAuth/linking/bootstrap acceptance boundary.
-8. Only then consider an autonomous pilot with the intended real user.
+6. Activate TSK-020 and perform accepted-design conformance across the eight core journeys, using repository-visible side-by-side evidence against `docs/design/**`.
+7. Run a focused visual/product regression and obtain explicit product-owner visual acceptance.
+8. Activate TSK-019 and record low-severity/product decisions without allowing them to dilute AUD-20.
+9. Configure Google OAuth test credentials and execute the previously UNVERIFIED real OAuth/linking/bootstrap acceptance boundary.
+10. Only then consider an autonomous pilot with the intended real user.

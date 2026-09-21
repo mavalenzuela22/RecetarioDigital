@@ -1,0 +1,204 @@
+{
+  "schemaVersion": "foundry-runner.execution-contract.v1",
+  "taskId": "TSK-017-C001-DETERMINISTIC-FRONTEND-DEPENDENCY-RESTORE",
+  "executor": "codex-cli",
+  "repoPath": ".",
+  "branch": "tsk-017-pilot-blocker-correctness-economic-trust",
+  "promptPath": ".dev-foundry/prompts/TSK-017-C001-DETERMINISTIC-FRONTEND-DEPENDENCY-RESTORE.md",
+  "allowedPaths": [
+    ".dev-foundry/execution-contracts/TSK-017-FULL-CLOSURE-MATRIX.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-001-C001-DETERMINISTIC-PERCONA-AB.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-001-C002-LARAVEL-XSRF-HEADER.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-001-C003-PERCONA-OBSERVED-CONCURRENCY.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-001-C004-LONG-BARRIER-DIRECT-PERCONA.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-001-C005-VALID-BOOLEAN-WIRE-PAYLOAD.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-001-C006-SIGNAL-RELEASED-LOCK-BARRIER.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-001-CONCURRENT-ADMIN-INVARIANT.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-002-C001-CLEAN-PLAYWRIGHT-VALIDATION.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-002-C002-FRESH-ASSET-BUILD.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-002-PRODUCTION-RANGE-CONSISTENCY.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-003-C001-INHERITED-DIRTY-PATH-ALLOWLIST.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-003-C002-GOVERNANCE-CLOSURE.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-003-STALE-INACTIVE-ORDER-LINE-RECOVERY.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-004-C001-NAVIGATION-SETTLE-AND-NEUTRAL-EMPTY.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-004-C002-NEUTRAL-PURCHASE-LABEL-CLOSURE.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-004-C003-INHERITED-DIRTY-PATH-CLOSURE.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-004-C004-STALE-PLAYWRIGHT-PORT-CLEANUP.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-004-FIRST-USE-CATALOG-NAVIGATION.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-005-MANUAL-PRICE-CONFIRMATION-CONSISTENCY.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-006-GLOBAL-MONETARY-DISPLAY-PRECISION.json",
+    ".dev-foundry/prompts/TSK-017-FULL-CLOSURE-MATRIX.md",
+    ".dev-foundry/prompts/TSK-017-MT-001-C001-DETERMINISTIC-PERCONA-AB.md",
+    ".dev-foundry/prompts/TSK-017-MT-001-C002-LARAVEL-XSRF-HEADER.md",
+    ".dev-foundry/prompts/TSK-017-MT-001-C003-PERCONA-OBSERVED-CONCURRENCY.md",
+    ".dev-foundry/prompts/TSK-017-MT-001-C004-LONG-BARRIER-DIRECT-PERCONA.md",
+    ".dev-foundry/prompts/TSK-017-MT-001-C005-VALID-BOOLEAN-WIRE-PAYLOAD.md",
+    ".dev-foundry/prompts/TSK-017-MT-001-C006-SIGNAL-RELEASED-LOCK-BARRIER.md",
+    ".dev-foundry/prompts/TSK-017-MT-001-CONCURRENT-ADMIN-INVARIANT.md",
+    ".dev-foundry/prompts/TSK-017-MT-002-C001-CLEAN-PLAYWRIGHT-VALIDATION.md",
+    ".dev-foundry/prompts/TSK-017-MT-002-C002-FRESH-ASSET-BUILD.md",
+    ".dev-foundry/prompts/TSK-017-MT-002-PRODUCTION-RANGE-CONSISTENCY.md",
+    ".dev-foundry/prompts/TSK-017-MT-003-C001-INHERITED-DIRTY-PATH-ALLOWLIST.md",
+    ".dev-foundry/prompts/TSK-017-MT-003-C002-GOVERNANCE-CLOSURE.md",
+    ".dev-foundry/prompts/TSK-017-MT-003-STALE-INACTIVE-ORDER-LINE-RECOVERY.md",
+    ".dev-foundry/prompts/TSK-017-MT-004-C001-NAVIGATION-SETTLE-AND-NEUTRAL-EMPTY.md",
+    ".dev-foundry/prompts/TSK-017-MT-004-C002-NEUTRAL-PURCHASE-LABEL-CLOSURE.md",
+    ".dev-foundry/prompts/TSK-017-MT-004-C003-INHERITED-DIRTY-PATH-CLOSURE.md",
+    ".dev-foundry/prompts/TSK-017-MT-004-C004-STALE-PLAYWRIGHT-PORT-CLEANUP.md",
+    ".dev-foundry/prompts/TSK-017-MT-004-FIRST-USE-CATALOG-NAVIGATION.md",
+    ".dev-foundry/prompts/TSK-017-MT-005-MANUAL-PRICE-CONFIRMATION-CONSISTENCY.md",
+    ".dev-foundry/prompts/TSK-017-MT-006-GLOBAL-MONETARY-DISPLAY-PRECISION.md",
+    "app/Http/Controllers/AccessAdminController.php",
+    "app/Http/Controllers/HomeController.php",
+    "app/Services/OperationalSummary.php",
+    "docs/ASTRA-ADVERSARIAL-AUDIT-REMEDIATION-BACKLOG-2026-09-20.md",
+    "docs/TSK-017-PILOT-BLOCKER-CORRECTNESS-ECONOMIC-TRUST.md",
+    "e2e/first-use-navigation.spec.ts",
+    "e2e/order-capture.spec.ts",
+    "e2e/product-pricing.spec.ts",
+    "e2e/today-production.spec.ts",
+    "resources/js/Components/MoneyUI.tsx",
+    "resources/js/Components/OrderUI.tsx",
+    "resources/js/Components/ProductUI.tsx",
+    "resources/js/Components/PurchaseUI.tsx",
+    "resources/js/Components/RecipeUI.tsx",
+    "resources/js/Pages/Home.tsx",
+    "resources/js/Pages/Ingredients/Index.tsx",
+    "resources/js/Pages/Ingredients/Show.tsx",
+    "resources/js/Pages/Orders/Create.tsx",
+    "resources/js/Pages/Orders/Show.tsx",
+    "resources/js/Pages/Production/Index.tsx",
+    "resources/js/Pages/Products/History.tsx",
+    "resources/js/Pages/Products/Index.tsx",
+    "resources/js/Pages/Products/Show.tsx",
+    "resources/js/Pages/Recipes/Index.tsx",
+    "resources/js/Pages/Recipes/Show.tsx",
+    "scripts/test-percona-concurrent-admin.sh",
+    "tests/Feature/HomeTest.php",
+    "tests/Feature/TodayProductionTest.php",
+    ".dev-foundry/prompts/TSK-017-C001-DETERMINISTIC-FRONTEND-DEPENDENCY-RESTORE.md",
+    ".dev-foundry/execution-contracts/TSK-017-C001-DETERMINISTIC-FRONTEND-DEPENDENCY-RESTORE.json",
+    ".dev-foundry/execution-requests/",
+    ".dev-foundry/executions/",
+    ".dev-foundry/validation-requests/",
+    ".dev-foundry/validations/",
+    "artifacts/releases/tsk017-validation/"
+  ],
+  "blockedPaths": [
+    ".env",
+    ".env.example",
+    ".git/",
+    "docs/design/",
+    "database/migrations/",
+    "app/Models/",
+    "routes/",
+    "app/Http/Requests/",
+    "composer.json",
+    "composer.lock",
+    "package.json",
+    "package-lock.json",
+    "compose.yaml",
+    "Dockerfile",
+    "vite.config.ts",
+    "playwright.config.ts",
+    "tsconfig.json"
+  ],
+  "validationCommands": [
+    {
+      "command": "docker",
+      "args": [
+        "compose",
+        "run",
+        "--rm",
+        "app",
+        "php",
+        "artisan",
+        "test"
+      ],
+      "timeoutSeconds": 1800
+    },
+    {
+      "command": "bash",
+      "args": [
+        "scripts/test-percona.sh"
+      ],
+      "timeoutSeconds": 2400
+    },
+    {
+      "command": "bash",
+      "args": [
+        "scripts/test-percona-concurrent-admin.sh"
+      ],
+      "timeoutSeconds": 1800
+    },
+    {
+      "command": "npm",
+      "args": [
+        "ci"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "npm",
+      "args": [
+        "audit",
+        "--audit-level=low"
+      ],
+      "timeoutSeconds": 600
+    },
+    {
+      "command": "npx",
+      "args": [
+        "tsc",
+        "--noEmit"
+      ],
+      "timeoutSeconds": 900
+    },
+    {
+      "command": "npm",
+      "args": [
+        "run",
+        "build"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "sh",
+      "args": [
+        "-lc",
+        "ids=$(docker ps --filter publish=18080 --format '{{.ID}}'); if [ -n \"$ids\" ]; then docker rm -f $ids; fi"
+      ],
+      "timeoutSeconds": 120
+    },
+    {
+      "command": "npx",
+      "args": [
+        "playwright",
+        "test",
+        "--project=mobile"
+      ],
+      "timeoutSeconds": 2400
+    },
+    {
+      "command": "sh",
+      "args": [
+        "-lc",
+        "rm -rf artifacts/releases/tsk017-validation && bash scripts/build-release.sh --allow-dirty --output-dir artifacts/releases/tsk017-validation && ZIP=$(find artifacts/releases/tsk017-validation -maxdepth 1 -name '*.zip' -print -quit); test -n \"$ZIP\"; bash scripts/verify-release.sh \"$ZIP\""
+      ],
+      "timeoutSeconds": 2400
+    },
+    {
+      "command": "git",
+      "args": [
+        "diff",
+        "--check"
+      ],
+      "timeoutSeconds": 120
+    }
+  ],
+  "commitPolicy": "manual",
+  "pushPolicy": "disabled",
+  "prPolicy": "disabled",
+  "evidencePolicy": "required",
+  "outputPath": ".dev-foundry/executions/TSK-017-C001-DETERMINISTIC-FRONTEND-DEPENDENCY-RESTORE"
+}

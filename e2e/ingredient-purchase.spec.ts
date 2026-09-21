@@ -38,7 +38,7 @@ for (const width of [320, 390]) {
         await expect(page.getByRole('button', { name: 'Guardando compra…' })).toBeDisabled();
         release();
         await expect(page.getByText('Compra registrada.', { exact: true })).toBeVisible();
-        await expect(page.getByRole('region', { name: 'Costo vigente', exact: true })).toContainText('$0.042000 MXN');
+        await expect(page.getByRole('region', { name: 'Costo vigente', exact: true })).toContainText('$0.042 MXN');
         await expect(page.locator('.purchase-card')).toHaveCount(1);
         await expect(page.locator('.purchase-card')).toContainText('1,000 g');
         await expect(page.locator('.purchase-card')).toContainText('Mercado del barrio');
@@ -67,15 +67,15 @@ for (const width of [320, 390]) {
         await expect(page.locator('.purchase-card')).toHaveCount(2);
         await expect(page.locator('.purchase-card').first()).toContainText('18 sep 2026');
         await expect(page.locator('.purchase-card').last()).toContainText('01 ago 2026');
-        await expect(page.getByRole('region', { name: 'Costo vigente', exact: true })).toContainText('$0.042000 MXN');
+        await expect(page.getByRole('region', { name: 'Costo vigente', exact: true })).toContainText('$0.042 MXN');
         await page.reload();
         await expect(page.locator('.purchase-card')).toHaveCount(2);
-        await expect(page.locator('.purchase-card').last()).toContainText('$0.030000 MXN');
+        await expect(page.locator('.purchase-card').last()).toContainText('$0.03 MXN');
         await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(255, 248, 237)');
         expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
         await page.getByRole('link', { name: '← Volver' }).click();
         await page.getByLabel('Buscar ingrediente').fill(name);
         await expect(page.locator('.ingredient-row')).toHaveCount(1);
-        await expect(page.locator('.ingredient-row')).toContainText('$0.042000 MXN');
+        await expect(page.locator('.ingredient-row')).toContainText('$0.042 MXN');
     });
 }

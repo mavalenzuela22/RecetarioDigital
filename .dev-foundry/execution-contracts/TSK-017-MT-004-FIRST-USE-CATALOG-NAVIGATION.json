@@ -1,0 +1,137 @@
+{
+  "schemaVersion": "foundry-runner.execution-contract.v1",
+  "taskId": "TSK-017-MT-004-FIRST-USE-CATALOG-NAVIGATION",
+  "executor": "codex-cli",
+  "repoPath": ".",
+  "branch": "tsk-017-pilot-blocker-correctness-economic-trust",
+  "promptPath": ".dev-foundry/prompts/TSK-017-MT-004-FIRST-USE-CATALOG-NAVIGATION.md",
+  "allowedPaths": [
+    ".dev-foundry/execution-contracts/TSK-017-MT-001-C001-DETERMINISTIC-PERCONA-AB.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-001-C002-LARAVEL-XSRF-HEADER.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-001-C003-PERCONA-OBSERVED-CONCURRENCY.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-001-C004-LONG-BARRIER-DIRECT-PERCONA.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-001-C005-VALID-BOOLEAN-WIRE-PAYLOAD.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-001-C006-SIGNAL-RELEASED-LOCK-BARRIER.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-001-CONCURRENT-ADMIN-INVARIANT.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-002-C001-CLEAN-PLAYWRIGHT-VALIDATION.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-002-C002-FRESH-ASSET-BUILD.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-002-PRODUCTION-RANGE-CONSISTENCY.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-003-C001-INHERITED-DIRTY-PATH-ALLOWLIST.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-003-C002-GOVERNANCE-CLOSURE.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-003-STALE-INACTIVE-ORDER-LINE-RECOVERY.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-004-FIRST-USE-CATALOG-NAVIGATION.json",
+    ".dev-foundry/prompts/TSK-017-MT-001-C001-DETERMINISTIC-PERCONA-AB.md",
+    ".dev-foundry/prompts/TSK-017-MT-001-C002-LARAVEL-XSRF-HEADER.md",
+    ".dev-foundry/prompts/TSK-017-MT-001-C003-PERCONA-OBSERVED-CONCURRENCY.md",
+    ".dev-foundry/prompts/TSK-017-MT-001-C004-LONG-BARRIER-DIRECT-PERCONA.md",
+    ".dev-foundry/prompts/TSK-017-MT-001-C005-VALID-BOOLEAN-WIRE-PAYLOAD.md",
+    ".dev-foundry/prompts/TSK-017-MT-001-C006-SIGNAL-RELEASED-LOCK-BARRIER.md",
+    ".dev-foundry/prompts/TSK-017-MT-001-CONCURRENT-ADMIN-INVARIANT.md",
+    ".dev-foundry/prompts/TSK-017-MT-002-C001-CLEAN-PLAYWRIGHT-VALIDATION.md",
+    ".dev-foundry/prompts/TSK-017-MT-002-C002-FRESH-ASSET-BUILD.md",
+    ".dev-foundry/prompts/TSK-017-MT-002-PRODUCTION-RANGE-CONSISTENCY.md",
+    ".dev-foundry/prompts/TSK-017-MT-003-C001-INHERITED-DIRTY-PATH-ALLOWLIST.md",
+    ".dev-foundry/prompts/TSK-017-MT-003-C002-GOVERNANCE-CLOSURE.md",
+    ".dev-foundry/prompts/TSK-017-MT-003-STALE-INACTIVE-ORDER-LINE-RECOVERY.md",
+    ".dev-foundry/prompts/TSK-017-MT-004-FIRST-USE-CATALOG-NAVIGATION.md",
+    "app/Http/Controllers/AccessAdminController.php",
+    "docs/ASTRA-ADVERSARIAL-AUDIT-REMEDIATION-BACKLOG-2026-09-20.md",
+    "docs/TSK-017-PILOT-BLOCKER-CORRECTNESS-ECONOMIC-TRUST.md",
+    "e2e/order-capture.spec.ts",
+    "e2e/today-production.spec.ts",
+    "resources/js/Components/OrderUI.tsx",
+    "resources/js/Pages/Orders/Create.tsx",
+    "resources/js/Pages/Production/Index.tsx",
+    "scripts/test-percona-concurrent-admin.sh",
+    "app/Http/Controllers/HomeController.php",
+    "resources/js/Pages/Home.tsx",
+    "e2e/first-use-navigation.spec.ts",
+    "tests/Feature/HomeTest.php",
+    ".dev-foundry/execution-requests/",
+    ".dev-foundry/executions/",
+    ".dev-foundry/validation-requests/",
+    ".dev-foundry/validations/"
+  ],
+  "blockedPaths": [
+    ".env",
+    ".env.example",
+    ".git/",
+    "docs/design/",
+    "database/migrations/",
+    "app/Models/",
+    "routes/",
+    "app/Http/Controllers/ProductionController.php",
+    "app/Http/Controllers/OrderController.php",
+    "app/Http/Controllers/RecipeController.php",
+    "app/Http/Controllers/ProductController.php",
+    "app/Services/",
+    "app/Http/Requests/",
+    "composer.json",
+    "composer.lock",
+    "package.json",
+    "package-lock.json",
+    "compose.yaml",
+    "Dockerfile"
+  ],
+  "validationCommands": [
+    {
+      "command": "npx",
+      "args": [
+        "tsc",
+        "--noEmit"
+      ],
+      "timeoutSeconds": 900
+    },
+    {
+      "command": "npm",
+      "args": [
+        "run",
+        "build"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "sh",
+      "args": [
+        "-lc",
+        "ids=$(docker ps --filter publish=18080 --format '{{.ID}}'); if [ -n \"$ids\" ]; then docker rm -f $ids; fi"
+      ],
+      "timeoutSeconds": 120
+    },
+    {
+      "command": "npx",
+      "args": [
+        "playwright",
+        "test",
+        "e2e/first-use-navigation.spec.ts",
+        "--project=mobile"
+      ],
+      "timeoutSeconds": 1800
+    },
+    {
+      "command": "docker",
+      "args": [
+        "compose",
+        "run",
+        "--rm",
+        "app",
+        "./vendor/bin/pest",
+        "tests/Feature/HomeTest.php"
+      ],
+      "timeoutSeconds": 900
+    },
+    {
+      "command": "git",
+      "args": [
+        "diff",
+        "--check"
+      ],
+      "timeoutSeconds": 120
+    }
+  ],
+  "commitPolicy": "manual",
+  "pushPolicy": "disabled",
+  "prPolicy": "disabled",
+  "evidencePolicy": "required",
+  "outputPath": ".dev-foundry/executions/TSK-017-MT-004-FIRST-USE-CATALOG-NAVIGATION"
+}
