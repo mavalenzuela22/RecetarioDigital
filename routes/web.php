@@ -1,17 +1,27 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AccessAdminController;
+use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\ProductionController;
 use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\SetupController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function (): void {
     Route::get('/login', [AuthController::class, 'create'])->name('login');
     Route::post('/login', [AuthController::class, 'store'])->name('login.store');
+    Route::get('/auth/google/redirect', [GoogleAuthController::class, 'redirect'])->name('google.redirect');
+    Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback'])->name('google.callback');
 });
 
-Route::middleware('auth')->group(function (): void {
+Route::get('/invitaciones/{token}', [InvitationController::class, 'show'])->name('invitations.show');
+Route::get('/setup', [SetupController::class, 'create'])->name('setup');
+Route::post('/setup/secret', [SetupController::class, 'store'])->name('setup.secret');
+
+Route::middleware(['auth', 'active'])->group(function (): void {
     Route::post('/logout', [AuthController::class, 'destroy'])->name('logout');
 
     Route::get('/', HomeController::class)->name('home');
@@ -58,5 +68,13 @@ Route::middleware('auth')->group(function (): void {
         Route::post('/pedidos/{order}/cobros', 'payment')->name('orders.payment');
         Route::post('/pedidos/{order}/entregar', 'deliver')->name('orders.deliver');
         Route::post('/pedidos/{order}/cancelar', 'cancel')->name('orders.cancel');
+    });
+
+    Route::middleware('admin')->prefix('admin/accesos')->name('access.')->group(function (): void {
+        Route::get('/', [AccessAdminController::class, 'index'])->name('index');
+        Route::post('/invitaciones', [AccessAdminController::class, 'storeInvitation'])->name('invitations.store');
+        Route::post('/invitaciones/{invitation}/revocar', [AccessAdminController::class, 'revokeInvitation'])->name('invitations.revoke');
+        Route::post('/usuarios/{user}/estado', [AccessAdminController::class, 'toggleUser'])->name('users.toggle');
+        Route::post('/mi-contrasena', [AccessAdminController::class, 'updateRecoveryPassword'])->name('recovery-password.update');
     });
 });

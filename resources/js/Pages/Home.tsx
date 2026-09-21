@@ -5,8 +5,8 @@ type Group = { product_id: number; name: string; total_units: string; units_to_p
 type Delivery = { id: number; customer_name: string; delivery_time: string; fulfillment_label: string; url: string };
 type Collection = { id: number; customer_name: string; balance_label: string; url: string };
 
-export default function Home({ title, date_label, production, deliveries, collections, money, productionUrl, orderUrl, purchaseUrl }: {
-    title: string; date_label: string; production: { units_to_prepare: string; groups: Group[] }; deliveries: Delivery[]; collections: Collection[]; money: Money; productionUrl: string; orderUrl: string; purchaseUrl: string;
+export default function Home({ title, date_label, production, deliveries, collections, money, productionUrl, orderUrl, purchaseUrl, isAdmin = false, accessUrl }: {
+    title: string; date_label: string; production: { units_to_prepare: string; groups: Group[] }; deliveries: Delivery[]; collections: Collection[]; money: Money; productionUrl: string; orderUrl: string; purchaseUrl: string; isAdmin?: boolean; accessUrl?: string;
 }) {
     return <>
         <Head title="Hoy" />
@@ -23,7 +23,7 @@ export default function Home({ title, date_label, production, deliveries, collec
                 </>}
 
             <section className="cost-summary" aria-label="Resumen de dinero de hoy"><p className="eyebrow">Dinero estimado del día</p><dl><div><dt>Venta estimada</dt><dd>{money.expected_revenue_label}</dd></div><div><dt>Saldo pendiente</dt><dd>{money.balance_label}</dd></div>{money.cost_complete && <div><dt>Costo estimado</dt><dd>{money.estimated_cost_label}</dd></div>}<div><dt>Ganancia estimada</dt><dd>{money.estimated_profit_label ?? money.profit_pending_label}</dd></div></dl>{!money.cost_complete && <p className="help">Se muestra venta y saldo; la ganancia queda pendiente porque falta un costo histórico.</p>}</section>
-            <div className="grid gap-3 pb-6 sm:grid-cols-2"><Link className="button primary" href={productionUrl}>Ver producción</Link><Link className="button secondary" href={purchaseUrl}>Registrar compra</Link><Link className="button secondary sm:col-span-2" href={orderUrl}>Tomar pedido</Link></div>
+            <div className="grid gap-3 pb-6 sm:grid-cols-2"><Link className="button primary" href={productionUrl}>Ver producción</Link><Link className="button secondary" href={purchaseUrl}>Registrar compra</Link><Link className="button secondary sm:col-span-2" href={orderUrl}>Tomar pedido</Link>{isAdmin && accessUrl && <Link className="button secondary sm:col-span-2" href={accessUrl}>Accesos</Link>}</div>
         </main>
     </>;
 }

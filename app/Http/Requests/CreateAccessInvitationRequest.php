@@ -4,11 +4,11 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class CreateAccessInvitationRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true;
+        return $this->user()?->is_admin === true;
     }
 
     protected function prepareForValidation(): void
@@ -19,8 +19,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'email'],
-            'password' => ['required', 'string'],
+            'email' => ['required', 'email', 'max:255'],
         ];
     }
 }

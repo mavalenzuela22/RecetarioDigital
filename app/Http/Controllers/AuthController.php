@@ -34,7 +34,7 @@ class AuthController extends Controller
             return back(303)->withErrors(['email' => self::TOO_MANY_ATTEMPTS]);
         }
 
-        if (! Auth::attempt(['email' => $email, 'password' => $request->input('password')])) {
+        if (! Auth::attempt(['email' => $email, 'password' => $request->input('password'), 'active' => true])) {
             RateLimiter::hit($key, self::DECAY_SECONDS);
 
             return back(303)->withErrors(['email' => self::INVALID_CREDENTIALS]);

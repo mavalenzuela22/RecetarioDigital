@@ -8,8 +8,8 @@ export async function login(page: Page, destination = '/') {
     if (new URL(page.url()).pathname !== '/login') return;
 
     await page.getByLabel('Correo', { exact: true }).fill(E2E_EMAIL);
-    await page.getByLabel('Contraseña', { exact: true }).fill(E2E_PASSWORD);
-    await page.getByRole('button', { name: 'Entrar', exact: true }).click();
+    await page.getByLabel('Contraseña de recuperación', { exact: true }).fill(E2E_PASSWORD);
+    await page.getByRole('button', { name: 'Entrar con contraseña', exact: true }).click();
     await expect(page).not.toHaveURL(/\/login$/);
 }
 

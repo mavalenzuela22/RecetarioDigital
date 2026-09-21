@@ -1,0 +1,226 @@
+{
+  "schemaVersion": "foundry-runner.execution-contract.v1",
+  "taskId": "TSK-016-C006-AUTH-TEST-HARNESS-REALIGNMENT",
+  "executor": "codex-cli",
+  "repoPath": ".",
+  "branch": "tsk-016-google-login-invitation-access-admin",
+  "promptPath": ".dev-foundry/prompts/TSK-016-C006-AUTH-TEST-HARNESS-REALIGNMENT.md",
+  "allowedPaths": [
+    "composer.json",
+    "composer.lock",
+    "app/Http/Controllers/AuthController.php",
+    "app/Http/Controllers/GoogleAuthController.php",
+    "app/Http/Controllers/SetupController.php",
+    "app/Http/Controllers/AccessAdminController.php",
+    "app/Http/Middleware/EnsureActiveUser.php",
+    "app/Http/Middleware/EnsureAdmin.php",
+    "app/Http/Requests/LoginRequest.php",
+    "app/Http/Requests/CreateAccessInvitationRequest.php",
+    "app/Http/Requests/RecoveryPasswordRequest.php",
+    "app/Models/User.php",
+    "app/Models/AccessInvitation.php",
+    "app/Models/ApplicationBootstrap.php",
+    "bootstrap/app.php",
+    "config/services.php",
+    "config/access.php",
+    "database/migrations/2026_09_20_000007_add_access_control_to_users_table.php",
+    "database/migrations/2026_09_20_000008_create_access_invitations_table.php",
+    "database/migrations/2026_09_20_000009_create_application_bootstrap_table.php",
+    "routes/web.php",
+    "routes/console.php",
+    "resources/js/Pages/Auth/Login.tsx",
+    "resources/js/Pages/Auth/Invitation.tsx",
+    "resources/js/Pages/Setup/Index.tsx",
+    "resources/js/Pages/Admin/Access/Index.tsx",
+    "resources/js/Pages/Home.tsx",
+    "app/Http/Controllers/HomeController.php",
+    "tests/Feature/AuthTest.php",
+    "tests/Feature/GoogleAuthTest.php",
+    "tests/Feature/AccessAdministrationTest.php",
+    "tests/Feature/BootstrapAccessTest.php",
+    "e2e/auth.spec.ts",
+    "e2e/access-admin.spec.ts",
+    "docs/PRODUCTION-DEPLOYMENT-IIS.md",
+    "docs/TSK-016-GOOGLE-LOGIN-INVITATION-ACCESS-ADMIN.md",
+    ".dev-foundry/prompts/TSK-016-GOOGLE-LOGIN-INVITATION-ACCESS-ADMIN.md",
+    ".dev-foundry/execution-contracts/TSK-016-GOOGLE-LOGIN-INVITATION-ACCESS-ADMIN.json",
+    ".dev-foundry/execution-requests/",
+    ".dev-foundry/executions/",
+    ".dev-foundry/validation-requests/",
+    ".dev-foundry/validations/",
+    "app/Http/Controllers/InvitationController.php",
+    "app/Http/Requests/BootstrapSecretRequest.php",
+    "app/Http/Requests/ToggleUserAccessRequest.php",
+    "e2e/auth.ts",
+    ".dev-foundry/prompts/TSK-016-C001-COMPOSER-LOCK-AND-INVITATION-FEEDBACK.md",
+    ".dev-foundry/execution-contracts/TSK-016-C001-COMPOSER-LOCK-AND-INVITATION-FEEDBACK.json",
+    ".dev-foundry/prompts/TSK-016-C002-DETERMINISTIC-SOCIALITE-LOCK-REFRESH.md",
+    ".dev-foundry/execution-contracts/TSK-016-C002-DETERMINISTIC-SOCIALITE-LOCK-REFRESH.json",
+    ".dev-foundry/prompts/TSK-016-C003-PEST-TESTCASE-DEDUPLICATION.md",
+    ".dev-foundry/execution-contracts/TSK-016-C003-PEST-TESTCASE-DEDUPLICATION.json",
+    ".dev-foundry/prompts/TSK-016-C004-LEGACY-USER-ACTIVE-DEFAULT.md",
+    ".dev-foundry/execution-contracts/TSK-016-C004-LEGACY-USER-ACTIVE-DEFAULT.json",
+    ".dev-foundry/prompts/TSK-016-C005-SESSION-BOOLEAN-COMPATIBILITY.md",
+    ".dev-foundry/execution-contracts/TSK-016-C005-SESSION-BOOLEAN-COMPATIBILITY.json",
+    ".dev-foundry/prompts/TSK-016-C006-AUTH-TEST-HARNESS-REALIGNMENT.md",
+    ".dev-foundry/execution-contracts/TSK-016-C006-AUTH-TEST-HARNESS-REALIGNMENT.json"
+  ],
+  "blockedPaths": [
+    ".env",
+    ".env.example",
+    ".git/",
+    "app/Services/",
+    "database/seeders/",
+    "resources/css/",
+    "resources/views/",
+    "public/",
+    "scripts/",
+    "compose.yaml",
+    "Dockerfile",
+    "package.json",
+    "package-lock.json",
+    "vite.config.ts",
+    "playwright.config.ts",
+    "tsconfig.json"
+  ],
+  "validationCommands": [
+    {
+      "command": "docker",
+      "args": [
+        "compose",
+        "build",
+        "app"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "docker",
+      "args": [
+        "compose",
+        "run",
+        "--rm",
+        "app",
+        "composer",
+        "validate",
+        "--no-check-publish"
+      ],
+      "timeoutSeconds": 600
+    },
+    {
+      "command": "docker",
+      "args": [
+        "compose",
+        "run",
+        "--rm",
+        "app",
+        "composer",
+        "show",
+        "laravel/socialite"
+      ],
+      "timeoutSeconds": 300
+    },
+    {
+      "command": "docker",
+      "args": [
+        "compose",
+        "run",
+        "--rm",
+        "app",
+        "composer",
+        "install",
+        "--no-interaction",
+        "--prefer-dist"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "docker",
+      "args": [
+        "compose",
+        "run",
+        "--rm",
+        "app",
+        "php",
+        "artisan",
+        "test"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "bash",
+      "args": [
+        "scripts/test-percona.sh"
+      ],
+      "timeoutSeconds": 1800
+    },
+    {
+      "command": "npm",
+      "args": [
+        "ci"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "npm",
+      "args": [
+        "audit",
+        "--audit-level=low"
+      ],
+      "timeoutSeconds": 600
+    },
+    {
+      "command": "npx",
+      "args": [
+        "tsc",
+        "--noEmit"
+      ],
+      "timeoutSeconds": 600
+    },
+    {
+      "command": "npm",
+      "args": [
+        "run",
+        "build"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "sh",
+      "args": [
+        "-lc",
+        "docker rm -f eo-tsk003-e2e >/dev/null 2>&1 || true"
+      ],
+      "timeoutSeconds": 120
+    },
+    {
+      "command": "npx",
+      "args": [
+        "playwright",
+        "test",
+        "--project=mobile"
+      ],
+      "timeoutSeconds": 1800
+    },
+    {
+      "command": "sh",
+      "args": [
+        "-lc",
+        "rm -rf artifacts/releases/tsk016-validation && bash scripts/build-release.sh --allow-dirty --output-dir artifacts/releases/tsk016-validation && ZIP=$(find artifacts/releases/tsk016-validation -maxdepth 1 -name '*.zip' -print -quit); test -n \"$ZIP\"; bash scripts/verify-release.sh \"$ZIP\""
+      ],
+      "timeoutSeconds": 1800
+    },
+    {
+      "command": "git",
+      "args": [
+        "diff",
+        "--check"
+      ],
+      "timeoutSeconds": 120
+    }
+  ],
+  "commitPolicy": "manual",
+  "pushPolicy": "disabled",
+  "prPolicy": "disabled",
+  "evidencePolicy": "required",
+  "outputPath": ".dev-foundry/executions/TSK-016-C006-AUTH-TEST-HARNESS-REALIGNMENT"
+}
