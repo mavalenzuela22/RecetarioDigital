@@ -56,8 +56,11 @@ it('keeps append-only history in effective date then persisted ID order', functi
     $backdated = $recorder->record(purchaseInput(['total_paid' => '10.00', 'purchased_on' => '2025-01-01']));
     expect($new->ingredient->fresh()->currentPurchase->id)->toBe($new->id);
     $tie = $recorder->record(purchaseInput(['total_paid' => '60.00']));
+    ksort($original);
+    $persistedOriginal = $old->fresh()->getAttributes();
+    ksort($persistedOriginal);
     expect($tie->ingredient->fresh()->currentPurchase->id)->toBe($tie->id)
-        ->and($old->fresh()->getAttributes())->toEqualCanonicalizing($original);
+        ->and($persistedOriginal)->toBe($original);
     $this->get(route('ingredients.show', $old->ingredient_id))->assertInertia(fn (Assert $page) => $page
         ->component('Ingredients/Show')->where('ingredient.current_purchase.id', $tie->id)
         ->where('ingredient.current_purchase.normalized_unit_cost_micros', '60000')
