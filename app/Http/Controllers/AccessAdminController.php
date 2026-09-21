@@ -97,21 +97,36 @@ class AccessAdminController extends Controller
     {
         $active = $request->boolean('active');
         $currentUser = $request->user();
+        $targetUserId = $user->getKey();
 
-        if ($user->is($currentUser) && ! $active) {
-            return back(303)->withErrors(['user' => 'No puedes desactivar tu propia cuenta administradora.']);
-        }
+        return DB::transaction(function () use ($active, $currentUser, $targetUserId): RedirectResponse {
+            $administrators = collect();
 
-        if (! $active && $user->active && $user->is_admin) {
-            $activeAdminCount = User::query()->where('is_admin', true)->where('active', true)->count();
-            if ($activeAdminCount <= 1) {
-                return back(303)->withErrors(['user' => 'La última administradora activa no puede desactivarse.']);
+            if (! $active) {
+                $administrators = User::query()
+                    ->where('is_admin', true)
+                    ->orderBy('id')
+                    ->lockForUpdate()
+                    ->get();
             }
-        }
 
-        $user->forceFill(['active' => $active])->save();
+            $target = User::query()->whereKey($targetUserId)->lockForUpdate()->firstOrFail();
 
-        return back(303)->with('access_notice', $active ? 'Acceso activado.' : 'Acceso desactivado.');
+            if ($target->is($currentUser) && ! $active) {
+                return back(303)->withErrors(['user' => 'No puedes desactivar tu propia cuenta administradora.']);
+            }
+
+            if (! $active && $target->active && $target->is_admin) {
+                $activeAdminCount = $administrators->where('active', true)->count();
+                if ($activeAdminCount <= 1) {
+                    return back(303)->withErrors(['user' => 'La última administradora activa no puede desactivarse.']);
+                }
+            }
+
+            $target->forceFill(['active' => $active])->save();
+
+            return back(303)->with('access_notice', $active ? 'Acceso activado.' : 'Acceso desactivado.');
+        });
     }
 
     public function updateRecoveryPassword(RecoveryPasswordRequest $request): RedirectResponse

@@ -37,8 +37,8 @@ for (const width of [320, 390]) {
 
         await expect(page.getByText('Receta guardada como nueva versión.', { exact: true })).toBeVisible();
         await expect(page.getByRole('heading', { name: `Roles ${suffix}` })).toBeVisible();
-        await expect(page.getByRole('region', { name: 'Costo vigente', exact: true })).toContainText('$18.440000 MXN');
-        await expect(page.getByText('Costo por pieza:')).toContainText('$1.536667 MXN');
+        await expect(page.getByRole('region', { name: 'Costo vigente', exact: true })).toContainText('$18.44 MXN');
+        await expect(page.getByText('Costo por pieza:')).toContainText('$1.54 MXN');
 
         await page.getByRole('link', { name: 'Editar receta', exact: true }).click();
         await expect(page.getByRole('heading', { name: 'Receta · versión 1' })).toBeVisible();
@@ -46,7 +46,7 @@ for (const width of [320, 390]) {
         await page.getByRole('button', { name: 'Guardar receta', exact: true }).click();
         await expect(page.getByText('Receta guardada como nueva versión.', { exact: true })).toBeVisible();
         await expect(page.getByText('Versión 2 · esta versión es inmutable.')).toBeVisible();
-        await expect(page.getByText('Costo por pieza:')).toContainText('$1.844000 MXN');
+        await expect(page.getByText('Costo por pieza:')).toContainText('$1.84 MXN');
         expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     });
 }

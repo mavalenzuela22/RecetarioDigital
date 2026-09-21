@@ -1,0 +1,100 @@
+{
+  "schemaVersion": "foundry-runner.execution-contract.v1",
+  "taskId": "TSK-017-MT-002-PRODUCTION-RANGE-CONSISTENCY",
+  "executor": "codex-cli",
+  "repoPath": ".",
+  "branch": "tsk-017-pilot-blocker-correctness-economic-trust",
+  "promptPath": ".dev-foundry/prompts/TSK-017-MT-002-PRODUCTION-RANGE-CONSISTENCY.md",
+  "allowedPaths": [
+    ".dev-foundry/execution-contracts/TSK-017-MT-001-C001-DETERMINISTIC-PERCONA-AB.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-001-C002-LARAVEL-XSRF-HEADER.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-001-C003-PERCONA-OBSERVED-CONCURRENCY.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-001-C004-LONG-BARRIER-DIRECT-PERCONA.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-001-C005-VALID-BOOLEAN-WIRE-PAYLOAD.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-001-C006-SIGNAL-RELEASED-LOCK-BARRIER.json",
+    ".dev-foundry/execution-contracts/TSK-017-MT-001-CONCURRENT-ADMIN-INVARIANT.json",
+    ".dev-foundry/prompts/TSK-017-MT-001-C001-DETERMINISTIC-PERCONA-AB.md",
+    ".dev-foundry/prompts/TSK-017-MT-001-C002-LARAVEL-XSRF-HEADER.md",
+    ".dev-foundry/prompts/TSK-017-MT-001-C003-PERCONA-OBSERVED-CONCURRENCY.md",
+    ".dev-foundry/prompts/TSK-017-MT-001-C004-LONG-BARRIER-DIRECT-PERCONA.md",
+    ".dev-foundry/prompts/TSK-017-MT-001-C005-VALID-BOOLEAN-WIRE-PAYLOAD.md",
+    ".dev-foundry/prompts/TSK-017-MT-001-C006-SIGNAL-RELEASED-LOCK-BARRIER.md",
+    ".dev-foundry/prompts/TSK-017-MT-001-CONCURRENT-ADMIN-INVARIANT.md",
+    "app/Http/Controllers/AccessAdminController.php",
+    "docs/ASTRA-ADVERSARIAL-AUDIT-REMEDIATION-BACKLOG-2026-09-20.md",
+    "docs/TSK-017-PILOT-BLOCKER-CORRECTNESS-ECONOMIC-TRUST.md",
+    "scripts/test-percona-concurrent-admin.sh",
+    ".dev-foundry/prompts/TSK-017-MT-002-PRODUCTION-RANGE-CONSISTENCY.md",
+    ".dev-foundry/execution-contracts/TSK-017-MT-002-PRODUCTION-RANGE-CONSISTENCY.json",
+    "resources/js/Pages/Production/Index.tsx",
+    "e2e/today-production.spec.ts",
+    "e2e/production-range.spec.ts",
+    "tests/Feature/TodayProductionTest.php",
+    ".dev-foundry/execution-requests/",
+    ".dev-foundry/executions/",
+    ".dev-foundry/validation-requests/",
+    ".dev-foundry/validations/"
+  ],
+  "blockedPaths": [
+    ".env",
+    ".env.example",
+    ".git/",
+    "docs/design/",
+    "database/migrations/",
+    "app/Models/",
+    "routes/",
+    "app/Http/Controllers/",
+    "app/Services/",
+    "composer.json",
+    "composer.lock",
+    "package.json",
+    "package-lock.json",
+    "compose.yaml",
+    "Dockerfile"
+  ],
+  "validationCommands": [
+    {
+      "command": "npx",
+      "args": [
+        "tsc",
+        "--noEmit"
+      ],
+      "timeoutSeconds": 900
+    },
+    {
+      "command": "npx",
+      "args": [
+        "playwright",
+        "test",
+        "e2e/today-production.spec.ts",
+        "--project=mobile"
+      ],
+      "timeoutSeconds": 1800
+    },
+    {
+      "command": "docker",
+      "args": [
+        "compose",
+        "run",
+        "--rm",
+        "app",
+        "./vendor/bin/pest",
+        "tests/Feature/TodayProductionTest.php"
+      ],
+      "timeoutSeconds": 900
+    },
+    {
+      "command": "git",
+      "args": [
+        "diff",
+        "--check"
+      ],
+      "timeoutSeconds": 120
+    }
+  ],
+  "commitPolicy": "manual",
+  "pushPolicy": "disabled",
+  "prPolicy": "disabled",
+  "evidencePolicy": "required",
+  "outputPath": ".dev-foundry/executions/TSK-017-MT-002-PRODUCTION-RANGE-CONSISTENCY"
+}

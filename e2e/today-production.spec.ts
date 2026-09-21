@@ -36,6 +36,25 @@ async function createProduct(page: Page, recipeName: string) {
     await expect(page.getByText('Precio guardado.', { exact: true })).toBeVisible();
 }
 
+function shiftDate(date: string, days: number) {
+    const shifted = new Date(`${date}T12:00:00`);
+    shifted.setDate(shifted.getDate() + days);
+    return shifted.toISOString().slice(0, 10);
+}
+
+async function createOrder(page: Page, recipeName: string, customer: string, deliveryDate: string) {
+    await page.goto('/pedidos/nuevo');
+    await page.getByLabel('Cliente', { exact: true }).fill(customer);
+    await page.getByLabel('Producto para agregar', { exact: true }).selectOption({ label: recipeName + ' · $25.00 MXN' });
+    await page.getByRole('button', { name: 'Agregar producto', exact: true }).click();
+    await page.getByLabel('Cantidad ' + recipeName, { exact: true }).fill('1');
+    await page.getByLabel('Fecha de entrega', { exact: true }).fill(deliveryDate);
+    await page.getByLabel('Hora', { exact: true }).fill('16:30');
+    await page.getByLabel('Anticipo recibido', { exact: true }).fill('0');
+    await page.getByRole('button', { name: 'Guardar pedido', exact: true }).click();
+    await expect(page.getByText('Pedido registrado.', { exact: true })).toBeVisible();
+}
+
 test.describe('Today and production', () => {
     test.describe.configure({ mode: 'serial' });
 
@@ -90,4 +109,39 @@ test.describe('Today and production', () => {
             expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
         });
     }
+
+    test('starts preparation for the displayed range after changing dates', async ({ page }) => {
+        await page.setViewportSize({ width: 390, height: 844 });
+        const suffix = 'range-' + Date.now();
+        const ingredient = 'Harina rango ' + suffix;
+        const recipe = 'Galleta rango ' + suffix;
+        const customerA = 'Cliente A ' + suffix;
+        const customerB = 'Cliente B ' + suffix;
+        await recordPurchase(page, ingredient);
+        await createRecipe(page, recipe, ingredient);
+        await createProduct(page, recipe);
+
+        await page.goto('/pedidos/nuevo');
+        const dayA = await page.getByLabel('Fecha de entrega', { exact: true }).inputValue();
+        const dayB = shiftDate(dayA, 1);
+        await createOrder(page, recipe, customerA, dayA);
+        await createOrder(page, recipe, customerB, dayB);
+
+        await page.goto(`/produccion?from=${dayA}&to=${dayA}`);
+        await expect(page.locator('li').filter({ hasText: customerA })).toBeVisible();
+        await expect(page.locator('li').filter({ hasText: customerB })).not.toBeVisible();
+
+        await page.getByLabel('Desde', { exact: true }).fill(dayB);
+        await page.getByLabel('Hasta', { exact: true }).fill(dayB);
+        await page.getByRole('button', { name: 'Actualizar fechas', exact: true }).click();
+        await expect(page.locator('li').filter({ hasText: customerB })).toBeVisible();
+        await expect(page.locator('li').filter({ hasText: customerA })).not.toBeVisible();
+
+        await page.getByRole('button', { name: 'Iniciar preparación', exact: true }).click();
+        await expect(page.getByText('Pedidos en preparación.', { exact: true })).toBeVisible();
+        await expect(page.locator('li').filter({ hasText: customerB }).getByText('En preparación', { exact: true })).toBeVisible();
+
+        await page.goto(`/produccion?from=${dayA}&to=${dayA}`);
+        await expect(page.locator('li').filter({ hasText: customerA }).getByText('Confirmado', { exact: true })).toBeVisible();
+    });
 });

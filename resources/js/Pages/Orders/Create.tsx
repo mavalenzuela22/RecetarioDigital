@@ -28,7 +28,7 @@ export default function Create({ products, storeUrl, indexUrl, requestKey, defau
     function addProduct() {
         const product = products.find((item) => String(item.id) === selectedProduct);
         if (!product || form.data.lines.some((line) => line.product_id === product.id)) return;
-        form.setData('lines', [...form.data.lines, { product_id: product.id, quantity: '1', agreed_price: product.current_price_minor ? decimalInputFromMinor(product.current_price_minor) : '' }]);
+        form.setData('lines', [...form.data.lines, { product_id: product.id, product_name: product.name, sale_unit: product.sale_unit, quantity: '1', agreed_price: product.current_price_minor ? decimalInputFromMinor(product.current_price_minor) : '' }]);
         setSelectedProduct('');
     }
 
@@ -49,9 +49,11 @@ export default function Create({ products, storeUrl, indexUrl, requestKey, defau
 
     function submit(event: FormEvent) {
         event.preventDefault();
-        if (form.processing) return;
+        if (form.processing || unavailableLines.length > 0) return;
         form.post(storeUrl, { preserveState: true, preserveScroll: true, onError: () => requestAnimationFrame(() => document.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus()) });
     }
+
+    const unavailableLines = form.data.lines.filter((line) => !products.some((product) => product.id === line.product_id));
 
     return <OrderShell title="Tomar pedido">
         <p className="intro">Captura lo que acordaste y guarda el precio de este pedido tal como está hoy.</p>
@@ -67,22 +69,23 @@ export default function Create({ products, storeUrl, indexUrl, requestKey, defau
                         <option value="">Elige un producto</option>
                         {products.map((product) => <option key={product.id} value={product.id}>{product.name}{product.current_price_minor ? ` · ${formatMinor(BigInt(product.current_price_minor))}` : ''}</option>)}
                     </select>
-                    <button className="button secondary w-full shrink-0 sm:w-auto" type="button" onClick={addProduct} disabled={!selectedProduct}>Agregar producto</button>
+                    <div className="flex w-full shrink-0 gap-2 sm:w-auto"><button className="button secondary min-w-0 flex-1" type="button" onClick={addProduct} disabled={!selectedProduct}>Agregar producto</button><button className="button secondary min-w-0 flex-1" type="button" onClick={() => router.reload({ only: ['products'] })}>Actualizar catálogo</button></div>
                 </div>
                 {form.errors.lines && <p className="error-text" role="alert">{form.errors.lines}</p>}
+                {unavailableLines.length > 0 && <p className="error-text" role="alert">Hay {unavailableLines.length === 1 ? 'un producto' : 'productos'} que ya no está disponible para nuevos pedidos. Revisa {unavailableLines.length === 1 ? 'la línea' : 'las líneas'} marcada{s(unavailableLines.length)} y quítala{s(unavailableLines.length)} para continuar.</p>}
                 {!form.data.lines.length && <p className="help">Agrega al menos un producto.</p>}
                 <div className="mt-4 space-y-4">{form.data.lines.map((line, index) => {
                     const product = products.find((item) => item.id === line.product_id);
-                    if (!product) return null;
+                    const productName = product?.name ?? line.product_name ?? 'Producto no disponible';
                     const revenue = lineRevenue(line);
                     return <article key={line.product_id} className="rounded-2xl border border-[var(--eo-line)] bg-paper p-4">
-                        <div className="flex items-start justify-between gap-3"><div><h3 className="font-semibold">{product.name}</h3><p className="help">MXN · El precio acordado se conserva en este pedido.</p></div><button className="back shrink-0" type="button" onClick={() => removeLine(index)}>Quitar</button></div>
+                        <div className="flex items-start justify-between gap-3"><div><h3 className="font-semibold">{productName}</h3><p className="help">MXN · El precio acordado se conserva en este pedido.</p>{!product && <p className="mt-2 error-text" role="status">Este producto ya no está disponible para nuevos pedidos. Quita esta línea para continuar.</p>}</div><button className="back shrink-0" type="button" onClick={() => removeLine(index)}>Quitar</button></div>
                         <div className="mt-3 grid grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] gap-3">
                             <Field id={`lines.${index}.quantity`} label="Cantidad" error={form.errors[`lines.${index}.quantity`]}>
-                                <div className="flex gap-1"><button className="button secondary min-w-12 px-2" type="button" aria-label={`Disminuir cantidad de ${product.name}`} onClick={() => changeQuantity(index, -1)}>−</button><input id={`lines.${index}.quantity`} name={`lines.${index}.quantity`} inputMode="numeric" value={line.quantity} onChange={(event) => updateLine(index, { quantity: event.target.value })} aria-label={`Cantidad ${product.name}`} aria-invalid={!!form.errors[`lines.${index}.quantity`]} /><button className="button secondary min-w-12 px-2" type="button" aria-label={`Aumentar cantidad de ${product.name}`} onClick={() => changeQuantity(index, 1)}>+</button></div>
+                                <div className="flex gap-1"><button className="button secondary min-w-12 px-2" type="button" aria-label={`Disminuir cantidad de ${productName}`} onClick={() => changeQuantity(index, -1)}>−</button><input id={`lines.${index}.quantity`} name={`lines.${index}.quantity`} inputMode="numeric" value={line.quantity} onChange={(event) => updateLine(index, { quantity: event.target.value })} aria-label={`Cantidad ${productName}`} aria-invalid={!!form.errors[`lines.${index}.quantity`]} /><button className="button secondary min-w-12 px-2" type="button" aria-label={`Aumentar cantidad de ${productName}`} onClick={() => changeQuantity(index, 1)}>+</button></div>
                             </Field>
                             <Field id={`lines.${index}.agreed_price`} label="Precio acordado" error={form.errors[`lines.${index}.agreed_price`]}>
-                                <input id={`lines.${index}.agreed_price`} name={`lines.${index}.agreed_price`} inputMode="decimal" value={line.agreed_price} onChange={(event) => updateLine(index, { agreed_price: event.target.value })} aria-label={`Precio acordado ${product.name}`} aria-invalid={!!form.errors[`lines.${index}.agreed_price`]} />
+                                <input id={`lines.${index}.agreed_price`} name={`lines.${index}.agreed_price`} inputMode="decimal" value={line.agreed_price} onChange={(event) => updateLine(index, { agreed_price: event.target.value })} aria-label={`Precio acordado ${productName}`} aria-invalid={!!form.errors[`lines.${index}.agreed_price`]} />
                             </Field>
                         </div>
                         <p className="mt-2 text-right text-sm font-semibold">{revenue === null ? '—' : formatMinor(revenue)}</p>
@@ -102,7 +105,11 @@ export default function Create({ products, storeUrl, indexUrl, requestKey, defau
                 <dl><div><dt>Total del pedido</dt><dd>{formatMinor(total)}</dd></div><div><dt>Anticipo</dt><dd>{formatMinor(paid)}</dd></div><div><dt>Saldo pendiente</dt><dd>{formatMinor(balance)}</dd></div></dl>
                 {paid > total && <p className="error-text" role="alert">El anticipo debe estar entre $0 y el total.</p>}
             </section>
-            <div className="sticky-actions"><button className="button primary" type="submit" disabled={form.processing}>{form.processing ? 'Guardando pedido…' : 'Guardar pedido'}</button></div>
+            <div className="sticky-actions"><button className="button primary" type="submit" disabled={form.processing || unavailableLines.length > 0}>{form.processing ? 'Guardando pedido…' : 'Guardar pedido'}</button></div>
         </form>
     </OrderShell>;
+}
+
+function s(count: number): string {
+    return count === 1 ? '' : 's';
 }

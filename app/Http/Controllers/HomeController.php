@@ -16,6 +16,8 @@ class HomeController extends Controller
             'productionUrl' => route('production.index'),
             'orderUrl' => route('orders.create'),
             'purchaseUrl' => route('purchases.create'),
+            'recipeUrl' => route('recipes.index'),
+            'productUrl' => route('products.index'),
             'isAdmin' => $request->user()?->is_admin === true,
             'accessUrl' => route('access.index'),
         ]);

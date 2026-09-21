@@ -1,0 +1,124 @@
+{
+  "schemaVersion": "foundry-runner.execution-contract.v1",
+  "taskId": "TSK-017-MT-006-GLOBAL-MONETARY-DISPLAY-PRECISION",
+  "executor": "codex-cli",
+  "repoPath": ".",
+  "branch": "tsk-017-pilot-blocker-correctness-economic-trust",
+  "promptPath": ".dev-foundry/prompts/TSK-017-MT-006-GLOBAL-MONETARY-DISPLAY-PRECISION.md",
+  "allowedPaths": [
+    ".dev-foundry/execution-contracts/",
+    ".dev-foundry/prompts/",
+    "app/Http/Controllers/AccessAdminController.php",
+    "app/Http/Controllers/HomeController.php",
+    "app/Services/OperationalSummary.php",
+    "docs/ASTRA-ADVERSARIAL-AUDIT-REMEDIATION-BACKLOG-2026-09-20.md",
+    "docs/TSK-017-PILOT-BLOCKER-CORRECTNESS-ECONOMIC-TRUST.md",
+    "e2e/first-use-navigation.spec.ts",
+    "e2e/order-capture.spec.ts",
+    "e2e/today-production.spec.ts",
+    "e2e/product-pricing.spec.ts",
+    "resources/js/Components/MoneyUI.tsx",
+    "resources/js/Components/OrderUI.tsx",
+    "resources/js/Components/ProductUI.tsx",
+    "resources/js/Components/PurchaseUI.tsx",
+    "resources/js/Components/RecipeUI.tsx",
+    "resources/js/Pages/Home.tsx",
+    "resources/js/Pages/Ingredients/Index.tsx",
+    "resources/js/Pages/Ingredients/Show.tsx",
+    "resources/js/Pages/Orders/Create.tsx",
+    "resources/js/Pages/Orders/Show.tsx",
+    "resources/js/Pages/Production/Index.tsx",
+    "resources/js/Pages/Products/History.tsx",
+    "resources/js/Pages/Products/Index.tsx",
+    "resources/js/Pages/Products/Show.tsx",
+    "resources/js/Pages/Recipes/Index.tsx",
+    "resources/js/Pages/Recipes/Show.tsx",
+    "scripts/test-percona-concurrent-admin.sh",
+    "tests/Feature/HomeTest.php",
+    "tests/Feature/ProductPricingTest.php",
+    "tests/Feature/TodayProductionTest.php",
+    ".dev-foundry/execution-requests/",
+    ".dev-foundry/executions/",
+    ".dev-foundry/validation-requests/",
+    ".dev-foundry/validations/"
+  ],
+  "blockedPaths": [
+    ".env",
+    ".env.example",
+    ".git/",
+    "docs/design/",
+    "database/migrations/",
+    "app/Models/",
+    "routes/",
+    "app/Http/Requests/",
+    "composer.json",
+    "composer.lock",
+    "package.json",
+    "package-lock.json",
+    "compose.yaml",
+    "Dockerfile"
+  ],
+  "validationCommands": [
+    {
+      "command": "npx",
+      "args": [
+        "tsc",
+        "--noEmit"
+      ],
+      "timeoutSeconds": 900
+    },
+    {
+      "command": "npm",
+      "args": [
+        "run",
+        "build"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "sh",
+      "args": [
+        "-lc",
+        "ids=$(docker ps --filter publish=18080 --format '{{.ID}}'); if [ -n \"$ids\" ]; then docker rm -f $ids; fi"
+      ],
+      "timeoutSeconds": 120
+    },
+    {
+      "command": "npx",
+      "args": [
+        "playwright",
+        "test",
+        "e2e/product-pricing.spec.ts",
+        "e2e/order-capture.spec.ts",
+        "--project=mobile"
+      ],
+      "timeoutSeconds": 1800
+    },
+    {
+      "command": "docker",
+      "args": [
+        "compose",
+        "run",
+        "--rm",
+        "app",
+        "./vendor/bin/pest",
+        "tests/Feature/ProductPricingTest.php",
+        "tests/Feature/TodayProductionTest.php"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "git",
+      "args": [
+        "diff",
+        "--check"
+      ],
+      "timeoutSeconds": 120
+    }
+  ],
+  "commitPolicy": "manual",
+  "pushPolicy": "disabled",
+  "prPolicy": "disabled",
+  "evidencePolicy": "required",
+  "outputPath": ".dev-foundry/executions/TSK-017-MT-006-GLOBAL-MONETARY-DISPLAY-PRECISION"
+}

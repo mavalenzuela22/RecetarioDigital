@@ -1,5 +1,8 @@
 import { Head, Link, router } from '@inertiajs/react';
 import { type ReactNode } from 'react';
+import { Money } from './MoneyUI';
+
+export { Money } from './MoneyUI';
 
 export type Purchase = {
     id: number; total_paid_minor: string; purchase_quantity_milli: string;
@@ -15,9 +18,6 @@ export function decimal(value: string, scale: number, trim = false): string {
     const whole = digits.slice(0, -scale).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     const fraction = trim ? digits.slice(-scale).replace(/0+$/, '') : digits.slice(-scale);
     return fraction ? `${whole}.${fraction}` : whole;
-}
-export function Money({ value, scale = 2 }: { value: string; scale?: number }) {
-    return <span className="money">${decimal(value, scale)} <small>MXN</small></span>;
 }
 export function dateLabel(date: string): string {
     const [year, month, day] = date.split('-');
@@ -42,9 +42,9 @@ export function CurrentCost({ ingredient }: { ingredient: Ingredient }) {
     const purchase = ingredient.current_purchase;
     return <section className="cost-summary" aria-label="Costo vigente">
         <p className="eyebrow">Costo vigente por {perUnit(ingredient.canonical_unit)}</p>
-        {purchase ? <><p className="cost"><Money value={purchase.normalized_unit_cost_micros} scale={6} /></p>
+        {purchase ? <><p className="cost"><Money value={purchase.normalized_unit_cost_micros} unit="micros" kind="normalized-unit" /></p>
             <p className="help">Compra del {dateLabel(purchase.purchased_on)}</p>
-            {purchase.normalized_unit_cost_micros === '0' && <p className="help">Menor a $0.000001 MXN por {perUnit(ingredient.canonical_unit)}; redondeado a seis decimales.</p>}
+            {purchase.normalized_unit_cost_micros === '0' && <p className="help">Menor a $0.000001 MXN por {perUnit(ingredient.canonical_unit)}.</p>}
         </> : <p>— Aún no hay compras registradas.</p>}
     </section>;
 }

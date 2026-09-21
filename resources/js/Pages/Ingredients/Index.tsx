@@ -14,7 +14,7 @@ export default function Index({ ingredients, createUrl }: { ingredients: Ingredi
             <ul className="ingredient-list">{results.map((ingredient) => <li key={ingredient.id}>
                 <Link className="ingredient-row" href={ingredient.url!}>
                     <strong>{ingredient.name}</strong>
-                    {ingredient.current_purchase ? <span><Money value={ingredient.current_purchase.normalized_unit_cost_micros} scale={6} /><span className="help"> por {perUnit(ingredient.canonical_unit)}</span></span> : <span>Sin compras registradas</span>}
+                    {ingredient.current_purchase ? <span><Money value={ingredient.current_purchase.normalized_unit_cost_micros} unit="micros" kind="normalized-unit" /><span className="help"> por {perUnit(ingredient.canonical_unit)}</span></span> : <span>Sin compras registradas</span>}
                     <span className="help">Ver historial →</span>
                 </Link>
             </li>)}</ul>

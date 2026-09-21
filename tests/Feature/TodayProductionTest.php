@@ -82,6 +82,10 @@ it('uses the configured local business date and keeps delivered debt in today', 
         ->and(collect($summary['collections'])->pluck('customer_name')->all())->toContain('Entregada')
         ->and($summary['money']['expected_revenue_minor'])->toBe('35000')
         ->and($summary['money']['balance_minor'])->toBe('35000')
+        ->and($summary['money']['expected_revenue_label'])->toBe('$350.00 MXN')
+        ->and($summary['money']['balance_label'])->toBe('$350.00 MXN')
+        ->and($summary['money']['estimated_cost_label'])->toBe('$58.80 MXN')
+        ->and($summary['money']['estimated_profit_label'])->toBe('$291.20 MXN')
         ->and($summary['money']['estimated_profit_micros'])->toBe('291200000')
         ->and(collect($summary['deliveries'])->pluck('customer_name')->all())->not->toContain('Cancelada');
 });

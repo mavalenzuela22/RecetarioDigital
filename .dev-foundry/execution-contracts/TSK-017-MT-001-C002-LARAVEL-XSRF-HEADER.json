@@ -1,0 +1,88 @@
+{
+  "schemaVersion": "foundry-runner.execution-contract.v1",
+  "taskId": "TSK-017-MT-001-C002-LARAVEL-XSRF-HEADER",
+  "executor": "codex-cli",
+  "repoPath": ".",
+  "branch": "tsk-017-pilot-blocker-correctness-economic-trust",
+  "promptPath": ".dev-foundry/prompts/TSK-017-MT-001-C002-LARAVEL-XSRF-HEADER.md",
+  "allowedPaths": [
+    ".dev-foundry/execution-contracts/TSK-017-MT-001-CONCURRENT-ADMIN-INVARIANT.json",
+    ".dev-foundry/prompts/TSK-017-MT-001-CONCURRENT-ADMIN-INVARIANT.md",
+    ".dev-foundry/execution-contracts/TSK-017-MT-001-C001-DETERMINISTIC-PERCONA-AB.json",
+    ".dev-foundry/prompts/TSK-017-MT-001-C001-DETERMINISTIC-PERCONA-AB.md",
+    ".dev-foundry/execution-contracts/TSK-017-MT-001-C002-LARAVEL-XSRF-HEADER.json",
+    ".dev-foundry/prompts/TSK-017-MT-001-C002-LARAVEL-XSRF-HEADER.md",
+    "app/Http/Controllers/AccessAdminController.php",
+    "docs/ASTRA-ADVERSARIAL-AUDIT-REMEDIATION-BACKLOG-2026-09-20.md",
+    "docs/TSK-017-PILOT-BLOCKER-CORRECTNESS-ECONOMIC-TRUST.md",
+    "scripts/test-percona-concurrent-admin.sh",
+    ".dev-foundry/execution-requests/",
+    ".dev-foundry/executions/",
+    ".dev-foundry/validation-requests/",
+    ".dev-foundry/validations/"
+  ],
+  "blockedPaths": [
+    ".env",
+    ".env.example",
+    ".git/",
+    "docs/design/",
+    "database/migrations/",
+    "app/Models/",
+    "resources/",
+    "routes/",
+    "composer.json",
+    "composer.lock",
+    "package.json",
+    "package-lock.json",
+    "compose.yaml",
+    "Dockerfile"
+  ],
+  "validationCommands": [
+    {
+      "command": "docker",
+      "args": [
+        "compose",
+        "run",
+        "--rm",
+        "app",
+        "composer",
+        "install",
+        "--no-interaction",
+        "--prefer-dist"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "docker",
+      "args": [
+        "compose",
+        "run",
+        "--rm",
+        "app",
+        "./vendor/bin/pest",
+        "tests/Feature/AccessAdministrationTest.php"
+      ],
+      "timeoutSeconds": 900
+    },
+    {
+      "command": "bash",
+      "args": [
+        "scripts/test-percona-concurrent-admin.sh"
+      ],
+      "timeoutSeconds": 1800
+    },
+    {
+      "command": "git",
+      "args": [
+        "diff",
+        "--check"
+      ],
+      "timeoutSeconds": 120
+    }
+  ],
+  "commitPolicy": "manual",
+  "pushPolicy": "disabled",
+  "prPolicy": "disabled",
+  "evidencePolicy": "required",
+  "outputPath": ".dev-foundry/executions/TSK-017-MT-001-C002-LARAVEL-XSRF-HEADER"
+}
