@@ -40,6 +40,6 @@ class ProductionController extends Controller
         $transition->transition($order, 'ready', $request->validated());
         $range = $summary->normalizeRange($request->input('from') ?: $order->delivery_date, $request->input('to'));
 
-        return to_route('production.index', $range, 303)->with('success', 'Pedido listo para entregar.');
+        return to_route('production.index', $range, 303)->with('success', 'Pedido completo listo para entregar.');
     }
 }

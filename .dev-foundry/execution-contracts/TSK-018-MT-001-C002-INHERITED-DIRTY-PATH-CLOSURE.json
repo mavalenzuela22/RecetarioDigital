@@ -1,0 +1,126 @@
+{
+  "schemaVersion": "foundry-runner.execution-contract.v1",
+  "taskId": "TSK-018-MT-001-C002-INHERITED-DIRTY-PATH-CLOSURE",
+  "executor": "codex-cli",
+  "repoPath": ".",
+  "branch": "tsk-018-user-recovery-mobile-workflow-clarity",
+  "promptPath": ".dev-foundry/prompts/TSK-018-MT-001-C002-INHERITED-DIRTY-PATH-CLOSURE.md",
+  "allowedPaths": [
+    ".dev-foundry/execution-contracts/TSK-018-MT-001-C001-MIXED-ORDER-DUPLICATE-LOCATOR.json",
+    ".dev-foundry/execution-contracts/TSK-018-MT-001-PRODUCTION-WORKFLOW-CLARITY.json",
+    ".dev-foundry/prompts/TSK-018-MT-001-C001-MIXED-ORDER-DUPLICATE-LOCATOR.md",
+    ".dev-foundry/prompts/TSK-018-MT-001-PRODUCTION-WORKFLOW-CLARITY.md",
+    "app/Http/Controllers/ProductionController.php",
+    "docs/TSK-018-USER-RECOVERY-MOBILE-WORKFLOW-CLARITY.md",
+    "e2e/today-production.spec.ts",
+    "resources/js/Pages/Production/Index.tsx",
+    "tests/Feature/TodayProductionTest.php",
+    ".dev-foundry/prompts/TSK-018-MT-001-C002-INHERITED-DIRTY-PATH-CLOSURE.md",
+    ".dev-foundry/execution-contracts/TSK-018-MT-001-C002-INHERITED-DIRTY-PATH-CLOSURE.json",
+    ".dev-foundry/execution-requests/",
+    ".dev-foundry/executions/",
+    ".dev-foundry/validation-requests/",
+    ".dev-foundry/validations/"
+  ],
+  "blockedPaths": [
+    ".env",
+    ".env.example",
+    ".git/",
+    "docs/design/",
+    "database/migrations/",
+    "app/Models/",
+    "routes/",
+    "composer.json",
+    "composer.lock",
+    "package.json",
+    "package-lock.json",
+    "compose.yaml",
+    "Dockerfile",
+    "vite.config.ts",
+    "playwright.config.ts",
+    "tsconfig.json"
+  ],
+  "validationCommands": [
+    {
+      "command": "docker",
+      "args": [
+        "compose",
+        "run",
+        "--rm",
+        "app",
+        "composer",
+        "install",
+        "--no-interaction",
+        "--prefer-dist"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "npm",
+      "args": [
+        "ci"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "npx",
+      "args": [
+        "tsc",
+        "--noEmit"
+      ],
+      "timeoutSeconds": 900
+    },
+    {
+      "command": "npm",
+      "args": [
+        "run",
+        "build"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "sh",
+      "args": [
+        "-lc",
+        "ids=$(docker ps --filter publish=18080 --format '{{.ID}}'); if [ -n \"$ids\" ]; then docker rm -f $ids; fi"
+      ],
+      "timeoutSeconds": 120
+    },
+    {
+      "command": "npx",
+      "args": [
+        "playwright",
+        "test",
+        "e2e/today-production.spec.ts",
+        "--project=mobile",
+        "--workers=1"
+      ],
+      "timeoutSeconds": 2400
+    },
+    {
+      "command": "docker",
+      "args": [
+        "compose",
+        "run",
+        "--rm",
+        "app",
+        "./vendor/bin/pest",
+        "tests/Feature/TodayProductionTest.php"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "git",
+      "args": [
+        "diff",
+        "--check"
+      ],
+      "timeoutSeconds": 120
+    }
+  ],
+  "commitPolicy": "manual",
+  "pushPolicy": "disabled",
+  "prPolicy": "disabled",
+  "evidencePolicy": "required",
+  "outputPath": ".dev-foundry/executions/TSK-018-MT-001-C002-INHERITED-DIRTY-PATH-CLOSURE"
+}

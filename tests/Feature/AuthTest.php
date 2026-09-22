@@ -98,7 +98,23 @@ it('throttles after five failures and clears the throttle after success', functi
 });
 
 it('logs out, invalidates the session, and protects the next request', function (): void {
-    $this->post(route('logout'))->assertStatus(303)->assertRedirect(route('login'));
+    $privateResponse = $this->get(route('home'));
+    $assertPrivateCacheHeaders = function ($response): void {
+        $directives = array_map('trim', explode(',', $response->headers->get('Cache-Control', '')));
+
+        expect($directives)->toContain('private')
+            ->toContain('no-store')
+            ->toContain('max-age=0')
+            ->toContain('must-revalidate');
+        expect($response->headers->get('Pragma'))->toBe('no-cache')
+            ->and($response->headers->get('Expires'))->toBe('0');
+    };
+
+    $assertPrivateCacheHeaders($privateResponse);
+
+    $logoutResponse = $this->post(route('logout'));
+    $logoutResponse->assertStatus(303)->assertRedirect(route('login'));
+    $assertPrivateCacheHeaders($logoutResponse);
     expect(Auth::guard('web')->check())->toBeFalse();
     $this->get('/')->assertRedirect(route('login'));
 });

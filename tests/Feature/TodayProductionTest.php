@@ -6,6 +6,7 @@ use App\Models\OrderFulfillmentEvent;
 use App\Models\Product;
 use App\Services\ChangeProductPrice;
 use App\Services\OperationalSummary;
+use App\Services\RecordOrderPayment;
 use App\Services\RecordIngredientPurchase;
 use App\Services\SaveOrder;
 use App\Services\SaveProductProfile;
@@ -90,6 +91,48 @@ it('uses the configured local business date and keeps delivered debt in today', 
         ->and(collect($summary['deliveries'])->pluck('customer_name')->all())->not->toContain('Cancelada');
 });
 
+it('keeps a completed fully paid day in Today with exact economics', function (): void {
+    $product = today_complete_product('Completado');
+    $order = today_order($product, 'Cliente completado');
+    app(StartProduction::class)->start('2026-09-19', '2026-09-19');
+
+    $transition = app(TransitionOrderFulfillment::class);
+    $transition->transition($order->fresh(), 'ready', ['request_key' => (string) Str::uuid()]);
+    $transition->transition($order->fresh(), 'delivered', ['request_key' => (string) Str::uuid()]);
+    app(RecordOrderPayment::class)->record($order->fresh(), [
+        'amount' => '25.00',
+        'payment_date' => '2026-09-19',
+        'request_key' => (string) Str::uuid(),
+    ]);
+
+    $summary = app(OperationalSummary::class)->today();
+
+    expect($order->fresh()->fulfillment_state)->toBe('delivered')
+        ->and($order->fresh()->payment_state)->toBe('paid')
+        ->and($summary['has_orders'])->toBeTrue()
+        ->and($summary['production']['groups'])->toBe([])
+        ->and($summary['deliveries'])->toBe([])
+        ->and($summary['collections'])->toBe([])
+        ->and($summary['money']['expected_revenue_minor'])->toBe('2500')
+        ->and($summary['money']['balance_minor'])->toBe('0')
+        ->and($summary['money']['estimated_cost_micros'])->toBe('4200000')
+        ->and($summary['money']['estimated_profit_micros'])->toBe('20800000')
+        ->and($summary['money']['expected_revenue_label'])->toBe('$25.00 MXN')
+        ->and($summary['money']['balance_label'])->toBe('$0.00 MXN')
+        ->and($summary['money']['estimated_cost_label'])->toBe('$4.20 MXN')
+        ->and($summary['money']['estimated_profit_label'])->toBe('$20.80 MXN');
+
+    $this->get('/')->assertInertia(fn ($page) => $page
+        ->component('Home')
+        ->where('has_orders', true)
+        ->where('production.groups', [])
+        ->where('deliveries', [])
+        ->where('collections', [])
+        ->where('money.expected_revenue_minor', '2500')
+        ->where('money.balance_minor', '0')
+        ->where('money.estimated_profit_micros', '20800000'));
+});
+
 it('keeps revenue available and profit pending when a snapshot cost is incomplete', function (): void {
     $order = today_order(today_incomplete_product(), 'Sin costo');
     $summary = app(OperationalSummary::class)->today();
@@ -166,6 +209,38 @@ it('only marks in-preparation orders ready and preserves payment facts', functio
         ->and(fn () => $transition->transition($other, 'ready', ['request_key' => $key]))->toThrow(ValidationException::class)
         ->and(fn () => $transition->transition($order->fresh(), 'delivered', ['request_key' => $key]))->toThrow(ValidationException::class)
         ->and(fn () => $transition->transition(today_order($product, 'No salto'), 'ready', ['request_key' => (string) Str::uuid()]))->toThrow(ValidationException::class);
+});
+
+it('marks every line of a mixed order ready through the order-level transition', function (): void {
+    $firstProduct = today_complete_product('Mixto primero');
+    $secondProduct = today_complete_product('Mixto segundo');
+    $order = app(SaveOrder::class)->save([
+        'customer_name' => 'Pedido mixto',
+        'lines' => [
+            ['product_id' => $firstProduct->id, 'quantity' => '2', 'agreed_price' => '25.00'],
+            ['product_id' => $secondProduct->id, 'quantity' => '3', 'agreed_price' => '25.00'],
+        ],
+        'delivery_date' => '2026-09-19',
+        'delivery_time' => '15:30',
+        'notes' => null,
+        'advance' => '0.00',
+        'request_key' => (string) Str::uuid(),
+    ]);
+    app(StartProduction::class)->start('2026-09-19', '2026-09-19');
+
+    $groups = collect(app(OperationalSummary::class)->production('2026-09-19', '2026-09-19')['groups']);
+    expect($groups)->toHaveCount(2)
+        ->and($groups->flatMap(fn (array $group): array => $group['orders'])->pluck('id')->unique()->all())->toBe([$order->id]);
+
+    $this->post(route('production.ready', $order), [
+        'request_key' => (string) Str::uuid(),
+        'from' => '2026-09-19',
+        'to' => '2026-09-19',
+    ])->assertSessionHas('success', 'Pedido completo listo para entregar.');
+
+    expect($order->fresh()->fulfillment_state)->toBe('ready')
+        ->and($order->fresh()->lines)->toHaveCount(2)
+        ->and(OrderFulfillmentEvent::where('order_id', $order->id)->where('to_state', 'ready')->count())->toBe(1);
 });
 
 it('exposes presentation-ready Today and Production Inertia payloads', function (): void {

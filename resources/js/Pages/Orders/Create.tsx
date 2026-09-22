@@ -1,5 +1,5 @@
 import { router, useForm } from '@inertiajs/react';
-import { useEffect, useMemo, useState, type FormEvent } from 'react';
+import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
 import { Field } from '../../Components/PurchaseUI';
 import { decimalInputFromMinor, formatMinor, lineRevenue, minorFromDecimal, orderTotal, OrderShell } from '../../Components/OrderUI';
 import type { OrderLineInput, OrderProduct } from '../../Components/OrderUI';
@@ -10,19 +10,24 @@ type OrderForm = { customer_name: string; lines: OrderLineInput[]; delivery_date
 export default function Create({ products, storeUrl, indexUrl, requestKey, defaultDate, defaultTime }: Props) {
     const form = useForm<OrderForm>({ customer_name: '', lines: [], delivery_date: defaultDate, delivery_time: defaultTime, notes: '', advance: '0', request_key: requestKey });
     const [selectedProduct, setSelectedProduct] = useState('');
+    const discard = useRef<HTMLDialogElement>(null);
+    const allowLeave = useRef(false);
+    const saving = useRef(false);
     const total = useMemo(() => orderTotal(form.data.lines), [form.data.lines]);
     const paid = minorFromDecimal(form.data.advance) ?? 0n;
     const balance = total - paid;
     const dirty = form.isDirty;
 
     useEffect(() => {
-        const beforeUnload = (event: BeforeUnloadEvent) => { if (dirty) { event.preventDefault(); event.returnValue = ''; } };
+        const beforeUnload = (event: BeforeUnloadEvent) => { if (dirty && !allowLeave.current) { event.preventDefault(); event.returnValue = ''; } };
         window.addEventListener('beforeunload', beforeUnload);
         return () => window.removeEventListener('beforeunload', beforeUnload);
     }, [dirty]);
 
     function back() {
-        if (!dirty || window.confirm('Tienes cambios sin guardar. ¿Quieres salir?')) router.visit(indexUrl);
+        if (saving.current) return;
+        if (dirty) discard.current?.showModal();
+        else router.visit(indexUrl);
     }
 
     function addProduct() {
@@ -49,13 +54,14 @@ export default function Create({ products, storeUrl, indexUrl, requestKey, defau
 
     function submit(event: FormEvent) {
         event.preventDefault();
-        if (form.processing || unavailableLines.length > 0) return;
-        form.post(storeUrl, { preserveState: true, preserveScroll: true, onError: () => requestAnimationFrame(() => document.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus()) });
+        if (saving.current || unavailableLines.length > 0) return;
+        saving.current = true;
+        form.post(storeUrl, { preserveState: true, preserveScroll: true, onSuccess: () => { allowLeave.current = true; }, onFinish: () => { saving.current = false; }, onError: () => requestAnimationFrame(() => document.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus()) });
     }
 
     const unavailableLines = form.data.lines.filter((line) => !products.some((product) => product.id === line.product_id));
 
-    return <OrderShell title="Tomar pedido">
+    return <OrderShell title="Tomar pedido" onBack={back}>
         <p className="intro">Captura lo que acordaste y guarda el precio de este pedido tal como está hoy.</p>
         <form onSubmit={submit}>
             <Field id="customer_name" label="Cliente" error={form.errors.customer_name}>
@@ -107,6 +113,7 @@ export default function Create({ products, storeUrl, indexUrl, requestKey, defau
             </section>
             <div className="sticky-actions"><button className="button primary" type="submit" disabled={form.processing || unavailableLines.length > 0}>{form.processing ? 'Guardando pedido…' : 'Guardar pedido'}</button></div>
         </form>
+        <dialog ref={discard} aria-labelledby="discard-title"><h2 id="discard-title">¿Descartar este pedido?</h2><p>Los datos que escribiste todavía no se han guardado.</p><div className="dialog-actions"><button type="button" className="button secondary" autoFocus onClick={() => discard.current?.close()}>Seguir editando</button><button type="button" className="button danger" onClick={() => { allowLeave.current = true; discard.current?.close(); router.visit(indexUrl); }}>Descartar cambios</button></div></dialog>
     </OrderShell>;
 }
 

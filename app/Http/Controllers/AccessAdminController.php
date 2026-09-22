@@ -20,7 +20,7 @@ class AccessAdminController extends Controller
         return Inertia::render('Admin/Access/Index', $this->pageProps($request));
     }
 
-    private function pageProps(Request $request, ?string $invitationLink = null, ?string $notice = null): array
+    private function pageProps(Request $request): array
     {
         return [
             'users' => User::query()->orderByDesc('is_admin')->orderBy('name')->get()->map(fn (User $user): array => [
@@ -38,13 +38,13 @@ class AccessAdminController extends Controller
                 'expiresAt' => $invitation->expires_at?->format('d/m/Y'),
                 'createdAt' => $invitation->created_at?->format('d/m/Y'),
             ])->values(),
-            'invitationLink' => $invitationLink,
-            'notice' => $notice ?? $request->session()->pull('access_notice'),
+            'invitationLink' => $request->session()->pull('invitation_link'),
+            'notice' => $request->session()->pull('access_notice'),
             'currentUserId' => $request->user()->id,
         ];
     }
 
-    public function storeInvitation(CreateAccessInvitationRequest $request): Response|RedirectResponse
+    public function storeInvitation(CreateAccessInvitationRequest $request): RedirectResponse
     {
         $email = (string) $request->string('email');
         $rawToken = bin2hex(random_bytes(32));
@@ -75,11 +75,9 @@ class AccessAdminController extends Controller
             return back(303)->withErrors(['email' => 'Ya existe una invitación pendiente para este correo.']);
         }
 
-        return Inertia::render('Admin/Access/Index', $this->pageProps(
-            $request,
-            route('invitations.show', ['token' => $rawToken]),
-            'Invitación creada. Copia el enlace y compártelo por tu canal habitual.',
-        ));
+        return to_route('access.index', [], 303)
+            ->with('invitation_link', route('invitations.show', ['token' => $rawToken]))
+            ->with('access_notice', 'Invitación creada. Copia el enlace y compártelo por tu canal habitual.');
     }
 
     public function revokeInvitation(Request $request, AccessInvitation $invitation): RedirectResponse

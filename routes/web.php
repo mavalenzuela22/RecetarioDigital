@@ -21,7 +21,7 @@ Route::get('/invitaciones/{token}', [InvitationController::class, 'show'])->name
 Route::get('/setup', [SetupController::class, 'create'])->name('setup');
 Route::post('/setup/secret', [SetupController::class, 'store'])->name('setup.secret');
 
-Route::middleware(['auth', 'active'])->group(function (): void {
+Route::middleware(['auth', 'active', 'private-cache'])->group(function (): void {
     Route::post('/logout', [AuthController::class, 'destroy'])->name('logout');
 
     Route::get('/', HomeController::class)->name('home');

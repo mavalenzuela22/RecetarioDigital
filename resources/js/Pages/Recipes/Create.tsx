@@ -48,6 +48,12 @@ export default function Create({ ingredients, recipe, requestKey, storeUrl, inde
         if (form.processing) return;
         form.post(storeUrl, { forceFormData: true, preserveScroll: true, onSuccess: () => { allowLeave.current = true; } });
     }
+    const staleConflict = Boolean(recipe && error('base_version_id') && Number(recipe.version_id) > Number(form.data.base_version_id));
+    function rebaseDraft() {
+        if (!recipe) return;
+        form.setData('base_version_id', String(recipe.version_id));
+        form.clearErrors('base_version_id');
+    }
     const input = (key: keyof FormData, hint = false) => ({
         id: key, name: key, value: form.data[key] as string, disabled: form.processing,
         'aria-invalid': Boolean(error(String(key))), 'aria-describedby': [hint ? `${key}-hint` : '', error(String(key)) ? `${key}-error` : ''].filter(Boolean).join(' ') || undefined,
@@ -85,9 +91,15 @@ export default function Create({ ingredients, recipe, requestKey, storeUrl, inde
                 </div>
                 <Field id="image" label="Foto (opcional)" hint="JPEG, PNG o WebP. Máximo 5 MiB." error={error('image')}><input id="image" name="image" type="file" accept="image/jpeg,image/png,image/webp" onChange={(event) => form.setData('image', event.target.files?.[0] ?? null)} /></Field>
             </fieldset>
-            <RecipeCostDisclosure cost={recipe?.cost} />
+            <RecipeCostDisclosure cost={recipe?.cost} savedVersionNumber={recipe ? String(recipe.version_number) : undefined} draftIsDirty={Boolean(recipe && form.isDirty)} />
             <p className="help">Cada guardado crea una nueva versión. La versión anterior conserva su costo histórico.</p>
             {error('base_version_id') && <p className="error-message" role="alert">{error('base_version_id')}</p>}
+            {staleConflict && recipe && <aside className="notice" role="region" aria-label="Conflicto de versión">
+                <h2>Hay una versión más reciente</h2>
+                <p>La versión guardada {recipe.version_number} es más nueva que la base de este formulario. Tus cambios todavía están aquí y puedes seguir editándolos.</p>
+                <p><a href={backUrl} target="_blank" rel="noreferrer">Ver la versión guardada {recipe.version_number}</a> en otra pestaña.</p>
+                <button type="button" className="button secondary w-full" onClick={rebaseDraft}>Conservar mis cambios y usar la versión {recipe.version_number} como base</button>
+            </aside>}
             {error('request_key') && <p className="error-message" role="alert">{error('request_key')}</p>}
             {!!Object.keys(form.errors).length && <p role="alert" className="error-text">Revisa los campos señalados. Tus datos siguen aquí.</p>}
             <div className="sticky-actions"><button className="button primary" type="submit" disabled={form.processing}>{form.processing ? 'Guardando receta…' : 'Guardar receta'}</button>{form.processing && <p className="help" role="status">Espera mientras confirmamos la nueva versión.</p>}</div>

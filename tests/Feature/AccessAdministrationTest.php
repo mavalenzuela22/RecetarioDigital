@@ -28,7 +28,10 @@ it('returns 403 to non-administrators and lets an admin list and create invitati
     $admin = tsk016MakeAdmin();
     $this->get(route('access.index'))->assertOk()->assertInertia(fn ($page) => $page->component('Admin/Access/Index')->where('currentUserId', $admin->id));
 
-    $this->post(route('access.invitations.store'), ['email' => '  PATrona@example.com '])->assertOk()->assertInertia(fn ($page) => $page->component('Admin/Access/Index')->where('invitationLink', fn (string $link): bool => str_contains($link, '/invitaciones/')));
+    $createResponse = $this->post(route('access.invitations.store'), ['email' => '  PATrona@example.com ']);
+    $createResponse->assertStatus(303)->assertRedirect(route('access.index'))->assertSessionHas('access_notice', 'Invitación creada. Copia el enlace y compártelo por tu canal habitual.')->assertSessionHas('invitation_link', fn (string $link): bool => str_contains($link, '/invitaciones/'));
+    $this->get(route('access.index'))->assertOk()->assertInertia(fn ($page) => $page->component('Admin/Access/Index')->where('invitationLink', fn (string $link): bool => str_contains($link, '/invitaciones/')));
+    $this->get(route('access.index'))->assertOk()->assertInertia(fn ($page) => $page->component('Admin/Access/Index')->where('invitationLink', null));
     $invitation = AccessInvitation::query()->sole();
     $sevenDaysAhead = now()->addDays(7);
     expect($invitation->email)->toBe('patrona@example.com')
@@ -77,4 +80,35 @@ it('lets the current administrator set a recovery password for local fallback lo
     Auth::guard('web')->logout();
     Auth::forgetGuards();
     $this->post(route('login.store'), ['email' => ' TEST@EXAMPLE.COM ', 'password' => $password])->assertRedirect(route('home'));
+});
+
+it('returns natural es-MX recovery validation and does not expose passwords', function (): void {
+    tsk016MakeAdmin();
+
+    $this->from(route('access.index'))
+        ->post(route('access.recovery-password.update'), ['password' => '', 'password_confirmation' => ''])
+        ->assertSessionHasErrors([
+            'password' => 'Escribe una contraseña de recuperación.',
+            'password_confirmation' => 'Confirma la contraseña de recuperación.',
+        ]);
+
+    $this->from(route('access.index'))
+        ->post(route('access.recovery-password.update'), ['password' => ['no es texto'], 'password_confirmation' => ['no es texto']])
+        ->assertSessionHasErrors([
+            'password' => 'La contraseña de recuperación debe ser texto.',
+            'password_confirmation' => 'La confirmación debe ser texto.',
+        ]);
+
+    $this->from(route('access.index'))
+        ->post(route('access.recovery-password.update'), ['password' => 'corta', 'password_confirmation' => 'corta'])
+        ->assertRedirect(route('access.index'))
+        ->assertSessionHasErrors(['password' => 'La contraseña de recuperación debe tener al menos 12 caracteres.']);
+
+    $this->from(route('access.index'))
+        ->post(route('access.recovery-password.update'), ['password' => 'password-valid-123', 'password_confirmation' => 'password-different-123'])
+        ->assertSessionHasErrors([
+            'password' => 'Las contraseñas de recuperación no coinciden.',
+            'password_confirmation' => 'Las contraseñas de recuperación no coinciden.',
+        ])
+        ->assertSessionDoesntHaveErrors(['password' => 'validation.min.string', 'password_confirmation' => 'validation.confirmed']);
 });

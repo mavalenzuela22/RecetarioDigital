@@ -38,8 +38,8 @@ export function orderTotal(lines: OrderLineInput[]): bigint {
     return lines.reduce((total, line) => total + (lineRevenue(line) ?? 0n), 0n);
 }
 
-export function OrderShell({ title, children, back }: { title: string; children: ReactNode; back?: string }) {
-    return <AppShell title={title} back={back}>{children}</AppShell>;
+export function OrderShell({ title, children, back, onBack }: { title: string; children: ReactNode; back?: string; onBack?: () => void }) {
+    return <AppShell title={title} back={back} onBack={onBack}>{children}</AppShell>;
 }
 
 export function OrderMoney({ value, unit = 'minor' }: { value: string | null | undefined; unit?: 'minor' | 'micros' }) {

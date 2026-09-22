@@ -90,7 +90,7 @@
     :focus-visible { outline: 2px solid var(--eo-focus); outline-offset: 3px; }
     ::selection { background: var(--eo-primary); color: var(--eo-paper); }
 }
-.flow { width: 100%; max-width: 480px; margin: 0 auto; padding: 0 20px 40px; }
+.flow { width: 100%; max-width: 480px; margin: 0 auto; padding: 0 20px 40px; overflow-wrap: anywhere; }
 .flow-header { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 12px 0 20px; }
 .brand { font-size: 14px; font-weight: 600; }
 .back { display: inline-flex; align-items: center; min-width: 48px; min-height: 48px; color: var(--eo-primary); font-weight: 700; background: transparent; border: 0; padding: 8px 0; text-decoration: none; }
@@ -144,6 +144,7 @@ fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
 .sticky-actions { position: sticky; bottom: 0; padding: 12px 0 calc(12px + env(safe-area-inset-bottom, 0px)); margin-top: 16px; background: var(--eo-canvas); z-index: 10; }
 .sticky-actions .button { width: 100%; }
 .ingredient-list, .history-list { list-style: none; margin: 16px 0; padding: 0; }
+.ingredient-list li { min-width: 0; }
 .ingredient-list li + li { border-top: 1px solid var(--eo-line); }
 .ingredient-row { display: flex; flex-direction: column; gap: 8px; padding: 16px 0; min-height: 64px; text-decoration: none; color: var(--eo-ink); overflow-wrap: anywhere; }
 .ingredient-row strong { font-size: 18px; }
