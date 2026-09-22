@@ -22,9 +22,13 @@ for (const width of [320, 390]) {
         await expect(page).toHaveURL(/\/recetas$/);
         await expect(page.getByRole('heading', { name: 'Recetario', exact: true })).toBeVisible();
 
+        await page.goto('/productos');
+        await expect(page.getByRole('heading', { name: 'Productos', exact: true })).toBeVisible();
         await page.getByRole('button', { name: 'Cerrar sesión', exact: true }).click();
         await expect(page).toHaveURL(/\/login$/);
-        await page.goto('/productos');
+        await page.goBack();
         await expect(page).toHaveURL(/\/login$/);
+        await expect(page.getByRole('heading', { name: 'Productos', exact: true })).not.toBeVisible();
+        await expect(page.getByRole('heading', { name: 'Iniciar sesión', exact: true })).toBeVisible();
     });
 }

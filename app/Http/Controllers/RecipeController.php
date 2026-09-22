@@ -11,8 +11,10 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 
 class RecipeController extends Controller
 {
@@ -81,7 +83,13 @@ class RecipeController extends Controller
 
     public function update(StoreRecipeRequest $request, Recipe $recipe, SaveRecipe $saver): RedirectResponse
     {
-        $version = $saver->save($request->validated(), $recipe);
+        try {
+            $version = $saver->save($request->validated(), $recipe);
+        } catch (ConflictHttpException) {
+            throw ValidationException::withMessages([
+                'base_version_id' => 'La receta cambió mientras la editabas. Conservamos tus cambios en el formulario; adopta la versión más reciente como base antes de guardar.',
+            ]);
+        }
 
         return to_route('recipes.show', $version->recipe_id, 303)->with('success', 'Receta guardada como nueva versión.');
     }

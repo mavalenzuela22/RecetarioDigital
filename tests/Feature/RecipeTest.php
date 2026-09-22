@@ -144,12 +144,45 @@ it('creates version two, rejects stale bases, and replays an identical request',
     ]), $first->recipe);
     expect($second->version_number)->toBe(2)->and($first->fresh()->name)->toBe('Roles de canela');
 
-    expect(fn () => $service->save(recipeInput([['ingredient_id' => $flour, 'quantity' => '250', 'unit' => 'g']], [
+    $stale = recipeInput([['ingredient_id' => $flour, 'quantity' => '250', 'unit' => 'g']], [
         'base_version_id' => $first->id,
-    ]), $first->recipe))->toThrow(ConflictHttpException::class);
+    ]);
+    expect(fn () => $service->save($stale, $first->recipe))->toThrow(ConflictHttpException::class);
+    expect(RecipeVersion::count())->toBe(2);
+
+    $third = $service->save(recipeInput([['ingredient_id' => $flour, 'quantity' => '2', 'unit' => 'kg']], [
+        'base_version_id' => $second->id,
+    ]), $second->recipe);
+    expect($third->version_number)->toBe(3)
+        ->and(RecipeVersion::count())->toBe(3)
+        ->and($first->fresh()->version_number)->toBe(1)
+        ->and($second->fresh()->version_number)->toBe(2);
     expect(fn () => $service->save(recipeInput([['ingredient_id' => $flour, 'quantity' => '2', 'unit' => 'kg']], [
         'request_key' => $input['request_key'],
     ])))->toThrow(ValidationException::class);
+});
+
+it('turns a stale recipe update into recoverable validation and preserves the version count', function (): void {
+    [$flour] = makeRecipeIngredients();
+    $service = app(SaveRecipe::class);
+    $first = $service->save(recipeInput([['ingredient_id' => $flour, 'quantity' => '1', 'unit' => 'kg']]));
+    $second = $service->save(recipeInput([['ingredient_id' => $flour, 'quantity' => '500', 'unit' => 'g']], [
+        'base_version_id' => $first->id,
+    ]), $first->recipe);
+    $stale = recipeInput([['ingredient_id' => $flour, 'quantity' => '250', 'unit' => 'g']], [
+        'base_version_id' => $first->id,
+    ]);
+
+    $this->from(route('recipes.edit', $first->recipe))
+        ->post(route('recipes.update', $first->recipe), $stale)
+        ->assertRedirect(route('recipes.edit', $first->recipe))
+        ->assertSessionHasErrors(['base_version_id' => 'La receta cambió mientras la editabas. Conservamos tus cambios en el formulario; adopta la versión más reciente como base antes de guardar.']);
+
+    expect(RecipeVersion::count())->toBe(2);
+    $this->get(route('recipes.edit', $first->recipe))
+        ->assertInertia(fn ($page) => $page->component('Recipes/Create')
+            ->where('recipe.version_id', $second->id)
+            ->where('recipe.version_number', 2));
 });
 
 it('validates and stores an optional image through Laravel storage', function (): void {

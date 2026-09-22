@@ -1,0 +1,204 @@
+{
+  "schemaVersion": "foundry-runner.execution-contract.v1",
+  "taskId": "TSK-018-C002-DETERMINISTIC-FULL-CLOSURE",
+  "executor": "codex-cli",
+  "repoPath": ".",
+  "branch": "tsk-018-user-recovery-mobile-workflow-clarity",
+  "promptPath": ".dev-foundry/prompts/TSK-018-C002-DETERMINISTIC-FULL-CLOSURE.md",
+  "allowedPaths": [
+    ".dev-foundry/execution-contracts/TSK-018-C001-RESTORE-FRONTEND-DEPS-IN-CLOSURE.json",
+    ".dev-foundry/execution-contracts/TSK-018-FULL-CLOSURE-MATRIX.json",
+    ".dev-foundry/execution-contracts/TSK-018-MT-001-C001-MIXED-ORDER-DUPLICATE-LOCATOR.json",
+    ".dev-foundry/execution-contracts/TSK-018-MT-001-C002-INHERITED-DIRTY-PATH-CLOSURE.json",
+    ".dev-foundry/execution-contracts/TSK-018-MT-001-PRODUCTION-WORKFLOW-CLARITY.json",
+    ".dev-foundry/execution-contracts/TSK-018-MT-002-ACCESS-AUTH-RECOVERY.json",
+    ".dev-foundry/execution-contracts/TSK-018-MT-002-C001-PRG-CACHE-RECOVERY-CLOSURE.json",
+    ".dev-foundry/execution-contracts/TSK-018-MT-002-C002-BACK-FORWARD-REVALIDATION.json",
+    ".dev-foundry/execution-contracts/TSK-018-MT-002-C003-INERTIA-HISTORY-REVALIDATION.json",
+    ".dev-foundry/execution-contracts/TSK-018-MT-003-C001-PAYMENT-TRANSPORT-UNCERTAINTY.json",
+    ".dev-foundry/execution-contracts/TSK-018-MT-003-C002-PAYMENT-FINISH-UNCERTAINTY.json",
+    ".dev-foundry/execution-contracts/TSK-018-MT-003-C003-DIRECT-PAYMENT-TRANSPORT-OBSERVABILITY.json",
+    ".dev-foundry/execution-contracts/TSK-018-MT-003-C004-TRANSPORT-HARNESS-CORRECTION.json",
+    ".dev-foundry/execution-contracts/TSK-018-MT-003-C005-BLOCK-SERVICE-WORKER-FOR-ROUTING.json",
+    ".dev-foundry/execution-contracts/TSK-018-MT-003-C006-CORRECT-PAYMENT-BALANCE-EXPECTATION.json",
+    ".dev-foundry/execution-contracts/TSK-018-MT-003-ORDER-RELIABILITY.json",
+    ".dev-foundry/execution-contracts/TSK-018-MT-004-C001-ALIGN-COST-COPY-AND-INHERITED-PATH.json",
+    ".dev-foundry/execution-contracts/TSK-018-MT-004-C002-FIX-MULTITAB-TEST-HARNESS.json",
+    ".dev-foundry/execution-contracts/TSK-018-MT-004-C003-DISAMBIGUATE-STALE-VERSION-ASSERTION.json",
+    ".dev-foundry/execution-contracts/TSK-018-MT-004-RECIPE-RECOVERY-COST-CLARITY.json",
+    ".dev-foundry/execution-contracts/TSK-018-MT-005-C001-SERIAL-ECONOMICS-EXPECTATION.json",
+    ".dev-foundry/execution-contracts/TSK-018-MT-005-C002-INHERITED-PATH-CLOSURE.json",
+    ".dev-foundry/execution-contracts/TSK-018-MT-005-TODAY-COMPLETION-STATE.json",
+    ".dev-foundry/prompts/TSK-018-C001-RESTORE-FRONTEND-DEPS-IN-CLOSURE.md",
+    ".dev-foundry/prompts/TSK-018-FULL-CLOSURE-MATRIX.md",
+    ".dev-foundry/prompts/TSK-018-MT-001-C001-MIXED-ORDER-DUPLICATE-LOCATOR.md",
+    ".dev-foundry/prompts/TSK-018-MT-001-C002-INHERITED-DIRTY-PATH-CLOSURE.md",
+    ".dev-foundry/prompts/TSK-018-MT-001-PRODUCTION-WORKFLOW-CLARITY.md",
+    ".dev-foundry/prompts/TSK-018-MT-002-ACCESS-AUTH-RECOVERY.md",
+    ".dev-foundry/prompts/TSK-018-MT-002-C001-PRG-CACHE-RECOVERY-CLOSURE.md",
+    ".dev-foundry/prompts/TSK-018-MT-002-C002-BACK-FORWARD-REVALIDATION.md",
+    ".dev-foundry/prompts/TSK-018-MT-002-C003-INERTIA-HISTORY-REVALIDATION.md",
+    ".dev-foundry/prompts/TSK-018-MT-003-C001-PAYMENT-TRANSPORT-UNCERTAINTY.md",
+    ".dev-foundry/prompts/TSK-018-MT-003-C002-PAYMENT-FINISH-UNCERTAINTY.md",
+    ".dev-foundry/prompts/TSK-018-MT-003-C003-DIRECT-PAYMENT-TRANSPORT-OBSERVABILITY.md",
+    ".dev-foundry/prompts/TSK-018-MT-003-C004-TRANSPORT-HARNESS-CORRECTION.md",
+    ".dev-foundry/prompts/TSK-018-MT-003-C005-BLOCK-SERVICE-WORKER-FOR-ROUTING.md",
+    ".dev-foundry/prompts/TSK-018-MT-003-C006-CORRECT-PAYMENT-BALANCE-EXPECTATION.md",
+    ".dev-foundry/prompts/TSK-018-MT-003-ORDER-RELIABILITY.md",
+    ".dev-foundry/prompts/TSK-018-MT-004-C001-ALIGN-COST-COPY-AND-INHERITED-PATH.md",
+    ".dev-foundry/prompts/TSK-018-MT-004-C002-FIX-MULTITAB-TEST-HARNESS.md",
+    ".dev-foundry/prompts/TSK-018-MT-004-C003-DISAMBIGUATE-STALE-VERSION-ASSERTION.md",
+    ".dev-foundry/prompts/TSK-018-MT-004-RECIPE-RECOVERY-COST-CLARITY.md",
+    ".dev-foundry/prompts/TSK-018-MT-005-C001-SERIAL-ECONOMICS-EXPECTATION.md",
+    ".dev-foundry/prompts/TSK-018-MT-005-C002-INHERITED-PATH-CLOSURE.md",
+    ".dev-foundry/prompts/TSK-018-MT-005-TODAY-COMPLETION-STATE.md",
+    "app/Http/Controllers/AccessAdminController.php",
+    "app/Http/Controllers/ProductionController.php",
+    "app/Http/Controllers/RecipeController.php",
+    "app/Http/Middleware/PreventPrivateCaching.php",
+    "app/Http/Requests/RecoveryPasswordRequest.php",
+    "bootstrap/app.php",
+    "docs/TSK-018-USER-RECOVERY-MOBILE-WORKFLOW-CLARITY.md",
+    "e2e/access-admin.spec.ts",
+    "e2e/auth.spec.ts",
+    "e2e/order-capture.spec.ts",
+    "e2e/order-operations.spec.ts",
+    "e2e/recipe-costing.spec.ts",
+    "e2e/today-production.spec.ts",
+    "resources/css/app.css",
+    "resources/js/Components/OrderUI.tsx",
+    "resources/js/Components/RecipeUI.tsx",
+    "resources/js/Pages/Admin/Access/Index.tsx",
+    "resources/js/Pages/Home.tsx",
+    "resources/js/Pages/Orders/Create.tsx",
+    "resources/js/Pages/Orders/Show.tsx",
+    "resources/js/Pages/Production/Index.tsx",
+    "resources/js/Pages/Recipes/Create.tsx",
+    "resources/js/app.tsx",
+    "routes/web.php",
+    "tests/Feature/AccessAdministrationTest.php",
+    "tests/Feature/AuthTest.php",
+    "tests/Feature/RecipeTest.php",
+    "tests/Feature/TodayProductionTest.php",
+    ".dev-foundry/prompts/TSK-018-C002-DETERMINISTIC-FULL-CLOSURE.md",
+    ".dev-foundry/execution-contracts/TSK-018-C002-DETERMINISTIC-FULL-CLOSURE.json",
+    "artifacts/releases/tsk018-validation/",
+    ".dev-foundry/execution-requests/",
+    ".dev-foundry/executions/",
+    ".dev-foundry/validation-requests/",
+    ".dev-foundry/validations/"
+  ],
+  "blockedPaths": [
+    ".env",
+    ".env.example",
+    ".git/",
+    "docs/design/",
+    "database/migrations/",
+    "app/Models/",
+    "composer.json",
+    "composer.lock",
+    "package.json",
+    "package-lock.json",
+    "compose.yaml",
+    "Dockerfile",
+    "vite.config.ts",
+    "playwright.config.ts",
+    "tsconfig.json"
+  ],
+  "validationCommands": [
+    {
+      "command": "docker",
+      "args": [
+        "compose",
+        "run",
+        "--rm",
+        "app",
+        "composer",
+        "install",
+        "--no-interaction",
+        "--prefer-dist"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "docker",
+      "args": [
+        "compose",
+        "run",
+        "--rm",
+        "app",
+        "php",
+        "artisan",
+        "test"
+      ],
+      "timeoutSeconds": 2400
+    },
+    {
+      "command": "bash",
+      "args": [
+        "scripts/test-percona.sh"
+      ],
+      "timeoutSeconds": 3000
+    },
+    {
+      "command": "npm",
+      "args": [
+        "ci"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "npm",
+      "args": [
+        "audit",
+        "--audit-level=low"
+      ],
+      "timeoutSeconds": 600
+    },
+    {
+      "command": "npx",
+      "args": [
+        "tsc",
+        "--noEmit"
+      ],
+      "timeoutSeconds": 900
+    },
+    {
+      "command": "npm",
+      "args": [
+        "run",
+        "build"
+      ],
+      "timeoutSeconds": 1200
+    },
+    {
+      "command": "sh",
+      "args": [
+        "-lc",
+        "set -e\ncleanup() {\n  ids=$(docker ps --filter publish=18080 --format '{{.ID}}')\n  if [ -n \"$ids\" ]; then docker rm -f $ids >/dev/null; fi\n}\ncleanup\necho \"=== PLAYWRIGHT_SPEC=e2e/first-use-navigation.spec.ts ===\"\nnpx playwright test e2e/first-use-navigation.spec.ts --project=mobile\nfor f in e2e/access-admin.spec.ts e2e/auth.spec.ts e2e/home.spec.ts e2e/ingredient-purchase.spec.ts e2e/order-capture.spec.ts e2e/order-operations.spec.ts e2e/product-history.spec.ts e2e/product-pricing.spec.ts e2e/pwa.spec.ts e2e/recipe-costing.spec.ts e2e/today-production.spec.ts; do\n  cleanup\n  echo \"=== PLAYWRIGHT_SPEC=$f ===\"\n  npx playwright test \"$f\" --project=mobile --workers=1\ndone\ncleanup"
+      ],
+      "timeoutSeconds": 5400
+    },
+    {
+      "command": "sh",
+      "args": [
+        "-lc",
+        "rm -rf artifacts/releases/tsk018-validation && bash scripts/build-release.sh --allow-dirty --output-dir artifacts/releases/tsk018-validation && ZIP=$(find artifacts/releases/tsk018-validation -maxdepth 1 -name '*.zip' -print -quit); test -n \"$ZIP\"; bash scripts/verify-release.sh \"$ZIP\""
+      ],
+      "timeoutSeconds": 3000
+    },
+    {
+      "command": "git",
+      "args": [
+        "diff",
+        "--check"
+      ],
+      "timeoutSeconds": 120
+    }
+  ],
+  "commitPolicy": "manual",
+  "pushPolicy": "disabled",
+  "prPolicy": "disabled",
+  "evidencePolicy": "required",
+  "outputPath": ".dev-foundry/executions/TSK-018-C002-DETERMINISTIC-FULL-CLOSURE"
+}

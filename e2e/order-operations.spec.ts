@@ -1,5 +1,7 @@
 import { expect, test, type Page } from './auth';
 
+test.use({ serviceWorkers: 'block' });
+
 async function recordPurchase(page: Page, name: string) {
     await page.goto('/compras/nueva');
     await page.getByLabel('Ingrediente', { exact: true }).fill(name);
@@ -63,16 +65,33 @@ for (const width of [320, 390]) {
         await captureOrder(page, 'Cliente cobro ' + suffix, recipe, '10.00');
         await expect(page).toHaveTitle(/^Cobro y entrega(?: · EmprendimientoOS)?$/);
         await expect(page.getByText('Pago parcial', { exact: true })).toBeVisible();
+        await page.route('**/pedidos/*/cobros', async (route) => {
+            if (route.request().method() !== 'POST') {
+                await route.continue();
+                return;
+            }
+            await route.abort('internetdisconnected');
+        });
         await page.getByRole('button', { name: 'Registrar cobro', exact: true }).click();
         await page.getByLabel('Importe recibido', { exact: true }).fill('15.00');
         await page.getByLabel('Fecha del cobro', { exact: true }).fill('2026-09-23');
         await page.getByRole('button', { name: 'Registrar cobro', exact: true }).last().click();
+        await expect(page.getByRole('alert')).toContainText('No pudimos confirmar si se registró el cobro');
+        await expect(page.getByLabel('Importe recibido', { exact: true })).toHaveValue('15.00');
+        await expect(page.getByLabel('Fecha del cobro', { exact: true })).toHaveValue('2026-09-23');
+        await expect(page.getByRole('button', { name: 'Reintentar cobro', exact: true })).toBeVisible();
+        await page.unroute('**/pedidos/*/cobros');
+        await page.getByRole('button', { name: 'Reintentar cobro', exact: true }).click();
         await expect(page.getByText('Cobro registrado.', { exact: true })).toBeVisible();
         await expect(page.getByRole('region', { name: 'Resumen del pedido', exact: true })).toContainText('$25.00 MXN');
         await expect(page.getByText('Pago parcial', { exact: true })).toBeVisible();
         await expect(page.getByText('Anticipo', { exact: true })).toBeVisible();
         await expect(page.getByText('Cobro', { exact: true })).toBeVisible();
-
+        const paymentHistory = page.getByRole('heading', { name: 'Pagos registrados', exact: true }).locator('..');
+        await expect(paymentHistory.getByText('Cobro', { exact: true })).toHaveCount(1);
+        await expect(paymentHistory).toContainText('$10.00 MXN');
+        await expect(paymentHistory).toContainText('$15.00 MXN');
+        await expect(page.getByText('Saldo pendiente', { exact: true }).locator('..')).toContainText('$25.00 MXN');
         await page.getByRole('button', { name: 'Marcar como entregado', exact: true }).click();
         await expect(page.getByRole('dialog')).toContainText('¿Entregaste este pedido a Cliente cobro ' + suffix + '?');
         await page.getByRole('button', { name: 'Sí, ya entregué', exact: true }).click();

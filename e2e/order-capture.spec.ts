@@ -47,6 +47,26 @@ async function deactivateProduct(page: Page, recipeName: string) {
 }
 
 for (const width of [320, 390]) {
+    test('protects a dirty order draft from visible Back at ' + width + 'px', async ({ page }) => {
+        await page.setViewportSize({ width, height: 844 });
+        await page.goto('/pedidos/nuevo');
+        await page.getByLabel('Cliente', { exact: true }).fill('Borrador protegido');
+
+        await page.getByRole('button', { name: '← Volver', exact: true }).click();
+        await expect(page.getByRole('dialog')).toContainText('¿Descartar este pedido?');
+        await page.getByRole('button', { name: 'Seguir editando', exact: true }).click();
+        await expect(page.getByLabel('Cliente', { exact: true })).toHaveValue('Borrador protegido');
+        await expect(page.getByRole('dialog')).not.toBeVisible();
+
+        await page.getByRole('button', { name: '← Volver', exact: true }).click();
+        await page.getByRole('button', { name: 'Descartar cambios', exact: true }).click();
+        await expect(page).toHaveURL(/\/pedidos$/);
+        await expect(page.getByRole('link', { name: 'Tomar pedido', exact: true })).toBeVisible();
+        expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+    });
+}
+
+for (const width of [320, 390]) {
     test('captures a multi-product order at ' + width + 'px', async ({ page }) => {
         await page.setViewportSize({ width, height: 844 });
         const suffix = width + '-' + Date.now();

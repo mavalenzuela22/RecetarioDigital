@@ -1,4 +1,5 @@
-import { useForm } from '@inertiajs/react';
+import { router, useForm } from '@inertiajs/react';
+import axios from 'axios';
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { dateLabel, Field } from '../../Components/PurchaseUI';
 import { decimalInputFromMinor, FulfillmentStatus, formatMinor, OrderMoney, OrderShell, PaymentStatus } from '../../Components/OrderUI';
@@ -8,14 +9,22 @@ type Payment = { id: number; kind: string; amount_minor: string; payment_date: s
 type Order = { id: number; customer_name: string; delivery_date: string; delivery_time: string; notes: string | null; fulfillment_state: string; payment_state: string; total_minor: string; paid_minor: string; balance_minor: string; lines: Line[]; payments: Payment[]; profit: { complete: boolean; total_cost_micros: string | null; profit_micros: string | null } };
 type PaymentForm = { amount: string; payment_date: string; request_key: string };
 type TransitionForm = { request_key: string };
+type PaymentAttemptOutcome = 'idle' | 'pending' | 'success' | 'validation' | 'server-error' | 'uncertain';
 
 export default function Show({ order, success, indexUrl, paymentUrl, deliveryUrl, cancellationUrl, paymentRequestKey, deliveryRequestKey, cancellationRequestKey, defaultPaymentDate }: { order: Order; success?: string; indexUrl: string; paymentUrl: string; deliveryUrl: string; cancellationUrl: string; paymentRequestKey: string; deliveryRequestKey: string; cancellationRequestKey: string; defaultPaymentDate: string }) {
     const paymentForm = useForm<PaymentForm>({ amount: decimalInputFromMinor(order.balance_minor), payment_date: defaultPaymentDate, request_key: paymentRequestKey });
     const deliveryForm = useForm<TransitionForm>({ request_key: deliveryRequestKey });
     const cancellationForm = useForm<TransitionForm>({ request_key: cancellationRequestKey });
     const [dialog, setDialog] = useState<'payment' | 'delivery' | 'cancellation' | null>(null);
+    const [paymentSuccessMessage, setPaymentSuccessMessage] = useState('');
+    const [paymentError, setPaymentError] = useState('');
+    const [paymentSubmittingState, setPaymentSubmittingState] = useState(false);
+    const paymentSubmitting = useRef(false);
+    const paymentAttemptOutcome = useRef<PaymentAttemptOutcome>('idle');
     const dialogRef = useRef<HTMLDialogElement>(null);
     const canTransition = ['confirmed', 'in_preparation', 'ready'].includes(order.fulfillment_state);
+    const paymentTransportMessage = 'No pudimos confirmar si se registró el cobro. Tus datos siguen aquí. Reintenta con el mismo cobro.';
+    const paymentServerErrorMessage = 'No se pudo registrar el cobro por un problema del servidor. Tus datos siguen aquí. Reintenta cuando estés listo.';
 
     useEffect(() => {
         if (dialog) dialogRef.current?.showModal();
@@ -28,17 +37,83 @@ export default function Show({ order, success, indexUrl, paymentUrl, deliveryUrl
     }
 
     function openPayment() {
+        if (paymentSubmitting.current) return;
         paymentForm.setData('amount', decimalInputFromMinor(order.balance_minor));
         paymentForm.setData('payment_date', defaultPaymentDate);
         paymentForm.setData('request_key', paymentRequestKey);
         paymentForm.clearErrors();
+        paymentAttemptOutcome.current = 'idle';
+        setPaymentSuccessMessage('');
+        setPaymentError('');
         setDialog('payment');
     }
 
-    function submitPayment(event: FormEvent) {
+    function focusFirstInvalidPaymentField() {
+        requestAnimationFrame(() => dialogRef.current?.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus());
+    }
+
+    function mapPaymentValidationErrors(errors: unknown) {
+        if (!errors || typeof errors !== 'object') {
+            setPaymentError('Revisa los datos del cobro e inténtalo de nuevo.');
+            return;
+        }
+
+        let mappedError = false;
+        for (const [field, messages] of Object.entries(errors as Record<string, unknown>)) {
+            const message = Array.isArray(messages)
+                ? messages.find((item): item is string => typeof item === 'string')
+                : typeof messages === 'string' ? messages : undefined;
+            if (!message || !(field in paymentForm.data)) continue;
+            paymentForm.setError(field as keyof PaymentForm, message);
+            mappedError = true;
+        }
+
+        if (!mappedError) setPaymentError('Revisa los datos del cobro e inténtalo de nuevo.');
+        focusFirstInvalidPaymentField();
+    }
+
+    async function submitPayment(event: FormEvent) {
         event.preventDefault();
-        if (paymentForm.processing) return;
-        paymentForm.post(paymentUrl, { preserveState: true, preserveScroll: true, onSuccess: closeDialog, onError: () => requestAnimationFrame(() => document.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus()) });
+        if (paymentSubmitting.current) return;
+
+        paymentSubmitting.current = true;
+        setPaymentSubmittingState(true);
+        paymentAttemptOutcome.current = 'pending';
+        setPaymentError('');
+        paymentForm.clearErrors();
+
+        try {
+            const response = await axios.post(paymentUrl, {
+                amount: paymentForm.data.amount,
+                payment_date: paymentForm.data.payment_date,
+                request_key: paymentForm.data.request_key,
+            }, { headers: { Accept: 'application/json' } });
+
+            if (response.status >= 200 && response.status < 300) {
+                paymentAttemptOutcome.current = 'success';
+                setPaymentSuccessMessage('Cobro registrado.');
+                closeDialog();
+                router.reload();
+                return;
+            }
+
+            paymentAttemptOutcome.current = 'server-error';
+            setPaymentError(paymentServerErrorMessage);
+        } catch (error) {
+            if (axios.isAxiosError(error) && error.response?.status === 422) {
+                paymentAttemptOutcome.current = 'validation';
+                mapPaymentValidationErrors(error.response.data?.errors);
+            } else if (axios.isAxiosError(error) && error.response) {
+                paymentAttemptOutcome.current = 'server-error';
+                setPaymentError(paymentServerErrorMessage);
+            } else {
+                paymentAttemptOutcome.current = 'uncertain';
+                setPaymentError(paymentTransportMessage);
+            }
+        } finally {
+            paymentSubmitting.current = false;
+            setPaymentSubmittingState(false);
+        }
     }
 
     function confirmTransition() {
@@ -53,7 +128,7 @@ export default function Show({ order, success, indexUrl, paymentUrl, deliveryUrl
     }
 
     return <OrderShell title="Cobro y entrega" back={indexUrl}>
-        {success && <p className="success" role="status">{success}</p>}
+        {(success || paymentSuccessMessage) && <p className="success" role="status">{success || paymentSuccessMessage}</p>}
         <div className="flex flex-wrap gap-2"><FulfillmentStatus state={order.fulfillment_state} /><PaymentStatus state={order.payment_state} /></div>
         <section className="mt-6 rounded-2xl border border-ink/10 bg-paper p-4"><p className="help">Cliente</p><h2>{order.customer_name}</h2><p>{dateLabel(order.delivery_date)} · {order.delivery_time}</p>{order.notes && <p className="metadata">{order.notes}</p>}</section>
         <p className="help mt-4">Entregar no cambia el pago. Cobrar no cambia la entrega.</p>
@@ -69,7 +144,7 @@ export default function Show({ order, success, indexUrl, paymentUrl, deliveryUrl
 
         <section className="mt-8 rounded-2xl border border-ink/10 bg-paper p-4" aria-label="Ganancia histórica"><h2>Economía del pedido</h2>{order.profit.complete ? <dl><div><dt>Costo atribuido</dt><dd><OrderMoney value={order.profit.total_cost_micros} unit="micros" /></dd></div><div><dt>Ganancia estimada</dt><dd><OrderMoney value={order.profit.profit_micros} unit="micros" /></dd></div></dl> : <p>Ganancia pendiente de calcular.</p>}</section>
 
-        {dialog === 'payment' && <dialog ref={dialogRef} aria-labelledby="payment-dialog-title" onCancel={closeDialog}><h2 id="payment-dialog-title">Registrar cobro</h2><p className="help">Saldo actual: {formatMinor(BigInt(order.balance_minor))}</p><form onSubmit={submitPayment}><Field id="payment_amount" label="Importe recibido" error={paymentForm.errors.amount}><input id="payment_amount" inputMode="decimal" value={paymentForm.data.amount} onChange={(event) => paymentForm.setData('amount', event.target.value)} aria-invalid={!!paymentForm.errors.amount} autoFocus /></Field><Field id="payment_date" label="Fecha del cobro" error={paymentForm.errors.payment_date}><input id="payment_date" type="date" value={paymentForm.data.payment_date} onChange={(event) => paymentForm.setData('payment_date', event.target.value)} aria-invalid={!!paymentForm.errors.payment_date} /></Field><div className="dialog-actions mt-6"><button className="button primary" type="submit" disabled={paymentForm.processing}>{paymentForm.processing ? 'Guardando cobro…' : 'Registrar cobro'}</button><button className="button secondary" type="button" onClick={closeDialog}>Cancelar</button></div></form></dialog>}
+        {dialog === 'payment' && <dialog ref={dialogRef} aria-labelledby="payment-dialog-title" onCancel={closeDialog}><h2 id="payment-dialog-title">Registrar cobro</h2><p className="help">Saldo actual: {formatMinor(BigInt(order.balance_minor))}</p><form onSubmit={submitPayment}><Field id="payment_amount" label="Importe recibido" error={paymentForm.errors.amount}><input id="payment_amount" inputMode="decimal" value={paymentForm.data.amount} onChange={(event) => paymentForm.setData('amount', event.target.value)} aria-invalid={!!paymentForm.errors.amount} autoFocus /></Field><Field id="payment_date" label="Fecha del cobro" error={paymentForm.errors.payment_date}><input id="payment_date" type="date" value={paymentForm.data.payment_date} onChange={(event) => paymentForm.setData('payment_date', event.target.value)} aria-invalid={!!paymentForm.errors.payment_date} /></Field>{paymentForm.errors.request_key && <p className="error-message" role="alert">{paymentForm.errors.request_key}</p>}{paymentError && <p className="error-message" role="alert">{paymentError}</p>}<div className="dialog-actions mt-6"><button className="button primary" type="submit" disabled={paymentSubmittingState}>{paymentSubmittingState ? 'Guardando cobro…' : paymentError ? 'Reintentar cobro' : 'Registrar cobro'}</button><button className="button secondary" type="button" onClick={closeDialog}>Cancelar</button></div></form></dialog>}
         {dialog === 'delivery' && <dialog ref={dialogRef} aria-labelledby="delivery-dialog-title" onCancel={closeDialog}><h2 id="delivery-dialog-title">Confirmar entrega</h2><p>¿Entregaste este pedido a {order.customer_name}?</p><p className="help">El saldo pendiente se conserva hasta que registres el cobro.</p><div className="dialog-actions"><button className="button primary" type="button" onClick={confirmTransition} disabled={deliveryForm.processing}>{deliveryForm.processing ? 'Guardando…' : 'Sí, ya entregué'}</button><button className="button secondary" type="button" onClick={closeDialog}>Todavía no</button></div></dialog>}
         {dialog === 'cancellation' && <dialog ref={dialogRef} aria-labelledby="cancellation-dialog-title" onCancel={closeDialog}><h2 id="cancellation-dialog-title">Cancelar pedido</h2><p>Este pedido dejará de estar pendiente de trabajo, pero conservará sus líneas, precios y pagos.</p>{order.paid_minor !== '0' && <p className="error-message">Cancelar el pedido no registra una devolución.</p>}<div className="dialog-actions"><button className="button danger" type="button" onClick={confirmTransition} disabled={cancellationForm.processing}>{cancellationForm.processing ? 'Cancelando…' : 'Sí, cancelar pedido'}</button><button className="button secondary" type="button" onClick={closeDialog}>Conservar pedido</button></div></dialog>}
     </OrderShell>;
